@@ -52,6 +52,10 @@ final class Plugin {
         // need to live at the domain root, NOT under /wp-json. Intercept parse_request.
         add_action( 'parse_request', [ OAuth::class, 'serve_well_known' ], 0 );
 
+        // Touch the Notifier class so its add_action() runs on every request —
+        // otherwise the WP-Cron-fired `cmcp_send_webhook` event has no handler.
+        class_exists( Notifier::class );
+
         // Admin UI.
         if ( is_admin() ) {
             Admin::instance()->init();
@@ -82,6 +86,9 @@ final class Plugin {
             // v1.3.0 — security hardening
             'trust_proxy'          => false,  // honor X-Forwarded-Proto / X-Forwarded-For / CF-Connecting-IP
             'allow_dcr'            => false,  // RFC 7591 dynamic client registration (off by default — public clients can flood the table)
+            // v1.5.0 — outbound webhooks
+            'webhook_url'          => '',     // POST {event,timestamp,site,data} on lockout / new OAuth client / destructive op
+            'webhook_secret'       => '',     // optional HMAC-SHA256 secret; sent as X-Commander-Signature: sha256=...
             'enabled_tools'        => [
                 // read
                 'site.info', 'site.health', 'posts.list', 'posts.get', 'posts.search',

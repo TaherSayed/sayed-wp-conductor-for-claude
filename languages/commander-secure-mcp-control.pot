@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Commander — Secure MCP Control 1.3.0\n"
 "Report-Msgid-Bugs-To: https://hbs-it-gmbh.de/wp-commander\n"
-"POT-Creation-Date: 2026-05-24 13:40+0000\n"
+"POT-Creation-Date: 2026-05-24 13:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgid "sqlmap, nikto, wpscan, etc."
 msgstr ""
 
 #: includes/admin/views/dashboard-page.php:140
-#: includes/admin/views/settings-page.php:153
+#: includes/admin/views/settings-page.php:179
 msgid "Email alerts"
 msgstr ""
 
@@ -65,6 +65,14 @@ msgstr ""
 
 #: includes/admin/views/dashboard-page.php:142
 msgid "Permanent deletes locked"
+msgstr ""
+
+#: includes/admin/views/dashboard-page.php:154
+msgid "Report an issue"
+msgstr ""
+
+#: includes/admin/views/dashboard-page.php:156
+msgid "Built by Taher Sayed"
 msgstr ""
 
 #: includes/admin/views/log-page.php:14
@@ -96,7 +104,7 @@ msgid "Tool"
 msgstr ""
 
 #: includes/admin/views/log-page.php:24
-#: includes/admin/views/tokens-page.php:101
+#: includes/admin/views/tokens-page.php:107
 msgid "Status"
 msgstr ""
 
@@ -176,6 +184,14 @@ msgstr ""
 msgid "Delete client"
 msgstr ""
 
+#: includes/admin/views/partials/token-snippets.php:131
+msgid "Token plaintext is not stored on the server. Replace <YOUR_TOKEN> with the token shown when you issued or rotated it."
+msgstr ""
+
+#: includes/admin/views/partials/token-snippets.php:88
+msgid "Connect snippets"
+msgstr ""
+
 #: includes/admin/views/settings-page.php:101
 msgid "Trust reverse proxy"
 msgstr ""
@@ -189,84 +205,124 @@ msgid "Only enable this when WordPress sits behind a trusted reverse proxy (Clou
 msgstr ""
 
 #: includes/admin/views/settings-page.php:112
-msgid "OAuth"
+msgid "Notifications (webhook)"
 msgstr ""
 
 #: includes/admin/views/settings-page.php:115
-msgid "Dynamic Client Registration"
+msgid "Webhook URL"
 msgstr ""
 
-#: includes/admin/views/settings-page.php:119
-msgid "Allow anonymous OAuth client registration (RFC 7591)."
+#: includes/admin/views/settings-page.php:118
+msgid "POSTed with a JSON body { event, timestamp, site, data } on brute-force lockouts and new OAuth client registrations. Leave empty to disable."
 msgstr ""
 
-#: includes/admin/views/settings-page.php:121
-msgid "Required for one-click connect from clients like Claude Desktop. Leave OFF unless you need it: when on, anyone on the internet can register an OAuth client. Tokens are still only issued after an admin approves the consent screen on this site."
+#: includes/admin/views/settings-page.php:122
+msgid "Webhook secret (optional)"
 msgstr ""
 
-#: includes/admin/views/settings-page.php:126
-msgid "Audit, alerts & destructive operations"
+#: includes/admin/views/settings-page.php:125
+msgid "Shared secret. When set, the request includes an HMAC-SHA256 signature in X-Commander-Signature so the receiver can verify the call really came from this site."
 msgstr ""
 
-#: includes/admin/views/settings-page.php:129
-msgid "Audit log"
+#: includes/admin/views/settings-page.php:131
+msgid "Send test ping"
 msgstr ""
 
 #: includes/admin/views/settings-page.php:133
-msgid "Enable audit logging of every MCP call."
+msgid "Fires a test event so you can verify the receiver accepts it. Saves any unsaved changes first."
 msgstr ""
 
-#: includes/admin/views/settings-page.php:137
-msgid "Keep logs for"
+#: includes/admin/views/settings-page.php:138
+msgid "OAuth"
 msgstr ""
 
-#: includes/admin/views/settings-page.php:139
-#: includes/admin/views/settings-page.php:166
-msgid "days."
+#: includes/admin/views/settings-page.php:141
+msgid "Dynamic Client Registration"
 msgstr ""
 
-#: includes/admin/views/settings-page.php:144
-msgid "Block scanner user-agents"
+#: includes/admin/views/settings-page.php:145
+msgid "Allow anonymous OAuth client registration (RFC 7591)."
 msgstr ""
 
-#: includes/admin/views/settings-page.php:148
-msgid "Reject sqlmap, nikto, wpscan, nmap and other known scanner UAs."
+#: includes/admin/views/settings-page.php:147
+msgid "Required for one-click connect from clients like Claude Desktop. Leave OFF unless you need it: when on, anyone on the internet can register an OAuth client. Tokens are still only issued after an admin approves the consent screen on this site."
 msgstr ""
 
 #: includes/admin/views/settings-page.php:15
 msgid "Read"
 msgstr ""
 
-#: includes/admin/views/settings-page.php:157
-msgid "Email site admin when an IP is locked out for brute force."
+#: includes/admin/views/settings-page.php:152
+msgid "Audit, alerts & destructive operations"
+msgstr ""
+
+#: includes/admin/views/settings-page.php:155
+msgid "Audit log"
 msgstr ""
 
 #: includes/admin/views/settings-page.php:159
-msgid "Rate-limited to one email per IP per hour. Sent to:"
+msgid "Enable audit logging of every MCP call."
 msgstr ""
 
 #: includes/admin/views/settings-page.php:163
-msgid "Token rotation warning"
+msgid "Keep logs for"
 msgstr ""
 
 #: includes/admin/views/settings-page.php:165
-msgid "Warn on dashboard if a personal token is older than"
+#: includes/admin/views/settings-page.php:192
+msgid "days."
 msgstr ""
 
 #: includes/admin/views/settings-page.php:170
-msgid "Allow destructive ops"
+msgid "Block scanner user-agents"
 msgstr ""
 
 #: includes/admin/views/settings-page.php:174
+msgid "Reject sqlmap, nikto, wpscan, nmap and other known scanner UAs."
+msgstr ""
+
+#: includes/admin/views/settings-page.php:183
+msgid "Email site admin when an IP is locked out for brute force."
+msgstr ""
+
+#: includes/admin/views/settings-page.php:185
+msgid "Rate-limited to one email per IP per hour. Sent to:"
+msgstr ""
+
+#: includes/admin/views/settings-page.php:189
+msgid "Token rotation warning"
+msgstr ""
+
+#: includes/admin/views/settings-page.php:191
+msgid "Warn on dashboard if a personal token is older than"
+msgstr ""
+
+#: includes/admin/views/settings-page.php:196
+msgid "Allow destructive ops"
+msgstr ""
+
+#: includes/admin/views/settings-page.php:200
 msgid "I understand — permit permanent deletes and sensitive option writes (siteurl, home, admin_email, default_role, permalink_structure, …)."
 msgstr ""
 
-#: includes/admin/views/settings-page.php:176
+#: includes/admin/views/settings-page.php:202
 msgid "Keep this off unless you specifically need it. The plugin still requires admin scope + WP capability for those calls — this is an extra interlock."
 msgstr ""
 
-#: includes/admin/views/settings-page.php:181
+#: includes/admin/views/settings-page.php:207
 msgid "Enabled tools"
+msgstr ""
+
+#: includes/admin/views/settings-page.php:238
+msgid "Sending…"
+msgstr ""
+
+#: includes/admin/views/settings-page.php:249
+msgid "Delivered:"
+msgstr ""
+
+#: includes/admin/views/settings-page.php:250
+msgid "Failed:"
 msgstr ""
 
 #: includes/admin/views/settings-page.php:26
@@ -334,75 +390,67 @@ msgid "bytes (raise this if uploading large media)"
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:102
-msgid "Prefix"
-msgstr ""
-
-#: includes/admin/views/tokens-page.php:104
-msgid "User"
-msgstr ""
-
-#: includes/admin/views/tokens-page.php:105
-msgid "Last used"
-msgstr ""
-
-#: includes/admin/views/tokens-page.php:106
-msgid "Last IP"
-msgstr ""
-
-#: includes/admin/views/tokens-page.php:107
-msgid "7-day calls"
+msgid "Existing tokens"
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:108
-msgid "Expires"
+msgid "Prefix"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:109
-msgid "Actions"
+#: includes/admin/views/tokens-page.php:110
+msgid "User"
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:111
+msgid "Last used"
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:112
+msgid "Last IP"
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:113
+msgid "7-day calls"
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:114
+msgid "Expires"
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:115
+msgid "Actions"
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:120
 msgid "No tokens yet."
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:139
+#: includes/admin/views/tokens-page.php:171
 msgid "never"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:142
+#: includes/admin/views/tokens-page.php:174
 msgid "Test"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:142
+#: includes/admin/views/tokens-page.php:174
 msgid "Live testing of existing tokens is disabled (the plaintext is not stored on the server). Issue a new token or rotate to test."
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:146
+#: includes/admin/views/tokens-page.php:178
 msgid "Rotate this token? The old one will be revoked and a new plaintext will be shown."
-msgstr ""
-
-#: includes/admin/views/tokens-page.php:150
-msgid "Rotate"
-msgstr ""
-
-#: includes/admin/views/tokens-page.php:155
-msgid "Revoke this token? It can no longer authenticate, but the audit row stays."
-msgstr ""
-
-#: includes/admin/views/tokens-page.php:159
-msgid "Revoke"
-msgstr ""
-
-#: includes/admin/views/tokens-page.php:163
-msgid "Permanently delete this token row? This action cannot be undone."
-msgstr ""
-
-#: includes/admin/views/tokens-page.php:167
-msgid "Delete"
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:18
 msgid "Active"
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:182
+msgid "Rotate"
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:187
+msgid "Revoke this token? It can no longer authenticate, but the audit row stays."
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:19
@@ -410,7 +458,15 @@ msgid "Idle"
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:191
-msgid "Copied"
+msgid "Revoke"
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:195
+msgid "Permanently delete this token row? This action cannot be undone."
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:199
+msgid "Delete"
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:20
@@ -421,12 +477,12 @@ msgstr ""
 msgid "Expired"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:210
-msgid "Testing…"
-msgstr ""
-
 #: includes/admin/views/tokens-page.php:22
 msgid "Revoked"
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:233
+msgid "Copied"
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:25
@@ -435,6 +491,10 @@ msgstr ""
 
 #: includes/admin/views/tokens-page.php:26
 msgid "Never used yet."
+msgstr ""
+
+#: includes/admin/views/tokens-page.php:266
+msgid "Testing…"
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:27
@@ -481,114 +541,123 @@ msgstr ""
 msgid "Test now"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:59
+#: includes/admin/views/tokens-page.php:65
 msgid "Issue new token"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:65
-#: includes/admin/views/tokens-page.php:100
+#: includes/admin/views/tokens-page.php:71
+#: includes/admin/views/tokens-page.php:106
 msgid "Label"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:69
-#: includes/admin/views/tokens-page.php:103
+#: includes/admin/views/tokens-page.php:75
+#: includes/admin/views/tokens-page.php:109
 msgid "Scopes"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:77
+#: includes/admin/views/tokens-page.php:83
 msgid "Bind to WP user (optional)"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:80
+#: includes/admin/views/tokens-page.php:86
 msgid "When set, the token executes with that user's WordPress capabilities. Use a least-privilege account."
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:84
+#: includes/admin/views/tokens-page.php:90
 msgid "Expires in (days)"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:85
+#: includes/admin/views/tokens-page.php:91
 msgid "0 = never"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:88
+#: includes/admin/views/tokens-page.php:94
 msgid "IP allowlist"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:90
+#: includes/admin/views/tokens-page.php:96
 msgid "One per line. Leave empty to allow any source IP."
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:93
+#: includes/admin/views/tokens-page.php:99
 msgid "Issue token"
 msgstr ""
 
-#: includes/admin/views/tokens-page.php:96
-msgid "Existing tokens"
-msgstr ""
-
-#: includes/class-admin.php:367
+#: includes/class-admin.php:386
 msgid "Missing or malformed token."
 msgstr ""
 
 #. translators: 1: MCP protocol version returned by the server, 2: round-trip latency in ms
-#: includes/class-admin.php:406
+#: includes/class-admin.php:425
 msgid "OK — MCP %1$s, %2$d ms"
 msgstr ""
 
 #. translators: 1: HTTP status code, 2: error message from server
-#: includes/class-admin.php:412
+#: includes/class-admin.php:431
 msgid "Failed — HTTP %1$d, %2$s"
 msgstr ""
 
-#: includes/class-admin.php:51
 #: includes/class-admin.php:52
+#: includes/class-admin.php:53
 msgid "Commander"
 msgstr ""
 
-#: includes/class-admin.php:59
-#: includes/class-admin.php:59
+#: includes/class-admin.php:60
+#: includes/class-admin.php:60
 msgid "Dashboard"
 msgstr ""
 
-#: includes/class-admin.php:60
-#: includes/class-admin.php:60
+#: includes/class-admin.php:61
+#: includes/class-admin.php:61
 msgid "Settings"
 msgstr ""
 
-#: includes/class-admin.php:61
-#: includes/class-admin.php:61
+#: includes/class-admin.php:62
+#: includes/class-admin.php:62
 msgid "Tokens"
 msgstr ""
 
-#: includes/class-admin.php:62
-#: includes/class-admin.php:62
+#: includes/class-admin.php:63
+#: includes/class-admin.php:63
 msgid "OAuth Clients"
 msgstr ""
 
-#: includes/class-admin.php:63
-#: includes/class-admin.php:63
+#: includes/class-admin.php:64
+#: includes/class-admin.php:64
 msgid "Audit Log"
 msgstr ""
 
-#: includes/class-admin.php:65
-#: includes/class-admin.php:65
+#: includes/class-admin.php:66
+#: includes/class-admin.php:66
 msgid "Setup Wizard"
 msgstr ""
 
 #. translators: %s: site host
-#: includes/class-brute-force.php:130
+#: includes/class-brute-force.php:138
 msgid "[Commander] Brute-force lockout on %s"
 msgstr ""
 
 #. translators: 1: IP address, 2: site host, 3: failure count, 4: lockout seconds, 5: UTC timestamp, 6: audit-log URL
-#: includes/class-brute-force.php:135
+#: includes/class-brute-force.php:143
 msgid "Commander locked out IP %1\\$s on %2\\$s after %3\\$d failed authentication attempts.\\n\\nLockout duration: %4\\$d seconds.\\nTime: %5\\$s UTC\\n\\nReview the audit log: %6\\$s\\n\\n— Commander"
 msgstr ""
 
 #. translators: %d: seconds until lockout expires
 #: includes/class-brute-force.php:48
 msgid "Too many failed authentication attempts. Try again in %d seconds."
+msgstr ""
+
+#: includes/class-notifier.php:100
+msgid "Invalid webhook URL."
+msgstr ""
+
+#. translators: 1: HTTP status code, 2: latency in ms
+#: includes/class-notifier.php:136
+msgid "HTTP %1$d in %2$d ms"
+msgstr ""
+
+#: includes/class-notifier.php:97
+msgid "No webhook URL configured."
 msgstr ""
 
 #. translators: %s: JSON-RPC method name

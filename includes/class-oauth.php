@@ -232,6 +232,15 @@ final class OAuth {
 
         Logger::log( [ 'method' => 'oauth/register', 'success' => 1, 'status_code' => 201, 'note' => "client {$client_id} ({$name})" ] );
 
+        // Webhook (no-op if not configured).
+        Notifier::notify( Notifier::EVENT_OAUTH_CLIENT, [
+            'client_id'                  => $client_id,
+            'client_name'                => $name,
+            'token_endpoint_auth_method' => $auth_method,
+            'redirect_uris'              => array_values( $redirect_uris ),
+            'admin_url'                  => admin_url( 'admin.php?page=cmcp-oauth' ),
+        ] );
+
         $resp = [
             'client_id'                  => $client_id,
             'client_id_issued_at'        => time(),

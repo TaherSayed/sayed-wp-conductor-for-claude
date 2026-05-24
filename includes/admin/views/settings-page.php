@@ -109,6 +109,32 @@ $tool_groups = [
             </tr>
         </table>
 
+        <h2 class="title"><?php esc_html_e( 'Notifications (webhook)', 'commander-secure-mcp-control' ); ?></h2>
+        <table class="form-table" role="presentation">
+            <tr>
+                <th scope="row"><label for="cmcp-webhook-url"><?php esc_html_e( 'Webhook URL', 'commander-secure-mcp-control' ); ?></label></th>
+                <td>
+                    <input id="cmcp-webhook-url" type="url" class="regular-text" name="<?php echo esc_attr( CMCP\Plugin::OPT_SETTINGS ); ?>[webhook_url]" value="<?php echo esc_attr( (string) ( $settings['webhook_url'] ?? '' ) ); ?>" placeholder="https://hooks.slack.com/services/…" />
+                    <p class="description"><?php esc_html_e( 'POSTed with a JSON body { event, timestamp, site, data } on brute-force lockouts and new OAuth client registrations. Leave empty to disable.', 'commander-secure-mcp-control' ); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="cmcp-webhook-secret"><?php esc_html_e( 'Webhook secret (optional)', 'commander-secure-mcp-control' ); ?></label></th>
+                <td>
+                    <input id="cmcp-webhook-secret" type="text" class="regular-text" name="<?php echo esc_attr( CMCP\Plugin::OPT_SETTINGS ); ?>[webhook_secret]" value="<?php echo esc_attr( (string) ( $settings['webhook_secret'] ?? '' ) ); ?>" autocomplete="off" />
+                    <p class="description"><?php esc_html_e( 'Shared secret. When set, the request includes an HMAC-SHA256 signature in X-Commander-Signature so the receiver can verify the call really came from this site.', 'commander-secure-mcp-control' ); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td>
+                    <button type="button" id="cmcp-webhook-test" class="button"><?php esc_html_e( 'Send test ping', 'commander-secure-mcp-control' ); ?></button>
+                    <span id="cmcp-webhook-test-result" style="margin-left:10px;font-size:12px;color:#646970"></span>
+                    <p class="description"><?php esc_html_e( 'Fires a test event so you can verify the receiver accepts it. Saves any unsaved changes first.', 'commander-secure-mcp-control' ); ?></p>
+                </td>
+            </tr>
+        </table>
+
         <h2 class="title"><?php esc_html_e( 'OAuth', 'commander-secure-mcp-control' ); ?></h2>
         <table class="form-table" role="presentation">
             <tr style="background:#fff7e6">
@@ -200,4 +226,35 @@ $tool_groups = [
 
         <?php submit_button(); ?>
     </form>
+
+    <script>
+    ( function () {
+        var btn = document.getElementById( 'cmcp-webhook-test' );
+        if ( ! btn ) { return; }
+        var out = document.getElementById( 'cmcp-webhook-test-result' );
+        var ajaxUrl = <?php echo wp_json_encode( admin_url( 'admin-ajax.php' ) ); ?>;
+        var nonce   = <?php echo wp_json_encode( wp_create_nonce( 'cmcp_test_webhook' ) ); ?>;
+        btn.addEventListener( 'click', function () {
+            out.textContent = '<?php echo esc_js( __( 'Sending…', 'commander-secure-mcp-control' ) ); ?>';
+            out.style.color = '#646970';
+            var data = new URLSearchParams();
+            data.set( 'action', 'cmcp_test_webhook' );
+            data.set( '_nonce', nonce );
+            fetch( ajaxUrl, { method: 'POST', credentials: 'same-origin', body: data } )
+                .then( function ( r ) { return r.json(); } )
+                .then( function ( resp ) {
+                    var d  = ( resp && resp.data ) || {};
+                    var ok = resp && resp.success && d.ok;
+                    out.textContent = ok
+                        ? '<?php echo esc_js( __( 'Delivered:', 'commander-secure-mcp-control' ) ); ?> ' + ( d.message || 'OK' )
+                        : '<?php echo esc_js( __( 'Failed:', 'commander-secure-mcp-control' ) ); ?> ' + ( d.message || 'error' );
+                    out.style.color = ok ? '#0a6041' : '#9b1c1c';
+                } )
+                .catch( function ( err ) {
+                    out.textContent = 'Error: ' + err;
+                    out.style.color = '#9b1c1c';
+                } );
+        } );
+    } )();
+    </script>
 </div>

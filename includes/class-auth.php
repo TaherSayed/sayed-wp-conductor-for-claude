@@ -172,6 +172,35 @@ final class Auth {
     }
 
     /**
+     * Return a 7-day daily call-count series for a token, oldest first.
+     * Shape: [ [ 'date' => 'YYYY-MM-DD', 'n' => int ], ... ] (7 elements).
+     */
+    public static function daily_calls( int $token_id ): array {
+        global $wpdb;
+        $audit = $wpdb->prefix . Plugin::TABLE_AUDIT;
+        // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin tables; aggregate query.
+        $rows = $wpdb->get_results( $wpdb->prepare(
+            "SELECT DATE(ts) AS d, COUNT(*) AS n
+               FROM {$audit}
+              WHERE token_id = %d AND ts > DATE_SUB(NOW(), INTERVAL 7 DAY)
+           GROUP BY DATE(ts)",
+            $token_id
+        ), ARRAY_A );
+        // phpcs:enable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+
+        $by_date = [];
+        foreach ( (array) $rows as $r ) {
+            $by_date[ (string) $r['d'] ] = (int) $r['n'];
+        }
+        $out = [];
+        for ( $i = 6; $i >= 0; $i-- ) {
+            $d     = gmdate( 'Y-m-d', time() - $i * DAY_IN_SECONDS );
+            $out[] = [ 'date' => $d, 'n' => $by_date[ $d ] ?? 0 ];
+        }
+        return $out;
+    }
+
+    /**
      * Derived status for the admin UI.
      * Returns: revoked | expired | idle | stale | active.
      */

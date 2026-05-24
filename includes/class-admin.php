@@ -27,6 +27,7 @@ final class Admin {
         add_action( 'admin_post_cmcp_delete_token', [ $this, 'handle_delete_token' ] );
         add_action( 'admin_post_cmcp_rotate_token', [ $this, 'handle_rotate_token' ] );
         add_action( 'wp_ajax_cmcp_test_token',       [ $this, 'ajax_test_token' ] );
+        add_action( 'wp_ajax_cmcp_test_webhook',     [ $this, 'ajax_test_webhook' ] );
         add_action( 'admin_post_cmcp_oauth_delete_client',  [ $this, 'handle_oauth_delete_client' ] );
         add_action( 'admin_post_cmcp_oauth_revoke_tokens',  [ $this, 'handle_oauth_revoke_tokens' ] );
         // Wizard hooks.
@@ -199,6 +200,9 @@ final class Admin {
         $clean['block_bad_uas']      = ! empty( $value['block_bad_uas'] );
         $clean['trust_proxy']        = ! empty( $value['trust_proxy'] );
         $clean['allow_dcr']          = ! empty( $value['allow_dcr'] );
+
+        $clean['webhook_url']    = isset( $value['webhook_url'] ) ? esc_url_raw( (string) $value['webhook_url'] ) : '';
+        $clean['webhook_secret'] = isset( $value['webhook_secret'] ) ? sanitize_text_field( (string) $value['webhook_secret'] ) : '';
         $clean['rotation_warn_days'] = max( 7, min( 730, (int) ( $value['rotation_warn_days'] ?? 90 ) ) );
         $clean['rate_limit_per_min'] = max( 0, min( 6000, (int) ( $value['rate_limit_per_min'] ?? 60 ) ) );
         $clean['max_request_bytes']  = max( 4096, min( 8 * 1024 * 1024, (int) ( $value['max_request_bytes'] ?? 262144 ) ) );
@@ -351,6 +355,21 @@ final class Admin {
         }
         wp_safe_redirect( add_query_arg( $args, admin_url( 'admin.php' ) ) );
         exit;
+    }
+
+    /**
+     * AJAX: fire a test ping at the configured webhook URL.
+     */
+    public function ajax_test_webhook(): void {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( [ 'message' => 'Forbidden' ], 403 );
+        }
+        check_ajax_referer( 'cmcp_test_webhook', '_nonce' );
+        $result = Notifier::send_test();
+        if ( empty( $result['ok'] ) ) {
+            wp_send_json_error( $result );
+        }
+        wp_send_json_success( $result );
     }
 
     /**

@@ -84,6 +84,14 @@ final class BruteForce {
 
             // Email the admin (rate-limited).
             self::maybe_notify_admin( $ip, $count, $duration );
+
+            // Outbound webhook (no-op if not configured).
+            Notifier::notify( Notifier::EVENT_LOCKOUT, [
+                'ip'           => $ip,
+                'failures'     => $count,
+                'lockout_secs' => $duration,
+                'audit_log'    => admin_url( 'admin.php?page=cmcp-log' ),
+            ] );
         }
     }
 

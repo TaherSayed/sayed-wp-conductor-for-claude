@@ -53,6 +53,12 @@ $status_hints = [
                 <button type="button" class="button cmcp-test-new" data-token="<?php echo esc_attr( $just_token ); ?>"><?php esc_html_e( 'Test now', 'commander-secure-mcp-control' ); ?></button>
             </div>
             <p class="cmcp-test-result" style="margin:0;color:#646970;font-size:12px"></p>
+
+            <?php
+            $rpc_url     = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
+            $snippet_id  = 'cmcp-new-snip';
+            include CMCP_DIR . 'includes/admin/views/partials/token-snippets.php';
+            ?>
         </div>
     <?php endif; ?>
 
@@ -135,7 +141,33 @@ $status_hints = [
                 <td><?php echo wp_kses_post( $user_disp ); ?></td>
                 <td><?php echo $t['last_used_at'] ? esc_html( $t['last_used_at'] ) : '<span style="color:#a7aaad">—</span>'; ?></td>
                 <td><?php echo ! empty( $t['last_ip'] ) ? '<code style="font-size:11px">' . esc_html( (string) $t['last_ip'] ) . '</code>' : '<span style="color:#a7aaad">—</span>'; ?></td>
-                <td style="text-align:right"><?php echo (int) ( $t['calls_7d'] ?? 0 ); ?></td>
+                <td>
+                    <?php
+                    $series = \CMCP\Auth::daily_calls( (int) $t['id'] );
+                    $total  = (int) ( $t['calls_7d'] ?? array_sum( array_column( $series, 'n' ) ) );
+                    $max    = max( 1, max( array_column( $series, 'n' ) ) );
+                    $w = 84; $h = 22; $pad = 1; $step = ( $w - $pad * 2 ) / 6;
+                    $pts = [];
+                    foreach ( $series as $i => $d ) {
+                        $x = $pad + $i * $step;
+                        $y = $h - $pad - ( (int) $d['n'] / $max ) * ( $h - $pad * 2 );
+                        $pts[] = sprintf( '%.1f,%.1f', $x, $y );
+                    }
+                    $title = '';
+                    foreach ( $series as $d ) {
+                        $title .= $d['date'] . ': ' . (int) $d['n'] . "\n";
+                    }
+                    ?>
+                    <span class="cmcp-sparkline-wrap" title="<?php echo esc_attr( trim( $title ) ); ?>">
+                        <svg class="cmcp-sparkline" width="<?php echo (int) $w; ?>" height="<?php echo (int) $h; ?>" viewBox="0 0 <?php echo (int) $w; ?> <?php echo (int) $h; ?>" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <polyline points="<?php echo esc_attr( implode( ' ', $pts ) ); ?>" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+                            <?php foreach ( $series as $i => $d ) : if ( (int) $d['n'] === 0 ) continue; ?>
+                                <circle cx="<?php echo (float) ( $pad + $i * $step ); ?>" cy="<?php echo (float) ( $h - $pad - ( (int) $d['n'] / $max ) * ( $h - $pad * 2 ) ); ?>" r="1.5" fill="currentColor" />
+                            <?php endforeach; ?>
+                        </svg>
+                        <span class="cmcp-sparkline-total"><?php echo (int) $total; ?></span>
+                    </span>
+                </td>
                 <td><?php echo $t['expires_at']  ? esc_html( $t['expires_at'] )  : '<span style="color:#a7aaad">' . esc_html__( 'never', 'commander-secure-mcp-control' ) . '</span>'; ?></td>
                 <td class="cmcp-row-actions">
                     <?php if ( $is_active_status ) : ?>
@@ -168,6 +200,16 @@ $status_hints = [
                     </form>
                 </td>
             </tr>
+            <tr class="cmcp-snippets-row">
+                <td colspan="10" style="padding:0">
+                    <?php
+                    $rpc_url    = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
+                    $token_view = '<YOUR_TOKEN>'; // never stored plaintext server-side
+                    $snippet_id = 'cmcp-snip-' . (int) $t['id'];
+                    include CMCP_DIR . 'includes/admin/views/partials/token-snippets.php';
+                    ?>
+                </td>
+            </tr>
         <?php endforeach; endif; ?>
         </tbody>
     </table>
@@ -198,6 +240,20 @@ $status_hints = [
                 window.getSelection().removeAllRanges();
                 window.getSelection().addRange( range );
             }
+        } );
+    } );
+
+    // Tab switching for snippet panels.
+    document.querySelectorAll( '.cmcp-tabs' ).forEach( function ( bar ) {
+        var panels = bar.parentElement.querySelectorAll( '.cmcp-tab-panel' );
+        bar.querySelectorAll( '.cmcp-tab' ).forEach( function ( btn ) {
+            btn.addEventListener( 'click', function () {
+                bar.querySelectorAll( '.cmcp-tab' ).forEach( function ( b ) { b.classList.remove( 'active' ); } );
+                btn.classList.add( 'active' );
+                panels.forEach( function ( p ) {
+                    p.classList.toggle( 'active', p.getAttribute( 'data-tab' ) === btn.getAttribute( 'data-tab' ) );
+                } );
+            } );
         } );
     } );
 
