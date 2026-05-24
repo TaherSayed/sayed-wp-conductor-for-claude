@@ -31,6 +31,18 @@ except ImportError:
 try:
     import pytesseract
     HAS_OCR = True
+    # Auto-point pytesseract at common Tesseract install paths on Windows
+    # so users don't have to edit PATH. macOS/Linux: assume it's on PATH.
+    if os.name == "nt":
+        for candidate in (
+            os.environ.get("TESSERACT_EXE", ""),
+            os.path.expandvars(r"%LOCALAPPDATA%\Programs\Tesseract-OCR\tesseract.exe"),
+            r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+            r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
+        ):
+            if candidate and os.path.isfile(candidate):
+                pytesseract.pytesseract.tesseract_cmd = candidate
+                break
 except ImportError:
     HAS_OCR = False
     print("note: pytesseract not installed — body-text redaction skipped.")
