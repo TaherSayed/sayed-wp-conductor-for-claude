@@ -316,7 +316,12 @@ final class Server {
     }
 
     private static function rpc_error( $id, int $code, string $message, $data = null ): array {
-        $err = [ 'code' => $code, 'message' => $message ];
+        // Exception messages are wrapped in esc_html() at the throw site for
+        // WPCS escape-output compliance. For JSON-RPC bodies we want the raw
+        // characters back (apostrophes, angle brackets, etc.) so receivers
+        // don't see `&#039;` in their error output.
+        $message = html_entity_decode( $message, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+        $err     = [ 'code' => $code, 'message' => $message ];
         if ( $data !== null ) {
             $err['data'] = $data;
         }
@@ -327,7 +332,8 @@ final class Server {
         $status = (int) ( $err->get_error_data()['status'] ?? 400 );
         $body   = [
             'error'   => $err->get_error_code(),
-            'message' => $err->get_error_message(),
+            // See rpc_error() — decode entities so JSON consumers see raw chars.
+            'message' => html_entity_decode( $err->get_error_message(), ENT_QUOTES | ENT_HTML5, 'UTF-8' ),
         ];
         $resp = new \WP_REST_Response( $body, $status );
         return Security::harden_response( $resp );

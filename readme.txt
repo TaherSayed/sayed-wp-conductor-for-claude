@@ -4,7 +4,7 @@ Tags: mcp, claude, ai, oauth, rest-api
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,12 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 
 == Changelog ==
 
+= 1.5.1 =
+* **GitHub auto-updater** — once installed, the plugin polls api.github.com/repos/TaherSayed/commander-secure-mcp-control/releases/latest at most every 12 hours and surfaces new versions through WordPress's standard "Update available" banner. One-click update preserves all data. Yields to WordPress.org's update channel automatically once published there.
+* "View details" modal shows the GitHub release notes for the new version.
+* Plugins-page row links: GitHub repo + Report issue.
+* **Fix:** JSON-RPC error messages no longer contain HTML entities (e.g. apostrophes were rendered as `&#039;`). Exception messages are now entity-decoded before being returned in the JSON body.
+
 = 1.5.0 =
 * **Quick-connect snippets** per token row — collapsible block with tabs for `curl`, Claude Desktop config JSON, Python (requests), and Node (fetch). For freshly-issued / rotated tokens the plaintext is substituted automatically; for existing rows a `<YOUR_TOKEN>` placeholder is used (plaintext is never stored server-side).
 * **7-day sparkline** per token row — inline SVG chart of call activity, alongside the total count.
@@ -155,6 +161,9 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 * Initial release. Personal access tokens, scope + capability gating, audit log, rate limiting, SSRF guard on media.upload, 25 built-in tools, WP-CLI command, custom-tool filter.
 
 == Upgrade Notice ==
+
+= 1.5.1 =
+Adds GitHub auto-updater — every future release will appear as a standard "Update available" notification on your Plugins page. **Install this version once manually (Replace via upload) and every release after 1.5.1 updates automatically.**
 
 = 1.5.0 =
 Quick-connect snippets (curl / Claude Desktop / Python / Node) per token, 7-day sparkline, and outbound webhooks on lockouts + new OAuth clients. Pure additive — no settings or schema change.

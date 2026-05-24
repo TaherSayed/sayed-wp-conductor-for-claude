@@ -56,6 +56,10 @@ final class Plugin {
         // otherwise the WP-Cron-fired `cmcp_send_webhook` event has no handler.
         class_exists( Notifier::class );
 
+        // GitHub release auto-updater. Yields to WP.org's channel automatically
+        // once the plugin is published there (their filter runs after ours).
+        GitHubUpdater::init();
+
         // Admin UI.
         if ( is_admin() ) {
             Admin::instance()->init();
