@@ -4,7 +4,7 @@ Tags: mcp, claude, ai, oauth, rest-api
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,14 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 
 == Changelog ==
 
+= 1.4.0 =
+* **Token UX overhaul:** new Status column (Active / Idle / Stale / Expired / Revoked) with colored pulsing dot, scope badges, last-IP column, 7-day call counter, and per-row actions.
+* **Copy-to-clipboard** button on freshly-issued tokens.
+* **Test connection** button — fires a real `initialize` against `/rpc` with the just-shown token and reports OK + MCP protocol version + round-trip latency, or the actual failure reason.
+* **Rotate** action — one-click reissue with the same label / scopes / user / IP allowlist / remaining expiry, old token revoked atomically.
+* **Permanent Delete** action — wipes the token row entirely (Revoke remains the compliance-friendly default that keeps the audit trail).
+* Inline notices for revoke / delete / rotate outcomes.
+
 = 1.3.0 =
 * **Security:** Dynamic Client Registration (RFC 7591) is now off by default and requires explicit admin opt-in. When on, registration is rate-limited per IP.
 * **Security:** `is_https()` only honors `X-Forwarded-Proto` when the new "Trust reverse proxy" setting is enabled — prevents header-spoof bypass of the HTTPS gate.
@@ -141,6 +149,9 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 * Initial release. Personal access tokens, scope + capability gating, audit log, rate limiting, SSRF guard on media.upload, 25 built-in tools, WP-CLI command, custom-tool filter.
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+Token management overhaul — Copy, Test, Rotate, Delete, live status badges, last-IP and 7-day call counts. Pure additive — no settings change required.
 
 = 1.3.0 =
 Important security update. Dynamic Client Registration is now off by default — if you relied on it for Claude Desktop one-click connect, re-enable under Commander → Settings → OAuth. Behind a reverse proxy, also enable "Trust reverse proxy".
