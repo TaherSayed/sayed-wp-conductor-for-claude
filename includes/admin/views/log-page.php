@@ -11,24 +11,24 @@ defined( 'ABSPATH' ) || exit;
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- View-template locals, scoped to include().
 ?>
 <div class="wrap">
-    <h1><?php esc_html_e( 'Commander — Audit Log', 'commander-secure-mcp-control' ); ?></h1>
-    <p class="description"><?php esc_html_e( 'Showing up to 200 most recent entries.', 'commander-secure-mcp-control' ); ?></p>
+    <h1><?php esc_html_e( 'Commander — Audit Log', 'mcp-for-claude' ); ?></h1>
+    <p class="description"><?php esc_html_e( 'Showing up to 200 most recent entries.', 'mcp-for-claude' ); ?></p>
     <table class="widefat striped">
         <thead>
             <tr>
-                <th><?php esc_html_e( 'Time (UTC)', 'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Token', 'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'IP', 'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Method', 'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Tool', 'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Status', 'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'OK', 'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Note', 'commander-secure-mcp-control' ); ?></th>
+                <th><?php esc_html_e( 'Time (UTC)', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Token', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'IP', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Method', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Tool', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Status', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'OK', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Note', 'mcp-for-claude' ); ?></th>
             </tr>
         </thead>
         <tbody>
         <?php if ( empty( $rows ) ) : ?>
-            <tr><td colspan="8"><?php esc_html_e( 'No log entries yet.', 'commander-secure-mcp-control' ); ?></td></tr>
+            <tr><td colspan="8"><?php esc_html_e( 'No log entries yet.', 'mcp-for-claude' ); ?></td></tr>
         <?php else : foreach ( $rows as $r ) : ?>
             <tr>
                 <td><?php echo esc_html( $r['ts'] ); ?></td>

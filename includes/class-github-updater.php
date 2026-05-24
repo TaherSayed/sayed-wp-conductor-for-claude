@@ -123,7 +123,7 @@ final class GithubUpdater {
             'last_updated'  => (string) ( $release['published_at'] ?? '' ),
             'download_link' => self::find_zip_asset( $release ) ?: (string) ( $release['zipball_url'] ?? '' ),
             'sections'      => [
-                'description' => '<p>' . esc_html__( 'Secure MCP server for WordPress: bearer-token + OAuth 2.1 with PKCE, scope + capability dual-gate, audit log, brute-force lockout, 25 built-in tools.', 'commander-secure-mcp-control' ) . '</p><p><a href="https://github.com/' . self::REPO . '" target="_blank" rel="noopener">' . esc_html__( 'Full README on GitHub', 'commander-secure-mcp-control' ) . '</a></p>',
+                'description' => '<p>' . esc_html__( 'Secure MCP server for WordPress: bearer-token + OAuth 2.1 with PKCE, scope + capability dual-gate, audit log, brute-force lockout, 25 built-in tools.', 'mcp-for-claude' ) . '</p><p><a href="https://github.com/' . self::REPO . '" target="_blank" rel="noopener">' . esc_html__( 'Full README on GitHub', 'mcp-for-claude' ) . '</a></p>',
                 'changelog'   => self::release_body_to_html( $body ),
             ],
             'banners'       => [],
@@ -173,7 +173,7 @@ final class GithubUpdater {
             return $links;
         }
         $links[] = '<a href="https://github.com/' . esc_attr( self::REPO ) . '" target="_blank" rel="noopener">GitHub</a>';
-        $links[] = '<a href="https://github.com/' . esc_attr( self::REPO ) . '/issues" target="_blank" rel="noopener">' . esc_html__( 'Report issue', 'commander-secure-mcp-control' ) . '</a>';
+        $links[] = '<a href="https://github.com/' . esc_attr( self::REPO ) . '/issues" target="_blank" rel="noopener">' . esc_html__( 'Report issue', 'mcp-for-claude' ) . '</a>';
         return $links;
     }
 
@@ -265,7 +265,7 @@ final class GithubUpdater {
         if ( $in_list ) {
             $out .= '</ul>';
         }
-        return $out !== '' ? $out : '<p>' . esc_html__( 'See the GitHub release for details.', 'commander-secure-mcp-control' ) . '</p>';
+        return $out !== '' ? $out : '<p>' . esc_html__( 'See the GitHub release for details.', 'mcp-for-claude' ) . '</p>';
     }
 
     private static function md_inline( string $s ): string {

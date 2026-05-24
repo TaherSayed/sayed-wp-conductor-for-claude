@@ -134,12 +134,12 @@ $dest_ok      = ! empty( $settings['require_https'] ) && ! empty( $settings['ena
     <div class="cmcp-card">
         <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--cmcp-muted)">Security status</h2>
         <ul style="list-style:none;padding:0;margin:0">
-            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['require_https'] ), __( 'HTTPS required', 'commander-secure-mcp-control' ), __( 'Reject non-HTTPS requests', 'commander-secure-mcp-control' ) ); ?></li>
-            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['enable_audit_log'] ), __( 'Audit log enabled', 'commander-secure-mcp-control' ), __( 'Every call recorded', 'commander-secure-mcp-control' ) ); ?></li>
-            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['block_bad_uas'] ), __( 'Block bad user-agents', 'commander-secure-mcp-control' ), __( 'sqlmap, nikto, wpscan, etc.', 'commander-secure-mcp-control' ) ); ?></li>
-            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['notify_admin_email'] ), __( 'Email alerts', 'commander-secure-mcp-control' ), __( 'Lockout & suspicious activity', 'commander-secure-mcp-control' ) ); ?></li>
-            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['allowed_origins'] ), __( 'Allowed origins set', 'commander-secure-mcp-control' ), __( 'DNS rebinding protection', 'commander-secure-mcp-control' ) ); ?></li>
-            <li style="padding:6px 0"><?php cmcp_status_row( empty( $settings['allow_destructive'] ), __( 'Destructive ops OFF', 'commander-secure-mcp-control' ), __( 'Permanent deletes locked', 'commander-secure-mcp-control' ), true ); ?></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['require_https'] ), __( 'HTTPS required', 'mcp-for-claude' ), __( 'Reject non-HTTPS requests', 'mcp-for-claude' ) ); ?></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['enable_audit_log'] ), __( 'Audit log enabled', 'mcp-for-claude' ), __( 'Every call recorded', 'mcp-for-claude' ) ); ?></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['block_bad_uas'] ), __( 'Block bad user-agents', 'mcp-for-claude' ), __( 'sqlmap, nikto, wpscan, etc.', 'mcp-for-claude' ) ); ?></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['notify_admin_email'] ), __( 'Email alerts', 'mcp-for-claude' ), __( 'Lockout & suspicious activity', 'mcp-for-claude' ) ); ?></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['allowed_origins'] ), __( 'Allowed origins set', 'mcp-for-claude' ), __( 'DNS rebinding protection', 'mcp-for-claude' ) ); ?></li>
+            <li style="padding:6px 0"><?php cmcp_status_row( empty( $settings['allow_destructive'] ), __( 'Destructive ops OFF', 'mcp-for-claude' ), __( 'Permanent deletes locked', 'mcp-for-claude' ), true ); ?></li>
         </ul>
         <?php if ( ! empty( $stats['old_tokens'] ) ) : ?>
             <p style="margin-top:14px;padding:10px 14px;background:#fff7e6;border-left:3px solid var(--cmcp-warning);border-radius:4px">
@@ -151,9 +151,9 @@ $dest_ok      = ! empty( $settings['require_https'] ) && ! empty( $settings['ena
     <p class="cmcp-credit">
         Commander · Secure MCP Control ·
         <a href="https://github.com/TaherSayed/commander-secure-mcp-control" target="_blank" rel="noopener">GitHub</a> ·
-        <a href="https://github.com/TaherSayed/commander-secure-mcp-control/issues" target="_blank" rel="noopener"><?php esc_html_e( 'Report an issue', 'commander-secure-mcp-control' ); ?></a> ·
+        <a href="https://github.com/TaherSayed/commander-secure-mcp-control/issues" target="_blank" rel="noopener"><?php esc_html_e( 'Report an issue', 'mcp-for-claude' ); ?></a> ·
         <a href="https://hbs-it-gmbh.de" target="_blank" rel="noopener">HBS IT GmbH</a> ·
-        <?php esc_html_e( 'Built by Taher Sayed', 'commander-secure-mcp-control' ); ?>
+        <?php esc_html_e( 'Built by Taher Sayed', 'mcp-for-claude' ); ?>
     </p>
 </div>
 <?php

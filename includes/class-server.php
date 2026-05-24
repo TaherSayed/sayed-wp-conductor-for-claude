@@ -201,7 +201,7 @@ final class Server {
                         $id,
                         self::ERR_METHOD_MISSING,
                         /* translators: %s: JSON-RPC method name */
-                        sprintf( __( 'Method not found: %s', 'commander-secure-mcp-control' ), $method )
+                        sprintf( __( 'Method not found: %s', 'mcp-for-claude' ), $method )
                     );
             }
         } catch ( \InvalidArgumentException $e ) {
@@ -225,7 +225,7 @@ final class Server {
                 'status_code' => 200,
                 'note'        => 'exception: ' . get_class( $e ),
             ] );
-            return self::rpc_error( $id, self::ERR_INTERNAL, __( 'Internal error.', 'commander-secure-mcp-control' ) );
+            return self::rpc_error( $id, self::ERR_INTERNAL, __( 'Internal error.', 'mcp-for-claude' ) );
         }
     }
 
@@ -257,27 +257,27 @@ final class Server {
         $arguments = is_array( $params['arguments'] ?? null ) ? $params['arguments'] : [];
 
         if ( $name === '' ) {
-            throw new \InvalidArgumentException( esc_html__( 'Tool name required.', 'commander-secure-mcp-control' ) );
+            throw new \InvalidArgumentException( esc_html__( 'Tool name required.', 'mcp-for-claude' ) );
         }
 
         $tool = ToolRegistry::instance()->get( $name );
         if ( ! $tool ) {
             /* translators: %s: tool name */
-            throw new \InvalidArgumentException( esc_html( sprintf( __( 'Unknown tool: %s', 'commander-secure-mcp-control' ), $name ) ) );
+            throw new \InvalidArgumentException( esc_html( sprintf( __( 'Unknown tool: %s', 'mcp-for-claude' ), $name ) ) );
         }
 
         // Scope check.
         $needed = $tool->required_scope();
         if ( ! Auth::has_scope( $auth, $needed ) ) {
             /* translators: 1: tool name, 2: required scope */
-            throw new \RuntimeException( esc_html( sprintf( __( "Tool '%1\$s' requires scope '%2\$s'.", 'commander-secure-mcp-control' ), $name, $needed ) ) );
+            throw new \RuntimeException( esc_html( sprintf( __( "Tool '%1\$s' requires scope '%2\$s'.", 'mcp-for-claude' ), $name, $needed ) ) );
         }
 
         // WordPress capability check.
         $cap = $tool->required_capability();
         if ( $cap && ! current_user_can( $cap ) ) {
             /* translators: 1: tool name, 2: WP capability */
-            throw new \RuntimeException( esc_html( sprintf( __( "Tool '%1\$s' requires WordPress capability '%2\$s'.", 'commander-secure-mcp-control' ), $name, $cap ) ) );
+            throw new \RuntimeException( esc_html( sprintf( __( "Tool '%1\$s' requires WordPress capability '%2\$s'.", 'mcp-for-claude' ), $name, $cap ) ) );
         }
 
         // Validate input shape.
@@ -305,7 +305,7 @@ final class Server {
     private static function require_scope( array $auth, string $scope ): void {
         if ( ! Auth::has_scope( $auth, $scope ) ) {
             /* translators: %s: required scope */
-            throw new \RuntimeException( esc_html( sprintf( __( "Scope '%s' required.", 'commander-secure-mcp-control' ), $scope ) ) );
+            throw new \RuntimeException( esc_html( sprintf( __( "Scope '%s' required.", 'mcp-for-claude' ), $scope ) ) );
         }
     }
 

@@ -38,10 +38,10 @@ Search for "Commander — Secure MCP Control" under **Plugins → Add New**, ins
 
 ```bash
 cd wp-content/plugins/
-git clone https://github.com/TaherSayed/commander-secure-mcp-control.git
+git clone https://github.com/TaherSayed/commander-secure-mcp-control.git mcp-for-claude
 ```
 
-Then activate **Commander — Secure MCP Control** under **Plugins**. The 30-second setup wizard runs on first activation.
+Then activate **Commander — Secure MCP Control** under **Plugins**. The 30-second setup wizard runs on first activation. (The local folder must be named `mcp-for-claude` so it matches the text-domain slug.)
 
 **From a release zip:**
 Download the latest `commander-secure-mcp-control-x.y.z.zip` from [Releases](https://github.com/TaherSayed/commander-secure-mcp-control/releases) and upload via **Plugins → Add New → Upload Plugin**.

@@ -39,9 +39,9 @@ final class Wizard {
         <div class="notice notice-info" style="border-left-color:#2271b1">
             <p style="font-size:14px">
                 🛡️ <strong>Commander</strong> is installed. Run the
-                <a href="<?php echo esc_url( $url ); ?>" class="button button-primary" style="margin-left:6px"><?php esc_html_e( '30-second setup', 'commander-secure-mcp-control' ); ?></a>
+                <a href="<?php echo esc_url( $url ); ?>" class="button button-primary" style="margin-left:6px"><?php esc_html_e( '30-second setup', 'mcp-for-claude' ); ?></a>
                 — auto-creates a dedicated bot user and your first token, or
-                <a href="<?php echo esc_url( $dismiss ); ?>" style="margin-left:4px"><?php esc_html_e( 'skip', 'commander-secure-mcp-control' ); ?></a>.
+                <a href="<?php echo esc_url( $dismiss ); ?>" style="margin-left:4px"><?php esc_html_e( 'skip', 'mcp-for-claude' ); ?></a>.
                 <span style="color:#646970;font-size:12px;float:right">powered by Taher Sayed · HBS IT GmbH</span>
             </p>
         </div>

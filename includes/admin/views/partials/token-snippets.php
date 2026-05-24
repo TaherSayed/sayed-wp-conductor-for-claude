@@ -85,7 +85,7 @@ console.log(JSON.stringify(await res.json(), null, 2));
 JS;
 ?>
 <details class="cmcp-snippets">
-    <summary>🔌 <?php esc_html_e( 'Connect snippets', 'commander-secure-mcp-control' ); ?></summary>
+    <summary>🔌 <?php esc_html_e( 'Connect snippets', 'mcp-for-claude' ); ?></summary>
     <div class="cmcp-snippets-body">
         <div class="cmcp-tabs" data-snip="<?php echo esc_attr( $snippet_id ); ?>">
             <button type="button" class="cmcp-tab active" data-tab="curl">curl</button>
@@ -128,7 +128,7 @@ JS;
 
         <?php if ( $token_for_snippet === '<YOUR_TOKEN>' ) : ?>
             <p class="description" style="margin:6px 4px 0;color:#646970">
-                <?php esc_html_e( 'Token plaintext is not stored on the server. Replace <YOUR_TOKEN> with the token shown when you issued or rotated it.', 'commander-secure-mcp-control' ); ?>
+                <?php esc_html_e( 'Token plaintext is not stored on the server. Replace <YOUR_TOKEN> with the token shown when you issued or rotated it.', 'mcp-for-claude' ); ?>
             </p>
         <?php endif; ?>
     </div>

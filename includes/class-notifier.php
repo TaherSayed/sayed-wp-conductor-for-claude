@@ -94,10 +94,10 @@ final class Notifier {
         $settings = Plugin::get_settings();
         $url      = (string) ( $settings['webhook_url'] ?? '' );
         if ( $url === '' ) {
-            return [ 'ok' => false, 'message' => __( 'No webhook URL configured.', 'commander-secure-mcp-control' ) ];
+            return [ 'ok' => false, 'message' => __( 'No webhook URL configured.', 'mcp-for-claude' ) ];
         }
         if ( ! self::is_valid_url( $url ) ) {
-            return [ 'ok' => false, 'message' => __( 'Invalid webhook URL.', 'commander-secure-mcp-control' ) ];
+            return [ 'ok' => false, 'message' => __( 'Invalid webhook URL.', 'mcp-for-claude' ) ];
         }
         $payload = [
             'event'     => self::EVENT_TEST,
@@ -133,7 +133,7 @@ final class Notifier {
             'latency_ms' => $ms,
             'message'    => sprintf(
                 /* translators: 1: HTTP status code, 2: latency in ms */
-                __( 'HTTP %1$d in %2$d ms', 'commander-secure-mcp-control' ),
+                __( 'HTTP %1$d in %2$d ms', 'mcp-for-claude' ),
                 $code,
                 $ms
             ),

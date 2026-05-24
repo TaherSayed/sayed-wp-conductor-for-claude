@@ -45,7 +45,7 @@ final class BruteForce {
                 'cmcp_locked_out',
                 sprintf(
                     /* translators: %d: seconds until lockout expires */
-                    __( 'Too many failed authentication attempts. Try again in %d seconds.', 'commander-secure-mcp-control' ),
+                    __( 'Too many failed authentication attempts. Try again in %d seconds.', 'mcp-for-claude' ),
                     max( 1, $until )
                 ),
                 [ 'status' => 429, 'retry_after' => max( 1, $until ) ]
@@ -135,12 +135,12 @@ final class BruteForce {
             $admin,
             sprintf(
                 /* translators: %s: site host */
-                __( '[Commander] Brute-force lockout on %s', 'commander-secure-mcp-control' ),
+                __( '[Commander] Brute-force lockout on %s', 'mcp-for-claude' ),
                 $site
             ),
             sprintf(
                 /* translators: 1: IP address, 2: site host, 3: failure count, 4: lockout seconds, 5: UTC timestamp, 6: audit-log URL */
-                __( "Commander locked out IP %1\$s on %2\$s after %3\$d failed authentication attempts.\n\nLockout duration: %4\$d seconds.\nTime: %5\$s UTC\n\nReview the audit log: %6\$s\n\n— Commander", 'commander-secure-mcp-control' ),
+                __( "Commander locked out IP %1\$s on %2\$s after %3\$d failed authentication attempts.\n\nLockout duration: %4\$d seconds.\nTime: %5\$s UTC\n\nReview the audit log: %6\$s\n\n— Commander", 'mcp-for-claude' ),
                 $ip,
                 $site,
                 $count,

@@ -4,7 +4,7 @@ Tags: mcp, claude, ai, oauth, rest-api
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.5.4
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,7 +55,7 @@ Commander does not "phone home". No analytics, no remote logging, no third-party
 
 == Installation ==
 
-1. Upload the `commander-secure-mcp-control/` folder to `/wp-content/plugins/` (or install the zip via **Plugins → Add New → Upload**).
+1. Upload the `mcp-for-claude/` folder to `/wp-content/plugins/` (or install the zip via **Plugins → Add New → Upload**).
 2. Activate **Commander — Secure MCP Control** in **Plugins**.
 3. The setup wizard appears on first load — walk through it, or skip and use **Commander** in the admin menu.
 4. Go to **Commander → Tokens** and issue a token. Bind it to a least-privileged WP user. Save the plaintext somewhere safe — it is shown once.
@@ -118,6 +118,9 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 
 == Changelog ==
 
+= 1.6.0 =
+* **Slug rename to `mcp-for-claude`** — WordPress.org review assigned the slug `mcp-for-claude` to this plugin. Folder, main file, text domain and POT have been renamed accordingly. The display name "Commander — Secure MCP Control" is unchanged. Existing installs from earlier zips need a one-time fresh install (settings stay in the DB but the old folder must be removed).
+
 = 1.5.4 =
 * **Fix:** OAuth consent screen bounced logged-in admins back to wp-login on sites where the REST API is hit by direct browser navigation. WordPress's REST routes only honor cookie auth when the request carries an X-WP-Nonce header — which a top-level navigation does not. `OAuth::rest_authorize_get/post` now manually calls `wp_validate_auth_cookie` to set the current WP user from the browser cookie. Fully verified (HMAC-signed cookie); not an auth bypass.
 
@@ -174,6 +177,9 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 * Initial release. Personal access tokens, scope + capability gating, audit log, rate limiting, SSRF guard on media.upload, 25 built-in tools, WP-CLI command, custom-tool filter.
 
 == Upgrade Notice ==
+
+= 1.6.0 =
+**Slug rename to `mcp-for-claude`** — this version's folder is `mcp-for-claude/`. If you have an older `commander-secure-mcp-control/` folder, deactivate it via WP admin (don't click Delete — it would drop your tokens table), then delete that folder via FTP/SSH, then install this 1.6.0 zip fresh. Database is untouched.
 
 = 1.5.4 =
 Fix: OAuth consent screen now recognises your existing WordPress login session (was bouncing logged-in admins back to wp-login). Required if you use security plugins that move the login URL.

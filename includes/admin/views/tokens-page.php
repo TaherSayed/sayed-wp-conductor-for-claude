@@ -15,42 +15,42 @@ defined( 'ABSPATH' ) || exit;
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- View-template locals, scoped to include().
 
 $status_labels = [
-    'active'  => __( 'Active',  'commander-secure-mcp-control' ),
-    'idle'    => __( 'Idle',    'commander-secure-mcp-control' ),
-    'stale'   => __( 'Stale',   'commander-secure-mcp-control' ),
-    'expired' => __( 'Expired', 'commander-secure-mcp-control' ),
-    'revoked' => __( 'Revoked', 'commander-secure-mcp-control' ),
+    'active'  => __( 'Active',  'mcp-for-claude' ),
+    'idle'    => __( 'Idle',    'mcp-for-claude' ),
+    'stale'   => __( 'Stale',   'mcp-for-claude' ),
+    'expired' => __( 'Expired', 'mcp-for-claude' ),
+    'revoked' => __( 'Revoked', 'mcp-for-claude' ),
 ];
 $status_hints = [
-    'active'  => __( 'Used in the last 30 days.',         'commander-secure-mcp-control' ),
-    'idle'    => __( 'Never used yet.',                   'commander-secure-mcp-control' ),
-    'stale'   => __( 'No activity in over 30 days.',      'commander-secure-mcp-control' ),
-    'expired' => __( 'Past its expiry date.',             'commander-secure-mcp-control' ),
-    'revoked' => __( 'Revoked — cannot authenticate.',    'commander-secure-mcp-control' ),
+    'active'  => __( 'Used in the last 30 days.',         'mcp-for-claude' ),
+    'idle'    => __( 'Never used yet.',                   'mcp-for-claude' ),
+    'stale'   => __( 'No activity in over 30 days.',      'mcp-for-claude' ),
+    'expired' => __( 'Past its expiry date.',             'mcp-for-claude' ),
+    'revoked' => __( 'Revoked — cannot authenticate.',    'mcp-for-claude' ),
 ];
 ?>
 <div class="wrap">
-    <h1><?php esc_html_e( 'Commander — Tokens', 'commander-secure-mcp-control' ); ?></h1>
+    <h1><?php esc_html_e( 'Commander — Tokens', 'mcp-for-claude' ); ?></h1>
 
     <?php if ( $notice === 'revoked' ) : ?>
-        <div class="notice notice-info is-dismissible"><p><?php esc_html_e( 'Token revoked.', 'commander-secure-mcp-control' ); ?></p></div>
+        <div class="notice notice-info is-dismissible"><p><?php esc_html_e( 'Token revoked.', 'mcp-for-claude' ); ?></p></div>
     <?php elseif ( $notice === 'deleted' ) : ?>
-        <div class="notice notice-info is-dismissible"><p><?php esc_html_e( 'Token permanently deleted.', 'commander-secure-mcp-control' ); ?></p></div>
+        <div class="notice notice-info is-dismissible"><p><?php esc_html_e( 'Token permanently deleted.', 'mcp-for-claude' ); ?></p></div>
     <?php elseif ( $notice === 'rotated' ) : ?>
-        <div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Token rotated — the old one is revoked and a new one was issued below.', 'commander-secure-mcp-control' ); ?></p></div>
+        <div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Token rotated — the old one is revoked and a new one was issued below.', 'mcp-for-claude' ); ?></p></div>
     <?php elseif ( $notice === 'rotate_failed' ) : ?>
-        <div class="notice notice-error is-dismissible"><p><?php esc_html_e( 'Could not rotate the token.', 'commander-secure-mcp-control' ); ?></p></div>
+        <div class="notice notice-error is-dismissible"><p><?php esc_html_e( 'Could not rotate the token.', 'mcp-for-claude' ); ?></p></div>
     <?php endif; ?>
 
     <?php if ( $just_token ) : ?>
         <div class="notice notice-success">
             <p>
-                <strong><?php esc_html_e( 'Token created. Copy it now — it will not be shown again:', 'commander-secure-mcp-control' ); ?></strong>
+                <strong><?php esc_html_e( 'Token created. Copy it now — it will not be shown again:', 'mcp-for-claude' ); ?></strong>
             </p>
             <div class="cmcp-token-box">
                 <code id="cmcp-new-token"><?php echo esc_html( $just_token ); ?></code>
-                <button type="button" class="button cmcp-copy" data-target="#cmcp-new-token"><?php esc_html_e( 'Copy', 'commander-secure-mcp-control' ); ?></button>
-                <button type="button" class="button cmcp-test-new" data-token="<?php echo esc_attr( $just_token ); ?>"><?php esc_html_e( 'Test now', 'commander-secure-mcp-control' ); ?></button>
+                <button type="button" class="button cmcp-copy" data-target="#cmcp-new-token"><?php esc_html_e( 'Copy', 'mcp-for-claude' ); ?></button>
+                <button type="button" class="button cmcp-test-new" data-token="<?php echo esc_attr( $just_token ); ?>"><?php esc_html_e( 'Test now', 'mcp-for-claude' ); ?></button>
             </div>
             <p class="cmcp-test-result" style="margin:0;color:#646970;font-size:12px"></p>
 
@@ -62,17 +62,17 @@ $status_hints = [
         </div>
     <?php endif; ?>
 
-    <h2><?php esc_html_e( 'Issue new token', 'commander-secure-mcp-control' ); ?></h2>
+    <h2><?php esc_html_e( 'Issue new token', 'mcp-for-claude' ); ?></h2>
     <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
         <input type="hidden" name="action" value="cmcp_create_token" />
         <?php wp_nonce_field( 'cmcp_create_token' ); ?>
         <table class="form-table" role="presentation">
             <tr>
-                <th><label for="label"><?php esc_html_e( 'Label', 'commander-secure-mcp-control' ); ?></label></th>
+                <th><label for="label"><?php esc_html_e( 'Label', 'mcp-for-claude' ); ?></label></th>
                 <td><input id="label" name="label" type="text" class="regular-text" required maxlength="120" /></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Scopes', 'commander-secure-mcp-control' ); ?></th>
+                <th><?php esc_html_e( 'Scopes', 'mcp-for-claude' ); ?></th>
                 <td>
                     <label><input type="checkbox" name="scopes[]" value="read" checked /> read</label>
                     <label><input type="checkbox" name="scopes[]" value="write" /> write</label>
@@ -80,7 +80,7 @@ $status_hints = [
                 </td>
             </tr>
             <tr>
-                <th><label for="user_id"><?php esc_html_e( 'Run as WP user', 'commander-secure-mcp-control' ); ?> <span style="color:#b32d2e">*</span></label></th>
+                <th><label for="user_id"><?php esc_html_e( 'Run as WP user', 'mcp-for-claude' ); ?> <span style="color:#b32d2e">*</span></label></th>
                 <td>
                     <select id="cmcp-user-select" style="min-width:280px">
                         <?php foreach ( (array) $suggested_users as $u ) :
@@ -99,49 +99,49 @@ $status_hints = [
                                 #<?php echo (int) $u_id; ?> — <?php echo esc_html( $u->user_login ); ?><?php echo esc_html( $tag ); ?>
                             </option>
                         <?php endforeach; ?>
-                        <option value="-1"><?php esc_html_e( 'Other — enter ID manually…', 'commander-secure-mcp-control' ); ?></option>
-                        <option value="0" style="color:#b32d2e"><?php esc_html_e( '0 — anonymous (only public/read tools)', 'commander-secure-mcp-control' ); ?></option>
+                        <option value="-1"><?php esc_html_e( 'Other — enter ID manually…', 'mcp-for-claude' ); ?></option>
+                        <option value="0" style="color:#b32d2e"><?php esc_html_e( '0 — anonymous (only public/read tools)', 'mcp-for-claude' ); ?></option>
                     </select>
                     <input id="user_id" name="user_id" type="number" min="0" value="<?php echo (int) $current_admin_id; ?>" style="width:90px;margin-left:8px" />
-                    <p class="description"><?php esc_html_e( "Token executes with this user's WordPress capabilities. Admin-scope tools (plugins / users / settings) ALL require the bound user to actually have those WP capabilities — so pick an Administrator unless you specifically want a limited token.", 'commander-secure-mcp-control' ); ?></p>
+                    <p class="description"><?php esc_html_e( "Token executes with this user's WordPress capabilities. Admin-scope tools (plugins / users / settings) ALL require the bound user to actually have those WP capabilities — so pick an Administrator unless you specifically want a limited token.", 'mcp-for-claude' ); ?></p>
                     <p id="cmcp-user-warning" class="notice notice-warning inline" style="display:none;padding:8px 12px;margin:6px 0 0;border-left-width:4px">
-                        ⚠ <strong><?php esc_html_e( 'This token will have no WordPress user.', 'commander-secure-mcp-control' ); ?></strong>
-                        <?php esc_html_e( 'Every capability-gated tool will fail. Only use this for testing the auth handshake itself.', 'commander-secure-mcp-control' ); ?>
+                        ⚠ <strong><?php esc_html_e( 'This token will have no WordPress user.', 'mcp-for-claude' ); ?></strong>
+                        <?php esc_html_e( 'Every capability-gated tool will fail. Only use this for testing the auth handshake itself.', 'mcp-for-claude' ); ?>
                     </p>
                 </td>
             </tr>
             <tr>
-                <th><label for="expires_days"><?php esc_html_e( 'Expires in (days)', 'commander-secure-mcp-control' ); ?></label></th>
-                <td><input id="expires_days" name="expires_days" type="number" min="0" value="0" /> <span class="description"><?php esc_html_e( '0 = never', 'commander-secure-mcp-control' ); ?></span></td>
+                <th><label for="expires_days"><?php esc_html_e( 'Expires in (days)', 'mcp-for-claude' ); ?></label></th>
+                <td><input id="expires_days" name="expires_days" type="number" min="0" value="0" /> <span class="description"><?php esc_html_e( '0 = never', 'mcp-for-claude' ); ?></span></td>
             </tr>
             <tr>
-                <th><label for="ip_allowlist"><?php esc_html_e( 'IP allowlist', 'commander-secure-mcp-control' ); ?></label></th>
+                <th><label for="ip_allowlist"><?php esc_html_e( 'IP allowlist', 'mcp-for-claude' ); ?></label></th>
                 <td><textarea id="ip_allowlist" name="ip_allowlist" rows="3" cols="40" placeholder="203.0.113.5&#10;198.51.100.0"></textarea>
-                <p class="description"><?php esc_html_e( 'One per line. Leave empty to allow any source IP.', 'commander-secure-mcp-control' ); ?></p></td>
+                <p class="description"><?php esc_html_e( 'One per line. Leave empty to allow any source IP.', 'mcp-for-claude' ); ?></p></td>
             </tr>
         </table>
-        <?php submit_button( __( 'Issue token', 'commander-secure-mcp-control' ) ); ?>
+        <?php submit_button( __( 'Issue token', 'mcp-for-claude' ) ); ?>
     </form>
 
-    <h2><?php esc_html_e( 'Existing tokens', 'commander-secure-mcp-control' ); ?></h2>
+    <h2><?php esc_html_e( 'Existing tokens', 'mcp-for-claude' ); ?></h2>
     <table class="widefat striped cmcp-tokens-table">
         <thead>
             <tr>
-                <th><?php esc_html_e( 'Label',     'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Status',    'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Prefix',    'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Scopes',    'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'User',      'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Last used', 'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Last IP',   'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( '7-day calls', 'commander-secure-mcp-control' ); ?></th>
-                <th><?php esc_html_e( 'Expires',   'commander-secure-mcp-control' ); ?></th>
-                <th style="width:280px"><?php esc_html_e( 'Actions', 'commander-secure-mcp-control' ); ?></th>
+                <th><?php esc_html_e( 'Label',     'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Status',    'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Prefix',    'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Scopes',    'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'User',      'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Last used', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Last IP',   'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( '7-day calls', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Expires',   'mcp-for-claude' ); ?></th>
+                <th style="width:280px"><?php esc_html_e( 'Actions', 'mcp-for-claude' ); ?></th>
             </tr>
         </thead>
         <tbody>
         <?php if ( empty( $tokens ) ) : ?>
-            <tr><td colspan="10"><?php esc_html_e( 'No tokens yet.', 'commander-secure-mcp-control' ); ?></td></tr>
+            <tr><td colspan="10"><?php esc_html_e( 'No tokens yet.', 'mcp-for-claude' ); ?></td></tr>
         <?php else : foreach ( $tokens as $t ) :
             $status = \CMCP\Auth::token_status( $t );
             $is_active_status = ! in_array( $status, [ 'revoked', 'expired' ], true );
@@ -192,35 +192,35 @@ $status_hints = [
                         <span class="cmcp-sparkline-total"><?php echo (int) $total; ?></span>
                     </span>
                 </td>
-                <td><?php echo $t['expires_at']  ? esc_html( $t['expires_at'] )  : '<span style="color:#a7aaad">' . esc_html__( 'never', 'commander-secure-mcp-control' ) . '</span>'; ?></td>
+                <td><?php echo $t['expires_at']  ? esc_html( $t['expires_at'] )  : '<span style="color:#a7aaad">' . esc_html__( 'never', 'mcp-for-claude' ) . '</span>'; ?></td>
                 <td class="cmcp-row-actions">
                     <?php if ( $is_active_status ) : ?>
-                        <button type="button" class="button button-small cmcp-test-row" data-token-id="<?php echo (int) $t['id']; ?>" disabled title="<?php esc_attr_e( 'Live testing of existing tokens is disabled (the plaintext is not stored on the server). Issue a new token or rotate to test.', 'commander-secure-mcp-control' ); ?>"><?php esc_html_e( 'Test', 'commander-secure-mcp-control' ); ?></button>
+                        <button type="button" class="button button-small cmcp-test-row" data-token-id="<?php echo (int) $t['id']; ?>" disabled title="<?php esc_attr_e( 'Live testing of existing tokens is disabled (the plaintext is not stored on the server). Issue a new token or rotate to test.', 'mcp-for-claude' ); ?>"><?php esc_html_e( 'Test', 'mcp-for-claude' ); ?></button>
                     <?php endif; ?>
 
                     <?php if ( $is_active_status ) : ?>
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Rotate this token? The old one will be revoked and a new plaintext will be shown.', 'commander-secure-mcp-control' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Rotate this token? The old one will be revoked and a new plaintext will be shown.', 'mcp-for-claude' ) ); ?>');">
                         <input type="hidden" name="action"   value="cmcp_rotate_token" />
                         <input type="hidden" name="token_id" value="<?php echo (int) $t['id']; ?>" />
                         <?php wp_nonce_field( 'cmcp_rotate_token' ); ?>
-                        <button class="button button-small" type="submit"><?php esc_html_e( 'Rotate', 'commander-secure-mcp-control' ); ?></button>
+                        <button class="button button-small" type="submit"><?php esc_html_e( 'Rotate', 'mcp-for-claude' ); ?></button>
                     </form>
                     <?php endif; ?>
 
                     <?php if ( $is_active_status ) : ?>
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Revoke this token? It can no longer authenticate, but the audit row stays.', 'commander-secure-mcp-control' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Revoke this token? It can no longer authenticate, but the audit row stays.', 'mcp-for-claude' ) ); ?>');">
                         <input type="hidden" name="action"   value="cmcp_revoke_token" />
                         <input type="hidden" name="token_id" value="<?php echo (int) $t['id']; ?>" />
                         <?php wp_nonce_field( 'cmcp_revoke_token' ); ?>
-                        <button class="button button-small" type="submit"><?php esc_html_e( 'Revoke', 'commander-secure-mcp-control' ); ?></button>
+                        <button class="button button-small" type="submit"><?php esc_html_e( 'Revoke', 'mcp-for-claude' ); ?></button>
                     </form>
                     <?php endif; ?>
 
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Permanently delete this token row? This action cannot be undone.', 'commander-secure-mcp-control' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Permanently delete this token row? This action cannot be undone.', 'mcp-for-claude' ) ); ?>');">
                         <input type="hidden" name="action"   value="cmcp_delete_token" />
                         <input type="hidden" name="token_id" value="<?php echo (int) $t['id']; ?>" />
                         <?php wp_nonce_field( 'cmcp_delete_token' ); ?>
-                        <button class="button button-small button-link-delete" type="submit"><?php esc_html_e( 'Delete', 'commander-secure-mcp-control' ); ?></button>
+                        <button class="button button-small button-link-delete" type="submit"><?php esc_html_e( 'Delete', 'mcp-for-claude' ); ?></button>
                     </form>
                 </td>
             </tr>
@@ -254,7 +254,7 @@ $status_hints = [
             if ( navigator.clipboard && navigator.clipboard.writeText ) {
                 navigator.clipboard.writeText( text ).then( function () {
                     var original = btn.textContent;
-                    btn.textContent = '✓ <?php echo esc_js( __( 'Copied', 'commander-secure-mcp-control' ) ); ?>';
+                    btn.textContent = '✓ <?php echo esc_js( __( 'Copied', 'mcp-for-claude' ) ); ?>';
                     setTimeout( function () { btn.textContent = original; }, 1500 );
                 } );
             } else {
@@ -315,7 +315,7 @@ $status_hints = [
             var token  = btn.getAttribute( 'data-token' );
             var result = btn.closest( '.notice' ).querySelector( '.cmcp-test-result' );
             if ( ! token || ! result ) { return; }
-            result.textContent = '<?php echo esc_js( __( 'Testing…', 'commander-secure-mcp-control' ) ); ?>';
+            result.textContent = '<?php echo esc_js( __( 'Testing…', 'mcp-for-claude' ) ); ?>';
             result.style.color = '#646970';
             var data = new URLSearchParams();
             data.set( 'action',  'cmcp_test_token' );
