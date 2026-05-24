@@ -4,7 +4,7 @@ Tags: mcp, claude, ai, oauth, rest-api
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,10 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 
 == Changelog ==
 
+= 1.6.1 =
+* **WordPress.org compliance.** Removed the GitHub auto-updater (the `Update URI:` header, `includes/class-github-updater.php`, and the `GithubUpdater::init()` call). WordPress.org plugins must not ship their own update mechanism — updates come from the .org directory.
+* **Fix:** Converted the Python and Node snippets in `includes/admin/views/partials/token-snippets.php` from heredoc syntax (`<<<PY`, `<<<JS`) to plain string concatenation. The Plugin Check rule `PluginCheck.CodeAnalysis.Heredoc.NotAllowed` flags heredoc as a guideline violation.
+
 = 1.6.0 =
 * **Slug rename to `mcp-for-claude`** — WordPress.org review assigned the slug `mcp-for-claude` to this plugin. Folder, main file, text domain and POT have been renamed accordingly. The display name "Commander — Secure MCP Control" is unchanged. Existing installs from earlier zips need a one-time fresh install (settings stay in the DB but the old folder must be removed).
 
@@ -177,6 +181,9 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 * Initial release. Personal access tokens, scope + capability gating, audit log, rate limiting, SSRF guard on media.upload, 25 built-in tools, WP-CLI command, custom-tool filter.
 
 == Upgrade Notice ==
+
+= 1.6.1 =
+Drops the GitHub auto-updater (required for WordPress.org listing) and a heredoc syntax issue flagged by Plugin Check. No functional changes.
 
 = 1.6.0 =
 **Slug rename to `mcp-for-claude`** — this version's folder is `mcp-for-claude/`. If you have an older `commander-secure-mcp-control/` folder, deactivate it via WP admin (don't click Delete — it would drop your tokens table), then delete that folder via FTP/SSH, then install this 1.6.0 zip fresh. Database is untouched.

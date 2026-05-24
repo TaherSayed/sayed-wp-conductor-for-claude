@@ -41,48 +41,41 @@ $claude_desktop = wp_json_encode(
     JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
 );
 
-$python_snippet = <<<PY
-import requests, json
+$python_snippet  = "import requests, json\n\n";
+$python_snippet .= 'url   = "' . $rpc_url . "\"\n";
+$python_snippet .= 'token = "' . $token_for_snippet . "\"\n\n";
+$python_snippet .= "resp = requests.post(\n";
+$python_snippet .= "    url,\n";
+$python_snippet .= "    headers={\n";
+$python_snippet .= "        \"Authorization\": f\"Bearer {token}\",\n";
+$python_snippet .= "        \"Content-Type\":  \"application/json\",\n";
+$python_snippet .= "        \"Accept\":        \"application/json\",\n";
+$python_snippet .= "    },\n";
+$python_snippet .= "    json={\n";
+$python_snippet .= "        \"jsonrpc\": \"2.0\",\n";
+$python_snippet .= "        \"id\": 1,\n";
+$python_snippet .= "        \"method\": \"tools/list\",\n";
+$python_snippet .= "    },\n";
+$python_snippet .= "    timeout=10,\n";
+$python_snippet .= ")\n";
+$python_snippet .= "print(json.dumps(resp.json(), indent=2))";
 
-url   = "{$rpc_url}"
-token = "{$token_for_snippet}"
-
-resp = requests.post(
-    url,
-    headers={
-        "Authorization": f"Bearer {token}",
-        "Content-Type":  "application/json",
-        "Accept":        "application/json",
-    },
-    json={
-        "jsonrpc": "2.0",
-        "id": 1,
-        "method": "tools/list",
-    },
-    timeout=10,
-)
-print(json.dumps(resp.json(), indent=2))
-PY;
-
-$node_snippet = <<<JS
-const url   = "{$rpc_url}";
-const token = "{$token_for_snippet}";
-
-const res = await fetch(url, {
-  method: "POST",
-  headers: {
-    "Authorization": `Bearer \${token}`,
-    "Content-Type":  "application/json",
-    "Accept":        "application/json",
-  },
-  body: JSON.stringify({
-    jsonrpc: "2.0",
-    id: 1,
-    method: "tools/list",
-  }),
-});
-console.log(JSON.stringify(await res.json(), null, 2));
-JS;
+$node_snippet  = 'const url   = "' . $rpc_url . "\";\n";
+$node_snippet .= 'const token = "' . $token_for_snippet . "\";\n\n";
+$node_snippet .= "const res = await fetch(url, {\n";
+$node_snippet .= "  method: \"POST\",\n";
+$node_snippet .= "  headers: {\n";
+$node_snippet .= "    \"Authorization\": `Bearer \${token}`,\n";
+$node_snippet .= "    \"Content-Type\":  \"application/json\",\n";
+$node_snippet .= "    \"Accept\":        \"application/json\",\n";
+$node_snippet .= "  },\n";
+$node_snippet .= "  body: JSON.stringify({\n";
+$node_snippet .= "    jsonrpc: \"2.0\",\n";
+$node_snippet .= "    id: 1,\n";
+$node_snippet .= "    method: \"tools/list\",\n";
+$node_snippet .= "  }),\n";
+$node_snippet .= "});\n";
+$node_snippet .= "console.log(JSON.stringify(await res.json(), null, 2));";
 ?>
 <details class="cmcp-snippets">
     <summary>🔌 <?php esc_html_e( 'Connect snippets', 'mcp-for-claude' ); ?></summary>
