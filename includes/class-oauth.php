@@ -223,7 +223,57 @@ final class OAuth {
         }
 
         global $wpdb;
+
+        // Dedup: when a remote client (e.g. Claude.ai) re-registers because it
+        // dropped its credentials, it sends the exact same metadata. Without
+        // this sweep, every reconnect leaves an orphan row in the clients table
+        // — the user's admin page ends up with N "Claude" entries, most with
+        // zero active tokens. Before inserting the new row, garbage-collect any
+        // existing DCR clients that have the same identifying metadata AND no
+        // active (non-revoked, non-expired) tokens. We CANNOT reuse the old
+        // client_id because we'd need to return the plaintext client_secret to
+        // the caller, and we only stored its hash — so the cleanest answer is
+        // to delete the orphans and issue a fresh client_id + secret.
         // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin tables; table names cannot be prepared, caching not applicable.
+        $oc_table  = $wpdb->prefix . Plugin::TABLE_OAUTH_CLIENTS;
+        $tok_table = $wpdb->prefix . Plugin::TABLE_OAUTH_TOKENS;
+        $orphans   = $wpdb->get_col( $wpdb->prepare(
+            "SELECT c.client_id
+               FROM {$oc_table} c
+              WHERE c.is_dcr = 1
+                AND c.name = %s
+                AND c.redirect_uris = %s
+                AND c.token_endpoint_auth_method = %s
+                AND NOT EXISTS (
+                      SELECT 1 FROM {$tok_table} t
+                       WHERE t.client_id = c.client_id
+                         AND t.revoked_at IS NULL
+                         AND (t.refresh_expires_at IS NULL OR t.refresh_expires_at > NOW())
+                  )",
+            mb_substr( $name, 0, 200 ),
+            wp_json_encode( array_values( $redirect_uris ) ),
+            $auth_method
+        ) );
+        if ( ! empty( $orphans ) ) {
+            $placeholders = implode( ',', array_fill( 0, count( $orphans ), '%s' ) );
+            // Revoke any leftover tokens (defence in depth — shouldn't exist after the NOT EXISTS filter).
+            $wpdb->query( $wpdb->prepare(
+                "UPDATE {$tok_table} SET revoked_at = NOW() WHERE revoked_at IS NULL AND client_id IN ({$placeholders})",
+                ...$orphans
+            ) );
+            // Drop the orphan client rows.
+            $wpdb->query( $wpdb->prepare(
+                "DELETE FROM {$oc_table} WHERE client_id IN ({$placeholders})",
+                ...$orphans
+            ) );
+            Logger::log( [
+                'method'      => 'oauth/register',
+                'success'     => 1,
+                'status_code' => 200,
+                'note'        => 'gc-orphan-dcr: ' . count( $orphans ) . ' stale "' . $name . '" client(s) reaped before re-register',
+            ] );
+        }
+
         $wpdb->insert(
             $wpdb->prefix . Plugin::TABLE_OAUTH_CLIENTS,
             [

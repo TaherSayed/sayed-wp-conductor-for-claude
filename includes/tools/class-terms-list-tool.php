@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * terms.list â€” list taxonomy terms (categories, tags, or any registered taxonomy).
+ * terms.list — list taxonomy terms (categories, tags, or any registered taxonomy).
  *
  * @package WPCommander
  */

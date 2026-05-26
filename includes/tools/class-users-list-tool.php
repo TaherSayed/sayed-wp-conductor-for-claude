@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * users.list â€” list WordPress users (admin scope).
+ * users.list — list WordPress users (admin scope).
  *
  * @package WPCommander
  */
@@ -14,7 +14,7 @@ final class UsersListTool extends AbstractTool {
     public function name(): string { return 'users_list'; }
 
     public function description(): string {
-        return 'List users (admin scope). Returns id, login, display name, email, roles, registered date. Sensitive data â€” handle with care.';
+        return 'List users (admin scope). Returns id, login, display name, email, roles, registered date. Sensitive data — handle with care.';
     }
 
     public function input_schema(): array {

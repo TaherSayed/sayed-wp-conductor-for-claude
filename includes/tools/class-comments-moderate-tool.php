@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * comments.moderate â€” approve / unapprove / spam / trash a comment.
+ * comments.moderate — approve / unapprove / spam / trash a comment.
  *
  * @package WPCommander
  */

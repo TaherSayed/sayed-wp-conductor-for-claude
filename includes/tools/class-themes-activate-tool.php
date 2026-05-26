@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * themes.activate â€” switch the active theme.
+ * themes.activate — switch the active theme.
  *
  * @package WPCommander
  */

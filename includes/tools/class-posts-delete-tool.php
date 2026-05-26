@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * posts.delete â€” trash a post, or (with danger mode on) permanently delete it.
+ * posts.delete — trash a post, or (with danger mode on) permanently delete it.
  *
  * @package WPCommander
  */

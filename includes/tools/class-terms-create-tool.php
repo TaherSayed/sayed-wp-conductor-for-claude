@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * terms.create â€” create a new term in a taxonomy.
+ * terms.create — create a new term in a taxonomy.
  *
  * @package WPCommander
  */

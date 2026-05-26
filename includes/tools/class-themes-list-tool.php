@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * themes.list â€” list installed themes.
+ * themes.list — list installed themes.
  *
  * @package WPCommander
  */

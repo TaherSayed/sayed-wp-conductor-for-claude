@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * settings.get â€” read whitelisted WordPress options.
+ * settings.get — read whitelisted WordPress options.
  *
  * @package WPCommander
  */

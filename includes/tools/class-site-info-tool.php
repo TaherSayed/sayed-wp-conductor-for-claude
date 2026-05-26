@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * site.info â€” return basic public site info.
+ * site.info — return basic public site info.
  *
  * @package ClaudeMCPSecure
  */

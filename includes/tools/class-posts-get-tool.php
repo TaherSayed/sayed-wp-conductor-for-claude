@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * posts.get â€” fetch one post by ID. Only published posts are returned to non-privileged users.
+ * posts.get — fetch one post by ID. Only published posts are returned to non-privileged users.
  *
  * @package ClaudeMCPSecure
  */

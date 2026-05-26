@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * comments.list â€” list comments by status.
+ * comments.list — list comments by status.
  *
  * @package WPCommander
  */

@@ -304,9 +304,10 @@ add_action( 'cmcp_daily_cleanup', function () {
     $settings = Plugin::get_settings();
     $days     = max( 1, (int) ( $settings['log_retention_days'] ?? 30 ) );
 
-    $audit  = $wpdb->prefix . Plugin::TABLE_AUDIT;
-    $codes  = $wpdb->prefix . Plugin::TABLE_OAUTH_CODES;
-    $tokens = $wpdb->prefix . Plugin::TABLE_OAUTH_TOKENS;
+    $audit   = $wpdb->prefix . Plugin::TABLE_AUDIT;
+    $codes   = $wpdb->prefix . Plugin::TABLE_OAUTH_CODES;
+    $tokens  = $wpdb->prefix . Plugin::TABLE_OAUTH_TOKENS;
+    $clients = $wpdb->prefix . Plugin::TABLE_OAUTH_CLIENTS;
 
     // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
     // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin tables; table names cannot be prepared, caching not applicable.
@@ -319,6 +320,25 @@ add_action( 'cmcp_daily_cleanup', function () {
     // Revoked tokens older than 30 days — gone.
     // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin tables; table names cannot be prepared, caching not applicable.
     $wpdb->query( "DELETE FROM {$tokens} WHERE revoked_at IS NOT NULL AND revoked_at < NOW() - INTERVAL 30 DAY" );
+    // phpcs:enable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+
+    // DCR clients (is_dcr=1) registered more than 7 days ago with no active
+    // tokens are orphans — created by a client that never finished the OAuth
+    // flow, or by a remote app that re-registered and abandoned the old row.
+    // Sweep them to keep the admin "OAuth Clients" page readable. Manually
+    // created clients (is_dcr=0) are never touched.
+    // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin tables; table names cannot be prepared, caching not applicable.
+    $wpdb->query(
+        "DELETE c FROM {$clients} c
+          WHERE c.is_dcr = 1
+            AND c.created_at < DATE_SUB(NOW(), INTERVAL 7 DAY)
+            AND NOT EXISTS (
+                  SELECT 1 FROM {$tokens} t
+                   WHERE t.client_id = c.client_id
+                     AND t.revoked_at IS NULL
+                     AND (t.refresh_expires_at IS NULL OR t.refresh_expires_at > NOW())
+              )"
+    );
     // phpcs:enable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
     // phpcs:enable
 } );

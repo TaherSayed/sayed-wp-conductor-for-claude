@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * posts.list â€” list published posts (or another post type) with pagination.
+ * posts.list — list published posts (or another post type) with pagination.
  *
  * @package ClaudeMCPSecure
  */

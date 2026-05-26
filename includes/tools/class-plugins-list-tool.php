@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * plugins.list â€” list installed plugins with active state and update availability.
+ * plugins.list — list installed plugins with active state and update availability.
  *
  * @package WPCommander
  */

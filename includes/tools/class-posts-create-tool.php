@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * posts.create â€” create a post or page (any registered post type).
+ * posts.create — create a post or page (any registered post type).
  *
  * @package WPCommander
  */

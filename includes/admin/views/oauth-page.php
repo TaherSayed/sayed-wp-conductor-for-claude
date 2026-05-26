@@ -79,17 +79,17 @@ $mcp_url    = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
                 <td><?php echo (int) ( $c['active_tokens'] ?? 0 ); ?></td>
                 <td><?php echo esc_html( $c['created_at'] ); ?></td>
                 <td>
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Revoke ALL active tokens for this client?', 'mcp-for-claude' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Sign this client out (revoke active tokens) but keep its registration so it can reconnect with a new session?', 'mcp-for-claude' ) ); ?>');">
                         <input type="hidden" name="action" value="cmcp_oauth_revoke_tokens" />
                         <input type="hidden" name="client_id" value="<?php echo esc_attr( $c['client_id'] ); ?>" />
                         <?php wp_nonce_field( 'cmcp_oauth_revoke_tokens' ); ?>
-                        <button class="button" type="submit"><?php esc_html_e( 'Revoke tokens', 'mcp-for-claude' ); ?></button>
+                        <button class="button" type="submit" title="<?php esc_attr_e( 'Revoke all active access + refresh tokens. Client stays registered.', 'mcp-for-claude' ); ?>"><?php esc_html_e( 'Sign out', 'mcp-for-claude' ); ?></button>
                     </form>
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Delete this client and revoke its tokens? It will need to re-authorize.', 'mcp-for-claude' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Disconnect this client completely? Revokes all tokens and removes the registration. The remote app will have to register again from scratch on next connect.', 'mcp-for-claude' ) ); ?>');">
                         <input type="hidden" name="action" value="cmcp_oauth_delete_client" />
                         <input type="hidden" name="client_id" value="<?php echo esc_attr( $c['client_id'] ); ?>" />
                         <?php wp_nonce_field( 'cmcp_oauth_delete_client' ); ?>
-                        <button class="button button-link-delete" type="submit"><?php esc_html_e( 'Delete client', 'mcp-for-claude' ); ?></button>
+                        <button class="button button-link-delete" type="submit" title="<?php esc_attr_e( 'Revoke tokens AND remove the client registration row.', 'mcp-for-claude' ); ?>"><?php esc_html_e( 'Disconnect', 'mcp-for-claude' ); ?></button>
                     </form>
                 </td>
             </tr>

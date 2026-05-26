@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * site.health â€” quick technical health snapshot.
+ * site.health — quick technical health snapshot.
  *
  * @package WPCommander
  */

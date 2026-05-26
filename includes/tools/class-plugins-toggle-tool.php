@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * plugins.toggle â€” activate or deactivate a plugin.
+ * plugins.toggle — activate or deactivate a plugin.
  *
  * Protects Commander itself: refuses to deactivate its own plugin file.
  *

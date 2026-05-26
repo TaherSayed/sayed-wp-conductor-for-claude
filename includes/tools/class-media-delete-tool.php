@@ -1,11 +1,13 @@
-﻿<?php
+<?php
 /**
- * media.delete â€” delete an attachment.
+ * media.delete — delete an attachment.
  *
  * @package WPCommander
  */
 
 namespace CMCP\Tools;
+
+use CMCP\Plugin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,7 +16,7 @@ final class MediaDeleteTool extends AbstractTool {
     public function name(): string { return 'media_delete'; }
 
     public function description(): string {
-        return 'Permanently delete an attachment from the media library along with its files.';
+        return 'Permanently delete an attachment from the media library along with its files. Requires "Allow destructive operations" to be enabled in plugin settings.';
     }
 
     public function input_schema(): array {
@@ -36,6 +38,11 @@ final class MediaDeleteTool extends AbstractTool {
         }
         if ( ! current_user_can( 'delete_post', $id ) ) {
             throw new \RuntimeException( 'Not allowed to delete this attachment.' );
+        }
+        // media_delete is a hard delete (no trash for attachments by default in
+        // wp_delete_attachment), so it always counts as a destructive op.
+        if ( empty( Plugin::get_settings()['allow_destructive'] ) ) {
+            throw new \RuntimeException( 'Permanent delete is disabled. Enable "Allow destructive operations" in Commander settings.' );
         }
         $res = wp_delete_attachment( $id, true );
         if ( ! $res ) {

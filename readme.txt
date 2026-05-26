@@ -4,7 +4,7 @@ Tags: mcp, claude, ai, oauth, rest-api
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,13 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 5. Audit Log — every call, with token id, IP, JSON-RPC method, tool, status, note.
 
 == Changelog ==
+
+= 1.8.1 =
+* **Fix:** DCR client deduplication. When a remote app (Claude.ai) re-registered after losing its credentials, the plugin used to leave an orphan row in `cmcp_oauth_clients` on every reconnect — admins were ending up with N "Claude" entries, most with zero active tokens. `rest_register()` now sweeps any existing DCR clients that share the incoming metadata (name + redirect_uris + auth method) and have no active tokens *before* inserting the new row, so the table only grows by one row when a connection is actually live. The daily cleanup cron also reaps DCR clients older than 7 days with no active tokens (orphans from abandoned flows).
+* **Security:** Tighter SSRF guard on `media_upload`. The previous IPv4-only `gethostbynamel()` lookup let an attacker host with an AAAA record bypass the filter and target IPv6 loopback / ULA / link-local. The guard now resolves both A and AAAA via `dns_get_record()`, checks literal-IP hosts directly (no DNS step), explicitly rejects IPv6 ULA (fc00::/7), link-local (fe80::/10), IPv4-mapped IPv6 (::ffff:a.b.c.d), and well-known cloud metadata endpoints (169.254.169.254, fd00:ec2::254) belt-and-braces on top of the existing `FILTER_FLAG_NO_PRIV_RANGE` / `NO_RES_RANGE` filters.
+* **Security:** `media_delete` now respects the "Allow destructive operations" setting (it was an unconditional hard delete before — wp_delete_attachment with force=true). Matches the gate that `posts_delete` and `settings_update` already enforce.
+* **UX:** OAuth Clients page action buttons relabelled. "Revoke tokens" → "Sign out" (revoke active tokens, keep registration so the client can reconnect with the same client_id). "Delete client" → "Disconnect" (revoke + remove registration entirely). Tooltips and confirmation prompts spell out the difference so admins don't pick the wrong one.
+* **Internal:** Encoding-safe tool-file rewrites — the 1.8.0 release accidentally mojibake'd em-dashes in 24 tool source files because PowerShell 5.1's `Get-Content` defaulted to Windows-1252 on UTF-8-without-BOM. Restored from v1.7.2 and re-applied the rename via raw UTF-8 IO. No runtime impact (PHP doesn't care about source comment encoding), but `git blame` is now legible again.
 
 = 1.8.0 =
 * **Breaking-compatible:** Tool names changed from dotted (`site.info`, `posts.list`) to underscored (`site_info`, `posts_list`) so Claude.ai's remote-MCP UI accepts them. Claude.ai enforces `^[a-zA-Z0-9_-]{1,64}$` on tool names and rejected the dotted form (`tools.36.FrontendRemoteMcpToolDefinition.name: String should match pattern ...`). Claude Desktop / Claude Code clients also accept the new names. Existing installs are auto-migrated on first load — any dotted slugs saved in the `enabled_tools` option are rewritten to underscored equivalents, so admins keep their tool selection without manual action.

@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * posts.search â€” full-text search across published content.
+ * posts.search — full-text search across published content.
  *
  * @package ClaudeMCPSecure
  */

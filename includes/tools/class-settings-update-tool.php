@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * settings.update â€” update whitelisted WordPress options.
+ * settings.update — update whitelisted WordPress options.
  *
  * "Dangerous" options (siteurl, home, admin_email, users_can_register, default_role,
  * permalink_structure) additionally require Allow destructive operations = on.
@@ -25,7 +25,7 @@ final class SettingsUpdateTool extends AbstractTool {
         'WPLANG', 'comment_registration',
     ];
 
-    /** Sensitive options â€” only when "Allow destructive" is enabled. */
+    /** Sensitive options — only when "Allow destructive" is enabled. */
     public const SENSITIVE = [
         'admin_email', 'siteurl', 'home', 'users_can_register', 'default_role', 'permalink_structure',
         'category_base', 'tag_base',

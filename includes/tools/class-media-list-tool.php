@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * media.list â€” list attachments.
+ * media.list — list attachments.
  *
  * @package WPCommander
  */

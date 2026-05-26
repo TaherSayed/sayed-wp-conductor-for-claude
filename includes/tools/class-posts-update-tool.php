@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
- * posts.update â€” update an existing post / page.
+ * posts.update — update an existing post / page.
  *
  * @package WPCommander
  */
