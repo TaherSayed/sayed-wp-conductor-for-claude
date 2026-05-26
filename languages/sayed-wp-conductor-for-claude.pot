@@ -1,9 +1,9 @@
-# Copyright (C) Taher Sayed · HBS IT GmbH
+# Copyright (C) Taher Sayed
 # This file is distributed under the GPL-2.0-or-later license.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Commander — Secure MCP Control 1.3.0\n"
-"Report-Msgid-Bugs-To: https://hbs-it-gmbh.de/wp-commander\n"
+"Project-Id-Version: WP Sayed WP Conductor for Claude 1.3.0\n"
+"Report-Msgid-Bugs-To: https://github.com/TaherSayed/wp-commander\n"
 "POT-Creation-Date: 2026-05-24 14:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -76,7 +76,7 @@ msgid "Built by Taher Sayed"
 msgstr ""
 
 #: includes/admin/views/log-page.php:14
-msgid "Commander — Audit Log"
+msgid "Sayed WP Conductor — Audit Log"
 msgstr ""
 
 #: includes/admin/views/log-page.php:15
@@ -121,7 +121,7 @@ msgid "No log entries yet."
 msgstr ""
 
 #: includes/admin/views/oauth-page.php:22
-msgid "Commander — OAuth Clients"
+msgid "Sayed WP Conductor — OAuth Clients"
 msgstr ""
 
 #: includes/admin/views/oauth-page.php:23
@@ -334,11 +334,11 @@ msgid "Admin"
 msgstr ""
 
 #: includes/admin/views/settings-page.php:50
-msgid "Commander — Secure MCP Control"
+msgid "Sayed WP Conductor for Claude"
 msgstr ""
 
 #: includes/admin/views/settings-page.php:52
-msgid "Powered by Taher Sayed · HBS IT GmbH"
+msgid "Powered by Taher Sayed"
 msgstr ""
 
 #: includes/admin/views/settings-page.php:56
@@ -550,7 +550,7 @@ msgid "Testing…"
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:33
-msgid "Commander — Tokens"
+msgid "Sayed WP Conductor — Tokens"
 msgstr ""
 
 #: includes/admin/views/tokens-page.php:36
@@ -615,7 +615,7 @@ msgstr ""
 
 #: includes/class-admin.php:52
 #: includes/class-admin.php:53
-msgid "Commander"
+msgid "Sayed WP Conductor"
 msgstr ""
 
 #: includes/class-admin.php:60
@@ -650,12 +650,12 @@ msgstr ""
 
 #. translators: %s: site host
 #: includes/class-brute-force.php:138
-msgid "[Commander] Brute-force lockout on %s"
+msgid "[Sayed WP Conductor] Brute-force lockout on %s"
 msgstr ""
 
 #. translators: 1: IP address, 2: site host, 3: failure count, 4: lockout seconds, 5: UTC timestamp, 6: audit-log URL
 #: includes/class-brute-force.php:143
-msgid "Commander locked out IP %1\\$s on %2\\$s after %3\\$d failed authentication attempts.\\n\\nLockout duration: %4\\$d seconds.\\nTime: %5\\$s UTC\\n\\nReview the audit log: %6\\$s\\n\\n— Commander"
+msgid "Sayed WP Conductor locked out IP %1\\$s on %2\\$s after %3\\$d failed authentication attempts.\\n\\nLockout duration: %4\\$d seconds.\\nTime: %5\\$s UTC\\n\\nReview the audit log: %6\\$s\\n\\n— Sayed WP Conductor"
 msgstr ""
 
 #. translators: %d: seconds until lockout expires

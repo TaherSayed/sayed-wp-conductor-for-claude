@@ -24,7 +24,7 @@ $mcp_endpoint = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
             </svg>
         </div>
         <div>
-            <h1>Commander <span class="cmcp-version">v<?php echo esc_html( CMCP_VERSION ); ?></span></h1>
+            <h1>Sayed WP Conductor <span class="cmcp-version">v<?php echo esc_html( CMCP_VERSION ); ?></span></h1>
             <p class="cmcp-subtitle">Secure MCP Control · <?php echo esc_html( $home_host ); ?></p>
         </div>
     </div>
@@ -91,7 +91,7 @@ $mcp_endpoint = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
                     <input type="checkbox" name="create_user" value="1" checked>
                     <span><strong>Create <code>wp-commander-bot</code></strong> (administrator role)</span>
                 </label>
-                <p class="description">Tokens run as this user. The bot password is randomly generated and never used — only API tokens authenticate. Cleaner audit trail and clear "this action was done via Commander" attribution.</p>
+                <p class="description">Tokens run as this user. The bot password is randomly generated and never used — only API tokens authenticate. Cleaner audit trail and clear "this action was done via Sayed WP Conductor" attribution.</p>
             </div>
 
             <div class="cmcp-step">
@@ -125,7 +125,7 @@ $mcp_endpoint = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
     </div>
 
     <div class="cmcp-card cmcp-info">
-        <h3>What Commander does</h3>
+        <h3>What Sayed WP Conductor does</h3>
         <ul class="cmcp-features">
             <li>🔌 <strong>JSON-RPC 2.0 / Streamable HTTP</strong> — MCP 2025-06-18 spec</li>
             <li>🔐 <strong>OAuth 2.1 + PKCE + Dynamic Client Registration</strong> — claude.ai web works out of the box</li>
@@ -139,5 +139,5 @@ $mcp_endpoint = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
     </div>
 <?php endif; ?>
 
-    <p class="cmcp-credit">Commander · Secure MCP Control · <a href="https://hbs-it-gmbh.de" target="_blank" rel="noopener">HBS IT GmbH</a> · Built by Taher Sayed</p>
+    <p class="cmcp-credit">Sayed WP Conductor · Secure MCP Control · <a href="https://github.com/TaherSayed" target="_blank" rel="noopener">Taher Sayed</a> · Built by Taher Sayed</p>
 </div>

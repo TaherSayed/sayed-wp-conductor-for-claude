@@ -1,23 +1,23 @@
-# Commander — Secure MCP Control
+# Sayed WP Conductor for Claude
 
 [![License: GPL v2+](https://img.shields.io/badge/License-GPLv2%2B-blue.svg)](LICENSE)
 [![Requires PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4.svg)](composer.json)
 [![Requires WP](https://img.shields.io/badge/WordPress-6.2%2B-21759B.svg)](readme.txt)
 [![MCP](https://img.shields.io/badge/MCP-2025--06--18-7C3AED.svg)](https://modelcontextprotocol.io)
 
-> Powered by **Taher Sayed** · HBS IT GmbH
+> Powered by **Taher Sayed** · Taher Sayed
 
 A WordPress plugin that turns your site into a **secure Model Context Protocol (MCP) server** so Claude (and any MCP-compatible client) can read, write, moderate and administrate it — with every call scoped, capability-checked, rate-limited and audit-logged.
 
 Implements **MCP 2025-06-18** over Streamable HTTP / JSON-RPC 2.0.
 
-![Commander banner](assets-wporg/banner-772x250.png)
+![Sayed WP Conductor banner](assets-wporg/banner-772x250.png)
 
 ---
 
-## Why Commander?
+## Why Sayed WP Conductor?
 
-Most WordPress AI plugins either expose an admin session to a third party or skip auth entirely. Commander is built around hard interlocks:
+Most WordPress AI plugins either expose an admin session to a third party or skip auth entirely. Sayed WP Conductor is built around hard interlocks:
 
 - **No anonymous access.** Every request needs a bearer token.
 - **Tokens hashed at rest** (SHA-256). The plaintext is shown to the admin once, never recoverable.
@@ -32,23 +32,23 @@ Most WordPress AI plugins either expose an admin session to a third party or ski
 ## Install / upgrade
 
 **From WordPress.org** (recommended once approved):
-Search for "Commander — Secure MCP Control" under **Plugins → Add New**, install, activate.
+Search for "Sayed WP Conductor for Claude" under **Plugins → Add New**, install, activate.
 
 **From this repo** (development install):
 
 ```bash
 cd wp-content/plugins/
-git clone https://github.com/TaherSayed/commander-secure-mcp-control.git mcp-for-claude
+git clone https://github.com/TaherSayed/commander-secure-mcp-control.git sayed-wp-conductor-for-claude
 ```
 
-Then activate **Commander — Secure MCP Control** under **Plugins**. The 30-second setup wizard runs on first activation. (The local folder must be named `mcp-for-claude` so it matches the text-domain slug.)
+Then activate **Sayed WP Conductor for Claude** under **Plugins**. The 30-second setup wizard runs on first activation. (The local folder must be named `sayed-wp-conductor-for-claude` so it matches the text-domain slug.)
 
 **From a release zip:**
 Download the latest `commander-secure-mcp-control-x.y.z.zip` from [Releases](https://github.com/TaherSayed/commander-secure-mcp-control/releases) and upload via **Plugins → Add New → Upload Plugin**.
 
 After install:
-1. Go to **Commander → Tokens** and issue a token (bind it to a least-privileged WP user).
-2. Tune **Commander → Settings** — allowed origins, rate limit, destructive ops, trust-proxy, OAuth options, enabled tools.
+1. Go to **Sayed WP Conductor → Tokens** and issue a token (bind it to a least-privileged WP user).
+2. Tune **Sayed WP Conductor → Settings** — allowed origins, rate limit, destructive ops, trust-proxy, OAuth options, enabled tools.
 
 **Requires:** PHP 8.0+ and WordPress 6.2+.
 
@@ -95,7 +95,7 @@ Auth: `Authorization: Bearer cmcp_xxxxx…`
 | Tool | What |
 |------|------|
 | `users.list` / `users.create` / `users.update` | User management (passwords NOT settable via MCP) |
-| `plugins.list` / `plugins.toggle` | List, activate, deactivate plugins (cannot deactivate Commander itself) |
+| `plugins.list` / `plugins.toggle` | List, activate, deactivate plugins (cannot deactivate Sayed WP Conductor itself) |
 | `themes.list` / `themes.activate` | List and switch themes |
 | `settings.update` | Update whitelisted options (sensitive keys require danger mode) |
 
@@ -127,7 +127,7 @@ curl -sS -X POST "$HOST/wp-json/claude-mcp/v1/rpc" \
 
 ## Recommended token layout for client sites
 
-For each WordPress site managed by HBS IT GmbH, create at least:
+For each WordPress site managed by Taher Sayed, create at least:
 
 | Purpose | Scopes | Bound user | Notes |
 |---------|--------|------------|-------|
@@ -156,7 +156,7 @@ Add IP allowlist on each token if you call from a fixed location.
 - Abuse / runaway loops (per-token rate limit, body size cap)
 - Privilege escalation (WP capability final check)
 - SSRF on media URL fetches (no private / loopback / reserved IPs)
-- Self-lockout (refuses to deactivate Commander itself)
+- Self-lockout (refuses to deactivate Sayed WP Conductor itself)
 - Log poisoning (control-char strip, length cap, no token plaintext)
 
 ### Threats NOT handled
@@ -191,7 +191,7 @@ add_filter( 'cmcp_register_tools', function( array $tools ) {
 } );
 ```
 
-Enable the new tool name in **Commander → Settings → Enabled tools**.
+Enable the new tool name in **Sayed WP Conductor → Settings → Enabled tools**.
 
 ---
 
@@ -207,4 +207,4 @@ wp cmcp token revoke 5
 
 ## License
 
-GPL-2.0-or-later · © Taher Sayed · HBS IT GmbH
+GPL-2.0-or-later · © Taher Sayed

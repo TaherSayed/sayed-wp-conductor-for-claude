@@ -1,6 +1,6 @@
 <?php
 /**
- * OAuth 2.1 authorization server for Commander.
+ * OAuth 2.1 authorization server for Sayed WP Conductor.
  *
  * Implements:
  *   - RFC 6749 Authorization Code grant (only — no implicit, no password)
@@ -183,7 +183,7 @@ final class OAuth {
         if ( empty( $settings['allow_dcr'] ) ) {
             return self::oauth_error(
                 'access_denied',
-                'Dynamic Client Registration is disabled on this site. Enable it under Commander → Settings → OAuth.',
+                'Dynamic Client Registration is disabled on this site. Enable it under Sayed WP Conductor → Settings → OAuth.',
                 403
             );
         }
@@ -909,7 +909,7 @@ final class OAuth {
         ?>
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title><?php esc_html_e( 'Authorize access', 'mcp-for-claude' ); ?></title>
+<title><?php esc_html_e( 'Authorize access', 'sayed-wp-conductor-for-claude' ); ?></title>
 <link rel="stylesheet" href="<?php echo esc_url( CMCP_URL . 'assets/css/oauth-consent.css?v=' . CMCP_VERSION ); ?>"></head><body>
 <div class="card">
   <h1>Authorize access</h1>
@@ -957,9 +957,9 @@ final class OAuth {
         $msg = esc_html( $msg );
         $css_url = esc_url( CMCP_URL . 'assets/css/oauth-consent.css?v=' . CMCP_VERSION );
         $html  = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">';
-        $html .= '<title>' . esc_html__( 'OAuth error', 'mcp-for-claude' ) . '</title>';
+        $html .= '<title>' . esc_html__( 'OAuth error', 'sayed-wp-conductor-for-claude' ) . '</title>';
         $html .= '<link rel="stylesheet" href="' . $css_url . '">';
-        $html .= '</head><body><div class="card"><h1 style="color:#b32d2e">' . esc_html__( 'OAuth error', 'mcp-for-claude' ) . '</h1><p>' . $msg . '</p></div></body></html>';
+        $html .= '</head><body><div class="card"><h1 style="color:#b32d2e">' . esc_html__( 'OAuth error', 'sayed-wp-conductor-for-claude' ) . '</h1><p>' . $msg . '</p></div></body></html>';
         return $html;
     }
 

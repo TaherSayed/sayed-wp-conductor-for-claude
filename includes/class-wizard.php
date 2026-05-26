@@ -38,11 +38,11 @@ final class Wizard {
         ?>
         <div class="notice notice-info" style="border-left-color:#2271b1">
             <p style="font-size:14px">
-                🛡️ <strong>Commander</strong> is installed. Run the
-                <a href="<?php echo esc_url( $url ); ?>" class="button button-primary" style="margin-left:6px"><?php esc_html_e( '30-second setup', 'mcp-for-claude' ); ?></a>
+                🛡️ <strong>Sayed WP Conductor</strong> is installed. Run the
+                <a href="<?php echo esc_url( $url ); ?>" class="button button-primary" style="margin-left:6px"><?php esc_html_e( '30-second setup', 'sayed-wp-conductor-for-claude' ); ?></a>
                 — auto-creates a dedicated bot user and your first token, or
-                <a href="<?php echo esc_url( $dismiss ); ?>" style="margin-left:4px"><?php esc_html_e( 'skip', 'mcp-for-claude' ); ?></a>.
-                <span style="color:#646970;font-size:12px;float:right">powered by Taher Sayed · HBS IT GmbH</span>
+                <a href="<?php echo esc_url( $dismiss ); ?>" style="margin-left:4px"><?php esc_html_e( 'skip', 'sayed-wp-conductor-for-claude' ); ?></a>.
+                <span style="color:#646970;font-size:12px;float:right">powered by Taher Sayed</span>
             </p>
         </div>
         <?php
@@ -140,9 +140,9 @@ final class Wizard {
             'user_login'   => $login,
             'user_email'   => $email,
             'user_pass'    => $pass,
-            'display_name' => 'Commander Bot',
+            'display_name' => 'Sayed WP Conductor Bot',
             'role'         => 'administrator',
-            'description'  => 'Service account for Commander MCP. Created by the setup wizard. Do not log in as this user — all access is via API tokens.',
+            'description'  => 'Service account for Sayed WP Conductor MCP. Created by the setup wizard. Do not log in as this user — all access is via API tokens.',
         ] );
         if ( is_wp_error( $id ) ) {
             return 0;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Dashboard view — the new landing page for Commander.
+ * Dashboard view — the new landing page for Sayed WP Conductor.
  *
  * @var array $stats
  *
@@ -26,7 +26,7 @@ $dest_ok      = ! empty( $settings['require_https'] ) && ! empty( $settings['ena
             </svg>
         </div>
         <div style="flex:1">
-            <h1>Commander <span class="cmcp-version">v<?php echo esc_html( CMCP_VERSION ); ?></span></h1>
+            <h1>Sayed WP Conductor <span class="cmcp-version">v<?php echo esc_html( CMCP_VERSION ); ?></span></h1>
             <p class="cmcp-subtitle">Dashboard · <?php echo esc_html( $home_host ); ?> · MCP <?php echo esc_html( CMCP_PROTOCOL_VERSION ); ?></p>
         </div>
         <div style="text-align:right">
@@ -134,12 +134,12 @@ $dest_ok      = ! empty( $settings['require_https'] ) && ! empty( $settings['ena
     <div class="cmcp-card">
         <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--cmcp-muted)">Security status</h2>
         <ul style="list-style:none;padding:0;margin:0">
-            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['require_https'] ), __( 'HTTPS required', 'mcp-for-claude' ), __( 'Reject non-HTTPS requests', 'mcp-for-claude' ) ); ?></li>
-            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['enable_audit_log'] ), __( 'Audit log enabled', 'mcp-for-claude' ), __( 'Every call recorded', 'mcp-for-claude' ) ); ?></li>
-            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['block_bad_uas'] ), __( 'Block bad user-agents', 'mcp-for-claude' ), __( 'sqlmap, nikto, wpscan, etc.', 'mcp-for-claude' ) ); ?></li>
-            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['notify_admin_email'] ), __( 'Email alerts', 'mcp-for-claude' ), __( 'Lockout & suspicious activity', 'mcp-for-claude' ) ); ?></li>
-            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['allowed_origins'] ), __( 'Allowed origins set', 'mcp-for-claude' ), __( 'DNS rebinding protection', 'mcp-for-claude' ) ); ?></li>
-            <li style="padding:6px 0"><?php cmcp_status_row( empty( $settings['allow_destructive'] ), __( 'Destructive ops OFF', 'mcp-for-claude' ), __( 'Permanent deletes locked', 'mcp-for-claude' ), true ); ?></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['require_https'] ), __( 'HTTPS required', 'sayed-wp-conductor-for-claude' ), __( 'Reject non-HTTPS requests', 'sayed-wp-conductor-for-claude' ) ); ?></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['enable_audit_log'] ), __( 'Audit log enabled', 'sayed-wp-conductor-for-claude' ), __( 'Every call recorded', 'sayed-wp-conductor-for-claude' ) ); ?></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['block_bad_uas'] ), __( 'Block bad user-agents', 'sayed-wp-conductor-for-claude' ), __( 'sqlmap, nikto, wpscan, etc.', 'sayed-wp-conductor-for-claude' ) ); ?></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['notify_admin_email'] ), __( 'Email alerts', 'sayed-wp-conductor-for-claude' ), __( 'Lockout & suspicious activity', 'sayed-wp-conductor-for-claude' ) ); ?></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f0f0f1"><?php cmcp_status_row( ! empty( $settings['allowed_origins'] ), __( 'Allowed origins set', 'sayed-wp-conductor-for-claude' ), __( 'DNS rebinding protection', 'sayed-wp-conductor-for-claude' ) ); ?></li>
+            <li style="padding:6px 0"><?php cmcp_status_row( empty( $settings['allow_destructive'] ), __( 'Destructive ops OFF', 'sayed-wp-conductor-for-claude' ), __( 'Permanent deletes locked', 'sayed-wp-conductor-for-claude' ), true ); ?></li>
         </ul>
         <?php if ( ! empty( $stats['old_tokens'] ) ) : ?>
             <p style="margin-top:14px;padding:10px 14px;background:#fff7e6;border-left:3px solid var(--cmcp-warning);border-radius:4px">
@@ -149,11 +149,11 @@ $dest_ok      = ! empty( $settings['require_https'] ) && ! empty( $settings['ena
     </div>
 
     <p class="cmcp-credit">
-        Commander · Secure MCP Control ·
+        Sayed WP Conductor · Secure MCP Control ·
         <a href="https://github.com/TaherSayed/commander-secure-mcp-control" target="_blank" rel="noopener">GitHub</a> ·
-        <a href="https://github.com/TaherSayed/commander-secure-mcp-control/issues" target="_blank" rel="noopener"><?php esc_html_e( 'Report an issue', 'mcp-for-claude' ); ?></a> ·
-        <a href="https://hbs-it-gmbh.de" target="_blank" rel="noopener">HBS IT GmbH</a> ·
-        <?php esc_html_e( 'Built by Taher Sayed', 'mcp-for-claude' ); ?>
+        <a href="https://github.com/TaherSayed/commander-secure-mcp-control/issues" target="_blank" rel="noopener"><?php esc_html_e( 'Report an issue', 'sayed-wp-conductor-for-claude' ); ?></a> ·
+        <a href="https://github.com/TaherSayed" target="_blank" rel="noopener">Taher Sayed</a> ·
+        <?php esc_html_e( 'Built by Taher Sayed', 'sayed-wp-conductor-for-claude' ); ?>
     </p>
 </div>
 <?php

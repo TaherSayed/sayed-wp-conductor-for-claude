@@ -28,12 +28,12 @@ $f = [
 $has_filter = (bool) array_filter( $f );
 ?>
 <div class="wrap">
-    <h1><?php esc_html_e( 'Commander — Audit Log', 'mcp-for-claude' ); ?></h1>
+    <h1><?php esc_html_e( 'Sayed WP Conductor — Audit Log', 'sayed-wp-conductor-for-claude' ); ?></h1>
     <p class="description">
         <?php
         printf(
             /* translators: 1: showing count, 2: total filtered count, 3: page n, 4: of pages */
-            esc_html__( 'Showing %1$d of %2$d entries · page %3$d of %4$d', 'mcp-for-claude' ),
+            esc_html__( 'Showing %1$d of %2$d entries · page %3$d of %4$d', 'sayed-wp-conductor-for-claude' ),
             (int) count( $rows ),
             (int) $total,
             (int) $page,
@@ -46,73 +46,73 @@ $has_filter = (bool) array_filter( $f );
         <input type="hidden" name="page" value="cmcp-log" />
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;align-items:end">
             <label>
-                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'Search', 'mcp-for-claude' ); ?></span>
-                <input type="search" name="q" value="<?php echo esc_attr( $f['q'] ); ?>" placeholder="<?php esc_attr_e( 'method · tool · note · ip', 'mcp-for-claude' ); ?>" style="width:100%" />
+                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'Search', 'sayed-wp-conductor-for-claude' ); ?></span>
+                <input type="search" name="q" value="<?php echo esc_attr( $f['q'] ); ?>" placeholder="<?php esc_attr_e( 'method · tool · note · ip', 'sayed-wp-conductor-for-claude' ); ?>" style="width:100%" />
             </label>
             <label>
-                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'Status', 'mcp-for-claude' ); ?></span>
+                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'Status', 'sayed-wp-conductor-for-claude' ); ?></span>
                 <select name="status">
-                    <option value=""    <?php selected( $f['status'], '' ); ?>><?php esc_html_e( 'any', 'mcp-for-claude' ); ?></option>
-                    <option value="ok"  <?php selected( $f['status'], 'ok' ); ?>><?php esc_html_e( 'success only', 'mcp-for-claude' ); ?></option>
-                    <option value="fail"<?php selected( $f['status'], 'fail' ); ?>><?php esc_html_e( 'failure only', 'mcp-for-claude' ); ?></option>
+                    <option value=""    <?php selected( $f['status'], '' ); ?>><?php esc_html_e( 'any', 'sayed-wp-conductor-for-claude' ); ?></option>
+                    <option value="ok"  <?php selected( $f['status'], 'ok' ); ?>><?php esc_html_e( 'success only', 'sayed-wp-conductor-for-claude' ); ?></option>
+                    <option value="fail"<?php selected( $f['status'], 'fail' ); ?>><?php esc_html_e( 'failure only', 'sayed-wp-conductor-for-claude' ); ?></option>
                 </select>
             </label>
             <label>
-                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'Method', 'mcp-for-claude' ); ?></span>
+                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'Method', 'sayed-wp-conductor-for-claude' ); ?></span>
                 <input type="text" name="method" value="<?php echo esc_attr( $f['method'] ); ?>" placeholder="oauth/token" style="width:100%" />
             </label>
             <label>
-                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'Tool', 'mcp-for-claude' ); ?></span>
+                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'Tool', 'sayed-wp-conductor-for-claude' ); ?></span>
                 <input type="text" name="tool" value="<?php echo esc_attr( $f['tool'] ); ?>" placeholder="posts.list" style="width:100%" />
             </label>
             <label>
-                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'IP', 'mcp-for-claude' ); ?></span>
+                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'IP', 'sayed-wp-conductor-for-claude' ); ?></span>
                 <input type="text" name="ip" value="<?php echo esc_attr( $f['ip'] ); ?>" placeholder="203.0.113.5" style="width:100%" />
             </label>
             <label>
-                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'From', 'mcp-for-claude' ); ?></span>
+                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'From', 'sayed-wp-conductor-for-claude' ); ?></span>
                 <input type="date" name="from" value="<?php echo esc_attr( $f['from'] ); ?>" style="width:100%" />
             </label>
             <label>
-                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'To', 'mcp-for-claude' ); ?></span>
+                <span style="display:block;font-size:11px;color:#646970;text-transform:uppercase;letter-spacing:0.3px"><?php esc_html_e( 'To', 'sayed-wp-conductor-for-claude' ); ?></span>
                 <input type="date" name="to" value="<?php echo esc_attr( $f['to'] ); ?>" style="width:100%" />
             </label>
             <div>
-                <button type="submit" class="button button-primary" style="width:100%"><?php esc_html_e( 'Filter', 'mcp-for-claude' ); ?></button>
+                <button type="submit" class="button button-primary" style="width:100%"><?php esc_html_e( 'Filter', 'sayed-wp-conductor-for-claude' ); ?></button>
             </div>
         </div>
         <?php if ( $has_filter ) : ?>
-            <p style="margin:8px 0 0;font-size:12px"><a href="<?php echo esc_url( admin_url( 'admin.php?page=cmcp-log' ) ); ?>"><?php esc_html_e( '← clear filters', 'mcp-for-claude' ); ?></a></p>
+            <p style="margin:8px 0 0;font-size:12px"><a href="<?php echo esc_url( admin_url( 'admin.php?page=cmcp-log' ) ); ?>"><?php esc_html_e( '← clear filters', 'sayed-wp-conductor-for-claude' ); ?></a></p>
         <?php endif; ?>
     </form>
 
     <div style="margin:10px 0;display:flex;justify-content:space-between;align-items:center;gap:10px">
         <div style="font-size:12px;color:#646970">
-            <?php esc_html_e( 'Rows older than retention setting are auto-pruned daily.', 'mcp-for-claude' ); ?>
+            <?php esc_html_e( 'Rows older than retention setting are auto-pruned daily.', 'sayed-wp-conductor-for-claude' ); ?>
         </div>
         <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="margin:0">
             <input type="hidden" name="action" value="cmcp_audit_export" />
             <?php wp_nonce_field( 'cmcp_audit_export' ); ?>
-            <button type="submit" class="button">⬇ <?php esc_html_e( 'Export CSV (last 50 000 rows)', 'mcp-for-claude' ); ?></button>
+            <button type="submit" class="button">⬇ <?php esc_html_e( 'Export CSV (last 50 000 rows)', 'sayed-wp-conductor-for-claude' ); ?></button>
         </form>
     </div>
 
     <table class="widefat striped">
         <thead>
             <tr>
-                <th><?php esc_html_e( 'Time (UTC)', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Token', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'IP', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Method', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Tool', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Status', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'OK', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Note', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Time (UTC)', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Token', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'IP', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Method', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Tool', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Status', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'OK', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Note', 'sayed-wp-conductor-for-claude' ); ?></th>
             </tr>
         </thead>
         <tbody>
         <?php if ( empty( $rows ) ) : ?>
-            <tr><td colspan="8"><?php $has_filter ? esc_html_e( 'No matches for those filters.', 'mcp-for-claude' ) : esc_html_e( 'No log entries yet.', 'mcp-for-claude' ); ?></td></tr>
+            <tr><td colspan="8"><?php $has_filter ? esc_html_e( 'No matches for those filters.', 'sayed-wp-conductor-for-claude' ) : esc_html_e( 'No log entries yet.', 'sayed-wp-conductor-for-claude' ); ?></td></tr>
         <?php else : foreach ( $rows as $r ) : ?>
             <tr>
                 <td><code style="font-size:11px"><?php echo esc_html( $r['ts'] ); ?></code></td>

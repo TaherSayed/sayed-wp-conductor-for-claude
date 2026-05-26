@@ -10,9 +10,9 @@ This folder holds the install / setup walkthrough screenshots referenced from `d
 | `02-install-success.png` | "Plugin successfully installed" + Activate button |
 | `03-activation-banner.png` | Plugins page, green "activated" notice + blue setup banner |
 | `04-wizard-top.png` | Wizard, steps 1 & 2 visible |
-| `05-wizard-bottom.png` | Wizard, step 3 + Finish + "What Commander does" |
+| `05-wizard-bottom.png` | Wizard, step 3 + Finish + "What Sayed WP Conductor does" |
 | `06-setup-complete.png` | "Setup complete" + token + Connect cards |
-| `07-dashboard.png` | Commander dashboard |
+| `07-dashboard.png` | Sayed WP Conductor dashboard |
 | `08-tokens-page.png` | Tokens page (with bot user banner) |
 | `09-settings.png` | Settings page |
 | `10-oauth-clients.png` | OAuth Clients page |

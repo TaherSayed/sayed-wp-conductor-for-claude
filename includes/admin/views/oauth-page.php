@@ -21,25 +21,25 @@ $pr_meta    = home_url( '/.well-known/oauth-protected-resource' );
 $mcp_url    = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
 ?>
 <div class="wrap">
-    <h1><?php esc_html_e( 'Commander — OAuth Clients', 'mcp-for-claude' ); ?></h1>
-    <p class="description"><?php esc_html_e( 'OAuth 2.1 apps (claude.ai etc.) that have registered with this server via Dynamic Client Registration.', 'mcp-for-claude' ); ?></p>
+    <h1><?php esc_html_e( 'Sayed WP Conductor — OAuth Clients', 'sayed-wp-conductor-for-claude' ); ?></h1>
+    <p class="description"><?php esc_html_e( 'OAuth 2.1 apps (claude.ai etc.) that have registered with this server via Dynamic Client Registration.', 'sayed-wp-conductor-for-claude' ); ?></p>
 
     <?php if ( $notice === 'token_revoked' ) : ?>
-        <div class="notice notice-info is-dismissible"><p><?php esc_html_e( 'OAuth token revoked.', 'mcp-for-claude' ); ?></p></div>
+        <div class="notice notice-info is-dismissible"><p><?php esc_html_e( 'OAuth token revoked.', 'sayed-wp-conductor-for-claude' ); ?></p></div>
     <?php endif; ?>
 
     <div class="notice notice-info">
-        <p style="margin-bottom:4px"><strong><?php esc_html_e( 'For claude.ai web (Settings → Connectors → + Add custom connector):', 'mcp-for-claude' ); ?></strong></p>
+        <p style="margin-bottom:4px"><strong><?php esc_html_e( 'For claude.ai web (Settings → Connectors → + Add custom connector):', 'sayed-wp-conductor-for-claude' ); ?></strong></p>
         <p style="margin-top:0">
-            <?php esc_html_e( 'Custom MCP server URL:', 'mcp-for-claude' ); ?>
+            <?php esc_html_e( 'Custom MCP server URL:', 'sayed-wp-conductor-for-claude' ); ?>
             <code style="font-size:13px"><?php echo esc_html( $mcp_url ); ?></code>
         </p>
         <p style="color:#646970;font-size:12px;margin-top:0">
-            <?php esc_html_e( 'Claude will auto-discover OAuth via /.well-known and register itself. After the consent screen, an entry will appear below.', 'mcp-for-claude' ); ?>
+            <?php esc_html_e( 'Claude will auto-discover OAuth via /.well-known and register itself. After the consent screen, an entry will appear below.', 'sayed-wp-conductor-for-claude' ); ?>
         </p>
     </div>
 
-    <h2><?php esc_html_e( 'Endpoint reference', 'mcp-for-claude' ); ?></h2>
+    <h2><?php esc_html_e( 'Endpoint reference', 'sayed-wp-conductor-for-claude' ); ?></h2>
     <table class="widefat" style="max-width:900px">
         <tbody>
             <tr><td style="width:240px"><strong>MCP endpoint</strong></td><td><code><?php echo esc_html( $mcp_url ); ?></code></td></tr>
@@ -51,22 +51,22 @@ $mcp_url    = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
         </tbody>
     </table>
 
-    <h2 style="margin-top:30px"><?php esc_html_e( 'Registered clients', 'mcp-for-claude' ); ?></h2>
+    <h2 style="margin-top:30px"><?php esc_html_e( 'Registered clients', 'sayed-wp-conductor-for-claude' ); ?></h2>
     <table class="widefat striped">
         <thead>
             <tr>
-                <th><?php esc_html_e( 'Name', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Client ID', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Redirect URIs', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Auth method', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Active tokens', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Registered', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Name', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Client ID', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Redirect URIs', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Auth method', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Active tokens', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Registered', 'sayed-wp-conductor-for-claude' ); ?></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
         <?php if ( empty( $clients ) ) : ?>
-            <tr><td colspan="7"><?php esc_html_e( 'No OAuth clients registered yet. Add a custom connector in claude.ai pointing at the MCP endpoint above — the first authorization will register the client here.', 'mcp-for-claude' ); ?></td></tr>
+            <tr><td colspan="7"><?php esc_html_e( 'No OAuth clients registered yet. Add a custom connector in claude.ai pointing at the MCP endpoint above — the first authorization will register the client here.', 'sayed-wp-conductor-for-claude' ); ?></td></tr>
         <?php else : foreach ( $clients as $c ) :
             $redir = json_decode( (string) $c['redirect_uris'], true );
             $redir = is_array( $redir ) ? $redir : [];
@@ -79,17 +79,17 @@ $mcp_url    = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
                 <td><?php echo (int) ( $c['active_tokens'] ?? 0 ); ?></td>
                 <td><?php echo esc_html( $c['created_at'] ); ?></td>
                 <td>
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Sign this client out (revoke active tokens) but keep its registration so it can reconnect with a new session?', 'mcp-for-claude' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Sign this client out (revoke active tokens) but keep its registration so it can reconnect with a new session?', 'sayed-wp-conductor-for-claude' ) ); ?>');">
                         <input type="hidden" name="action" value="cmcp_oauth_revoke_tokens" />
                         <input type="hidden" name="client_id" value="<?php echo esc_attr( $c['client_id'] ); ?>" />
                         <?php wp_nonce_field( 'cmcp_oauth_revoke_tokens' ); ?>
-                        <button class="button" type="submit" title="<?php esc_attr_e( 'Revoke all active access + refresh tokens. Client stays registered.', 'mcp-for-claude' ); ?>"><?php esc_html_e( 'Sign out', 'mcp-for-claude' ); ?></button>
+                        <button class="button" type="submit" title="<?php esc_attr_e( 'Revoke all active access + refresh tokens. Client stays registered.', 'sayed-wp-conductor-for-claude' ); ?>"><?php esc_html_e( 'Sign out', 'sayed-wp-conductor-for-claude' ); ?></button>
                     </form>
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Disconnect this client completely? Revokes all tokens and removes the registration. The remote app will have to register again from scratch on next connect.', 'mcp-for-claude' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Disconnect this client completely? Revokes all tokens and removes the registration. The remote app will have to register again from scratch on next connect.', 'sayed-wp-conductor-for-claude' ) ); ?>');">
                         <input type="hidden" name="action" value="cmcp_oauth_delete_client" />
                         <input type="hidden" name="client_id" value="<?php echo esc_attr( $c['client_id'] ); ?>" />
                         <?php wp_nonce_field( 'cmcp_oauth_delete_client' ); ?>
-                        <button class="button button-link-delete" type="submit" title="<?php esc_attr_e( 'Revoke tokens AND remove the client registration row.', 'mcp-for-claude' ); ?>"><?php esc_html_e( 'Disconnect', 'mcp-for-claude' ); ?></button>
+                        <button class="button button-link-delete" type="submit" title="<?php esc_attr_e( 'Revoke tokens AND remove the client registration row.', 'sayed-wp-conductor-for-claude' ); ?>"><?php esc_html_e( 'Disconnect', 'sayed-wp-conductor-for-claude' ); ?></button>
                     </form>
                 </td>
             </tr>
@@ -97,24 +97,24 @@ $mcp_url    = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
         </tbody>
     </table>
 
-    <h2 style="margin-top:30px"><?php esc_html_e( 'Active OAuth sessions', 'mcp-for-claude' ); ?></h2>
-    <p class="description"><?php esc_html_e( 'Individual access tokens issued to clients via the OAuth flow. Use "Revoke" to kill a single session without deleting the parent client.', 'mcp-for-claude' ); ?></p>
+    <h2 style="margin-top:30px"><?php esc_html_e( 'Active OAuth sessions', 'sayed-wp-conductor-for-claude' ); ?></h2>
+    <p class="description"><?php esc_html_e( 'Individual access tokens issued to clients via the OAuth flow. Use "Revoke" to kill a single session without deleting the parent client.', 'sayed-wp-conductor-for-claude' ); ?></p>
     <table class="widefat striped">
         <thead>
             <tr>
-                <th><?php esc_html_e( 'Client', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'WP user', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Scopes', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Issued', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Last used', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Access expires', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Refresh expires', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Client', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'WP user', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Scopes', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Issued', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Last used', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Access expires', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Refresh expires', 'sayed-wp-conductor-for-claude' ); ?></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
         <?php if ( empty( $active_tokens ) ) : ?>
-            <tr><td colspan="8"><?php esc_html_e( 'No active OAuth sessions right now.', 'mcp-for-claude' ); ?></td></tr>
+            <tr><td colspan="8"><?php esc_html_e( 'No active OAuth sessions right now.', 'sayed-wp-conductor-for-claude' ); ?></td></tr>
         <?php else : foreach ( $active_tokens as $t ) :
             $user = (int) $t['user_id'] ? get_user_by( 'id', (int) $t['user_id'] ) : null;
         ?>
@@ -134,11 +134,11 @@ $mcp_url    = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
                 <td><code style="font-size:11px"><?php echo esc_html( $t['access_expires_at'] ); ?></code></td>
                 <td><code style="font-size:11px"><?php echo esc_html( $t['refresh_expires_at'] ?: '—' ); ?></code></td>
                 <td>
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Revoke this OAuth session?', 'mcp-for-claude' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Revoke this OAuth session?', 'sayed-wp-conductor-for-claude' ) ); ?>');">
                         <input type="hidden" name="action" value="cmcp_oauth_revoke_one" />
                         <input type="hidden" name="oauth_token_id" value="<?php echo (int) $t['id']; ?>" />
                         <?php wp_nonce_field( 'cmcp_oauth_revoke_one' ); ?>
-                        <button class="button button-small" type="submit"><?php esc_html_e( 'Revoke', 'mcp-for-claude' ); ?></button>
+                        <button class="button button-small" type="submit"><?php esc_html_e( 'Revoke', 'sayed-wp-conductor-for-claude' ); ?></button>
                     </form>
                 </td>
             </tr>

@@ -42,7 +42,7 @@ final class PostsDeleteTool extends AbstractTool {
 
         $permanent = ! empty( $args['permanent'] );
         if ( $permanent && empty( Plugin::get_settings()['allow_destructive'] ) ) {
-            throw new \RuntimeException( esc_html( 'Permanent delete is disabled. Enable "Allow destructive operations" in Commander settings.' ) );
+            throw new \RuntimeException( esc_html( 'Permanent delete is disabled. Enable "Allow destructive operations" in Sayed WP Conductor settings.' ) );
         }
 
         $res = $permanent ? wp_delete_post( $id, true ) : wp_trash_post( $id );

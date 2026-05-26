@@ -1,17 +1,17 @@
 <?php
 /**
- * Plugin Name:       Commander — Secure MCP Control
+ * Plugin Name:       Sayed WP Conductor for Claude
  * Plugin URI:        https://github.com/TaherSayed/commander-secure-mcp-control
- * Description:       Give Claude and other MCP-compatible AI clients full, secure, audited control of your WordPress site. JSON-RPC 2.0 / Streamable HTTP, OAuth 2.1, brute-force protection, activation wizard, stats dashboard, audit log. Powered by Taher Sayed · HBS IT GmbH.
- * Version:           1.8.2
+ * Description:       Give Claude and other MCP-compatible AI clients full, secure, audited control of your WordPress site. JSON-RPC 2.0 / Streamable HTTP, OAuth 2.1, brute-force protection, activation wizard, stats dashboard, audit log. Powered by Taher Sayed.
+ * Version:           1.9.0
  * Requires at least: 6.2
  * Tested up to:      7.0
  * Requires PHP:      8.0
- * Author:            Taher Sayed · HBS IT GmbH
- * Author URI:        https://hbs-it-gmbh.de
+ * Author:            Taher Sayed
+ * Author URI:        https://github.com/TaherSayed
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       mcp-for-claude
+ * Text Domain:       sayed-wp-conductor-for-claude
  *
  * @package WPCommander
  */
@@ -20,7 +20,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Plugin constants.
-define( 'CMCP_VERSION',        '1.8.2' );
+define( 'CMCP_VERSION',        '1.9.0' );
 define( 'CMCP_FILE',           __FILE__ );
 define( 'CMCP_DIR',            plugin_dir_path( __FILE__ ) );
 define( 'CMCP_URL',            plugin_dir_url( __FILE__ ) );
@@ -32,7 +32,7 @@ define( 'CMCP_PROTOCOL_VERSION', '2025-06-18' );
 if ( version_compare( PHP_VERSION, '8.0', '<' ) ) {
     add_action( 'admin_notices', function () {
         echo '<div class="notice notice-error"><p>'
-            . esc_html__( 'Claude MCP Secure requires PHP 8.0 or higher.', 'mcp-for-claude' )
+            . esc_html__( 'Claude MCP Secure requires PHP 8.0 or higher.', 'sayed-wp-conductor-for-claude' )
             . '</p></div>';
     } );
     return;

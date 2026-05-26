@@ -42,7 +42,7 @@ final class MediaDeleteTool extends AbstractTool {
         // media_delete is a hard delete (no trash for attachments by default in
         // wp_delete_attachment), so it always counts as a destructive op.
         if ( empty( Plugin::get_settings()['allow_destructive'] ) ) {
-            throw new \RuntimeException( 'Permanent delete is disabled. Enable "Allow destructive operations" in Commander settings.' );
+            throw new \RuntimeException( 'Permanent delete is disabled. Enable "Allow destructive operations" in Sayed WP Conductor settings.' );
         }
         $res = wp_delete_attachment( $id, true );
         if ( ! $res ) {

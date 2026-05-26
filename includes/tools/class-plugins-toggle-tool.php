@@ -2,7 +2,7 @@
 /**
  * plugins.toggle — activate or deactivate a plugin.
  *
- * Protects Commander itself: refuses to deactivate its own plugin file.
+ * Protects Sayed WP Conductor itself: refuses to deactivate its own plugin file.
  *
  * @package WPCommander
  */
@@ -16,7 +16,7 @@ final class PluginsToggleTool extends AbstractTool {
     public function name(): string { return 'plugins_toggle'; }
 
     public function description(): string {
-        return 'Activate or deactivate a plugin by its plugin file (e.g. "akismet/akismet.php"). Refuses to deactivate Commander itself.';
+        return 'Activate or deactivate a plugin by its plugin file (e.g. "akismet/akismet.php"). Refuses to deactivate Sayed WP Conductor itself.';
     }
 
     public function input_schema(): array {
@@ -51,7 +51,7 @@ final class PluginsToggleTool extends AbstractTool {
 
         // Refuse to deactivate ourselves.
         if ( $args['action'] === 'deactivate' && $file === plugin_basename( CMCP_FILE ) ) {
-            throw new \RuntimeException( 'Refusing to deactivate Commander.' );
+            throw new \RuntimeException( 'Refusing to deactivate Sayed WP Conductor.' );
         }
 
         if ( $args['action'] === 'activate' ) {

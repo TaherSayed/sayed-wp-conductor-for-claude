@@ -1,10 +1,10 @@
-=== Commander — Secure MCP Control ===
-Contributors: tahersayed, hbsitgmbh
+=== Sayed WP Conductor for Claude ===
+Contributors: tahersayed
 Tags: mcp, claude, ai, oauth, rest-api
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.8.2
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,9 @@ Turn your WordPress site into a secure Model Context Protocol (MCP) server for C
 
 == Description ==
 
-**Commander** gives Claude (and any MCP-compatible AI client) full, secure, audited control of your WordPress site over the official Model Context Protocol — JSON-RPC 2.0 over Streamable HTTP, MCP spec **2025-06-18**.
+**Sayed WP Conductor** gives Claude (and any MCP-compatible AI client) full, secure, audited control of your WordPress site over the official Model Context Protocol — JSON-RPC 2.0 over Streamable HTTP, MCP spec **2025-06-18**.
 
-Most "AI for WordPress" plugins either hand over an admin session to a third party or skip authentication entirely. Commander is built around hard interlocks at every layer.
+Most "AI for WordPress" plugins either hand over an admin session to a third party or skip authentication entirely. Sayed WP Conductor is built around hard interlocks at every layer.
 
 = Built on hard interlocks =
 
@@ -51,16 +51,16 @@ You can register your own tools through the `cmcp_register_tools` filter — see
 
 = Privacy =
 
-Commander does not "phone home". No analytics, no remote logging, no third-party requests beyond what you explicitly ask a tool to do (e.g. `media_upload` fetches the URL you pass it). All data — tokens, audit log, OAuth clients/codes/tokens — lives in your own database.
+Sayed WP Conductor does not "phone home". No analytics, no remote logging, no third-party requests beyond what you explicitly ask a tool to do (e.g. `media_upload` fetches the URL you pass it). All data — tokens, audit log, OAuth clients/codes/tokens — lives in your own database.
 
 == Installation ==
 
-1. Upload the `mcp-for-claude/` folder to `/wp-content/plugins/` (or install the zip via **Plugins → Add New → Upload**).
-2. Activate **Commander — Secure MCP Control** in **Plugins**.
-3. The setup wizard appears on first load — walk through it, or skip and use **Commander** in the admin menu.
-4. Go to **Commander → Tokens** and issue a token. Bind it to a least-privileged WP user. Save the plaintext somewhere safe — it is shown once.
-5. Tune **Commander → Settings** — allowed origins, rate limit, destructive ops, enabled tools, OAuth options.
-6. (Optional) **Commander → OAuth Clients** — enable Dynamic Client Registration if you want clients like Claude Desktop to self-register.
+1. Upload the `sayed-wp-conductor-for-claude/` folder to `/wp-content/plugins/` (or install the zip via **Plugins → Add New → Upload**).
+2. Activate **Sayed WP Conductor for Claude** in **Plugins**.
+3. The setup wizard appears on first load — walk through it, or skip and use **Sayed WP Conductor** in the admin menu.
+4. Go to **Sayed WP Conductor → Tokens** and issue a token. Bind it to a least-privileged WP user. Save the plaintext somewhere safe — it is shown once.
+5. Tune **Sayed WP Conductor → Settings** — allowed origins, rate limit, destructive ops, enabled tools, OAuth options.
+6. (Optional) **Sayed WP Conductor → OAuth Clients** — enable Dynamic Client Registration if you want clients like Claude Desktop to self-register.
 
 Requirements: PHP 8.0+ and WordPress 6.2+.
 
@@ -118,9 +118,14 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 
 == Changelog ==
 
+= 1.9.0 =
+* **Rename:** Plugin renamed to **Sayed WP Conductor for Claude**, slug `sayed-wp-conductor-for-claude`. The previous name ("Sayed WP Conductor — Secure MCP Control" / slug `mcp-for-claude`) was flagged by the WordPress.org review team — "Sayed WP Conductor" is too generic, and starting the slug with `mcp-for-claude` implies false affiliation with Anthropic. New name follows the directory's "distinctive prefix … for Trademark" pattern. **Text domain changed** to `sayed-wp-conductor-for-claude` to match. The plugin was not yet on WordPress.org, so existing installs do not need to migrate translations.
+* **Branding:** Removed all references to "HBS IT GmbH" from the plugin (admin pages, readme, author headers, descriptions). The plugin is now a personal project by Taher Sayed. The `hbsitgmbh` contributor was removed from `readme.txt`.
+* **Internal:** The `wp-commander-bot` system username and the `X-Commander-Signature` webhook header keep their names — they're protocol/contract identifiers (existing receivers and stored audit rows depend on them), not user-facing branding.
+
 = 1.8.2 =
 * **Security (CRITICAL):** `/oauth/revoke` endpoint now authenticates the calling client per RFC 7009. The previous implementation accepted any token value, looked it up by hash, and revoked it — with `permission_callback => __return_true` and NO client authentication. An attacker who observed a token in logs/transit could revoke it remotely, denying the legitimate user service. The endpoint now requires HTTP Basic or POST client credentials (the same path the token endpoint uses), and verifies that the token row's `client_id` matches the authenticated client before revoking. RFC 7009 §2.2 200-response semantics preserved for unknown / mismatched tokens to avoid leaking existence. Per-IP rate limit added (20 attempts/min) to prevent the endpoint being used as a revoke-spam oracle.
-* **Compliance:** Removed user-facing attribution from the OAuth consent + error pages — the WordPress.org review team flagged the "powered by HBS IT GmbH" footer as forbidden under Guideline 10 (no user-facing credits without explicit opt-in). The consent title was also changed from a product-branded string to a neutral "Authorize access". Admin-area attribution (Dashboard, Settings) is unchanged — that's permitted.
+* **Compliance:** Removed user-facing attribution from the OAuth consent + error pages — the WordPress.org review team flagged the "powered by Taher Sayed" footer as forbidden under Guideline 10 (no user-facing credits without explicit opt-in). The consent title was also changed from a product-branded string to a neutral "Authorize access". Admin-area attribution (Dashboard, Settings) is unchanged — that's permitted.
 * **Compliance:** Inline `<script>` and `<style>` blocks moved out of admin views and the OAuth consent HTML. Token + Settings page scripts now ship as `assets/js/tokens-page.js` and `assets/js/settings-page.js`, registered via `wp_enqueue_script()` and configured via `wp_add_inline_script()` (PHP→JS data + i18n strings). OAuth consent + error pages now link `assets/css/oauth-consent.css` instead of inlining the CSS.
 * **Compliance:** `uninstall.php` no longer directly `require_once`s `wp-admin/includes/user.php`. The wp-commander-bot account is only auto-deleted when `wp_delete_user` is already loaded in the uninstall context; otherwise it's left in place for the admin to remove manually (it's an ordinary WP user, visible in Users → All Users).
 
@@ -159,7 +164,7 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 * **Fix:** Converted the Python and Node snippets in `includes/admin/views/partials/token-snippets.php` from heredoc syntax (`<<<PY`, `<<<JS`) to plain string concatenation. The Plugin Check rule `PluginCheck.CodeAnalysis.Heredoc.NotAllowed` flags heredoc as a guideline violation.
 
 = 1.6.0 =
-* **Slug rename to `mcp-for-claude`** — WordPress.org review assigned the slug `mcp-for-claude` to this plugin. Folder, main file, text domain and POT have been renamed accordingly. The display name "Commander — Secure MCP Control" is unchanged. Existing installs from earlier zips need a one-time fresh install (settings stay in the DB but the old folder must be removed).
+* **Slug rename to `sayed-wp-conductor-for-claude`** — WordPress.org review assigned the slug `sayed-wp-conductor-for-claude` to this plugin. Folder, main file, text domain and POT have been renamed accordingly. The display name "Sayed WP Conductor for Claude" is unchanged. Existing installs from earlier zips need a one-time fresh install (settings stay in the DB but the old folder must be removed).
 
 = 1.5.4 =
 * **Fix:** OAuth consent screen bounced logged-in admins back to wp-login on sites where the REST API is hit by direct browser navigation. WordPress's REST routes only honor cookie auth when the request carries an X-WP-Nonce header — which a top-level navigation does not. `OAuth::rest_authorize_get/post` now manually calls `wp_validate_auth_cookie` to set the current WP user from the browser cookie. Fully verified (HMAC-signed cookie); not an auth bypass.
@@ -231,7 +236,7 @@ Self-heals missing DB tables on load. Recommended for anyone who upgraded via WP
 Drops the GitHub auto-updater (required for WordPress.org listing) and a heredoc syntax issue flagged by Plugin Check. No functional changes.
 
 = 1.6.0 =
-**Slug rename to `mcp-for-claude`** — this version's folder is `mcp-for-claude/`. If you have an older `commander-secure-mcp-control/` folder, deactivate it via WP admin (don't click Delete — it would drop your tokens table), then delete that folder via FTP/SSH, then install this 1.6.0 zip fresh. Database is untouched.
+**Slug rename to `sayed-wp-conductor-for-claude`** — this version's folder is `sayed-wp-conductor-for-claude/`. If you have an older `commander-secure-mcp-control/` folder, deactivate it via WP admin (don't click Delete — it would drop your tokens table), then delete that folder via FTP/SSH, then install this 1.6.0 zip fresh. Database is untouched.
 
 = 1.5.4 =
 Fix: OAuth consent screen now recognises your existing WordPress login session (was bouncing logged-in admins back to wp-login). Required if you use security plugins that move the login URL.
@@ -252,4 +257,4 @@ Quick-connect snippets (curl / Claude Desktop / Python / Node) per token, 7-day 
 Token management overhaul — Copy, Test, Rotate, Delete, live status badges, last-IP and 7-day call counts. Pure additive — no settings change required.
 
 = 1.3.0 =
-Important security update. Dynamic Client Registration is now off by default — if you relied on it for Claude Desktop one-click connect, re-enable under Commander → Settings → OAuth. Behind a reverse proxy, also enable "Trust reverse proxy".
+Important security update. Dynamic Client Registration is now off by default — if you relied on it for Claude Desktop one-click connect, re-enable under Sayed WP Conductor → Settings → OAuth. Behind a reverse proxy, also enable "Trust reverse proxy".

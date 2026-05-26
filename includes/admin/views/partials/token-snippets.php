@@ -78,7 +78,7 @@ $node_snippet .= "});\n";
 $node_snippet .= "console.log(JSON.stringify(await res.json(), null, 2));";
 ?>
 <details class="cmcp-snippets">
-    <summary>🔌 <?php esc_html_e( 'Connect snippets', 'mcp-for-claude' ); ?></summary>
+    <summary>🔌 <?php esc_html_e( 'Connect snippets', 'sayed-wp-conductor-for-claude' ); ?></summary>
     <div class="cmcp-snippets-body">
         <div class="cmcp-tabs" data-snip="<?php echo esc_attr( $snippet_id ); ?>">
             <button type="button" class="cmcp-tab active" data-tab="curl">curl</button>
@@ -121,7 +121,7 @@ $node_snippet .= "console.log(JSON.stringify(await res.json(), null, 2));";
 
         <?php if ( $token_for_snippet === '<YOUR_TOKEN>' ) : ?>
             <p class="description" style="margin:6px 4px 0;color:#646970">
-                <?php esc_html_e( 'Token plaintext is not stored on the server. Replace <YOUR_TOKEN> with the token shown when you issued or rotated it.', 'mcp-for-claude' ); ?>
+                <?php esc_html_e( 'Token plaintext is not stored on the server. Replace <YOUR_TOKEN> with the token shown when you issued or rotated it.', 'sayed-wp-conductor-for-claude' ); ?>
             </p>
         <?php endif; ?>
     </div>

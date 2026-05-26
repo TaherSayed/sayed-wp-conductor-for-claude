@@ -63,8 +63,8 @@ final class Admin {
                     'ajaxUrl' => admin_url( 'admin-ajax.php' ),
                     'nonce'   => wp_create_nonce( 'cmcp_test_token' ),
                     'i18n'    => [
-                        'copied'  => __( 'Copied', 'mcp-for-claude' ),
-                        'testing' => __( 'Testing…', 'mcp-for-claude' ),
+                        'copied'  => __( 'Copied', 'sayed-wp-conductor-for-claude' ),
+                        'testing' => __( 'Testing…', 'sayed-wp-conductor-for-claude' ),
                     ],
                 ] ) . ';',
                 'before'
@@ -86,9 +86,9 @@ final class Admin {
                     'ajaxUrl' => admin_url( 'admin-ajax.php' ),
                     'nonce'   => wp_create_nonce( 'cmcp_test_webhook' ),
                     'i18n'    => [
-                        'sending'   => __( 'Sending…', 'mcp-for-claude' ),
-                        'delivered' => __( 'Delivered:', 'mcp-for-claude' ),
-                        'failed'    => __( 'Failed:', 'mcp-for-claude' ),
+                        'sending'   => __( 'Sending…', 'sayed-wp-conductor-for-claude' ),
+                        'delivered' => __( 'Delivered:', 'sayed-wp-conductor-for-claude' ),
+                        'failed'    => __( 'Failed:', 'sayed-wp-conductor-for-claude' ),
                     ],
                 ] ) . ';',
                 'before'
@@ -98,21 +98,21 @@ final class Admin {
 
     public function menu(): void {
         add_menu_page(
-            __( 'Commander', 'mcp-for-claude' ),
-            __( 'Commander', 'mcp-for-claude' ),
+            __( 'Sayed WP Conductor', 'sayed-wp-conductor-for-claude' ),
+            __( 'Sayed WP Conductor', 'sayed-wp-conductor-for-claude' ),
             'manage_options',
             'cmcp',
             [ $this, 'render_dashboard' ],
             'dashicons-shield-alt',
             81
         );
-        add_submenu_page( 'cmcp', __( 'Dashboard',     'mcp-for-claude' ), __( 'Dashboard',     'mcp-for-claude' ), 'manage_options', 'cmcp',           [ $this, 'render_dashboard' ] );
-        add_submenu_page( 'cmcp', __( 'Settings',      'mcp-for-claude' ), __( 'Settings',      'mcp-for-claude' ), 'manage_options', 'cmcp-settings',  [ $this, 'render_settings' ] );
-        add_submenu_page( 'cmcp', __( 'Tokens',        'mcp-for-claude' ), __( 'Tokens',        'mcp-for-claude' ), 'manage_options', 'cmcp-tokens',    [ $this, 'render_tokens' ] );
-        add_submenu_page( 'cmcp', __( 'OAuth Clients', 'mcp-for-claude' ), __( 'OAuth Clients', 'mcp-for-claude' ), 'manage_options', 'cmcp-oauth',     [ $this, 'render_oauth' ] );
-        add_submenu_page( 'cmcp', __( 'Audit Log',     'mcp-for-claude' ), __( 'Audit Log',     'mcp-for-claude' ), 'manage_options', 'cmcp-log',       [ $this, 'render_log' ] );
+        add_submenu_page( 'cmcp', __( 'Dashboard',     'sayed-wp-conductor-for-claude' ), __( 'Dashboard',     'sayed-wp-conductor-for-claude' ), 'manage_options', 'cmcp',           [ $this, 'render_dashboard' ] );
+        add_submenu_page( 'cmcp', __( 'Settings',      'sayed-wp-conductor-for-claude' ), __( 'Settings',      'sayed-wp-conductor-for-claude' ), 'manage_options', 'cmcp-settings',  [ $this, 'render_settings' ] );
+        add_submenu_page( 'cmcp', __( 'Tokens',        'sayed-wp-conductor-for-claude' ), __( 'Tokens',        'sayed-wp-conductor-for-claude' ), 'manage_options', 'cmcp-tokens',    [ $this, 'render_tokens' ] );
+        add_submenu_page( 'cmcp', __( 'OAuth Clients', 'sayed-wp-conductor-for-claude' ), __( 'OAuth Clients', 'sayed-wp-conductor-for-claude' ), 'manage_options', 'cmcp-oauth',     [ $this, 'render_oauth' ] );
+        add_submenu_page( 'cmcp', __( 'Audit Log',     'sayed-wp-conductor-for-claude' ), __( 'Audit Log',     'sayed-wp-conductor-for-claude' ), 'manage_options', 'cmcp-log',       [ $this, 'render_log' ] );
         // Hidden setup wizard (no parent slug match → not shown in menu).
-        add_submenu_page( null, __( 'Setup Wizard', 'mcp-for-claude' ), __( 'Setup Wizard', 'mcp-for-claude' ), 'manage_options', 'cmcp-wizard', [ Wizard::class, 'render' ] );
+        add_submenu_page( null, __( 'Setup Wizard', 'sayed-wp-conductor-for-claude' ), __( 'Setup Wizard', 'sayed-wp-conductor-for-claude' ), 'manage_options', 'cmcp-wizard', [ Wizard::class, 'render' ] );
 
         // Custom footer credit on our pages only.
         add_filter( 'admin_footer_text',  [ $this, 'footer_credit' ] );
@@ -194,7 +194,7 @@ final class Admin {
         if ( ! current_user_can( 'manage_options' ) ) {
             return;
         }
-        wp_add_dashboard_widget( 'cmcp_dashboard_widget', '🛡️ Commander — MCP activity', [ $this, 'render_dashboard_widget' ] );
+        wp_add_dashboard_widget( 'cmcp_dashboard_widget', '🛡️ Sayed WP Conductor — MCP activity', [ $this, 'render_dashboard_widget' ] );
     }
 
     public function render_dashboard_widget(): void {
@@ -214,7 +214,7 @@ final class Admin {
         if ( $screen && str_starts_with( (string) $screen->id, 'toplevel_page_cmcp' ) === false && str_contains( (string) $screen->id, 'cmcp' ) === false ) {
             return $text;
         }
-        return '<span style="color:#646970">Commander · Secure MCP Control · <strong>powered by Taher Sayed</strong> — HBS IT GmbH · <a href="https://github.com/TaherSayed/commander-secure-mcp-control" target="_blank" rel="noopener">GitHub</a></span>';
+        return '<span style="color:#646970">Sayed WP Conductor · Secure MCP Control · <strong>powered by Taher Sayed</strong> — Taher Sayed · <a href="https://github.com/TaherSayed/commander-secure-mcp-control" target="_blank" rel="noopener">GitHub</a></span>';
     }
 
     public function footer_version( $text ) {
@@ -535,7 +535,7 @@ final class Admin {
         check_ajax_referer( 'cmcp_test_token', '_nonce' );
         $token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
         if ( $token === '' || strlen( $token ) < 16 || strlen( $token ) > 256 ) {
-            wp_send_json_error( [ 'message' => __( 'Missing or malformed token.', 'mcp-for-claude' ) ] );
+            wp_send_json_error( [ 'message' => __( 'Missing or malformed token.', 'sayed-wp-conductor-for-claude' ) ] );
         }
 
         $url   = rest_url( CMCP_REST_NAMESPACE . '/rpc' );
@@ -574,13 +574,13 @@ final class Admin {
         $message = $ok
             ? sprintf(
                 /* translators: 1: MCP protocol version returned by the server, 2: round-trip latency in ms */
-                __( 'OK — MCP %1$s, %2$d ms', 'mcp-for-claude' ),
+                __( 'OK — MCP %1$s, %2$d ms', 'sayed-wp-conductor-for-claude' ),
                 (string) $body['result']['protocolVersion'],
                 $latency
             )
             : sprintf(
                 /* translators: 1: HTTP status code, 2: error message from server */
-                __( 'Failed — HTTP %1$d, %2$s', 'mcp-for-claude' ),
+                __( 'Failed — HTTP %1$d, %2$s', 'sayed-wp-conductor-for-claude' ),
                 $status,
                 (string) ( $body['error']['message'] ?? $body['message'] ?? 'no body' )
             );

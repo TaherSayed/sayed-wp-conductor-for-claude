@@ -60,7 +60,7 @@ final class Notifier {
         $body    = wp_json_encode( $payload );
         $headers = [
             'Content-Type' => 'application/json',
-            'User-Agent'   => 'Commander/' . CMCP_VERSION . ' (+' . home_url( '/' ) . ')',
+            'User-Agent'   => 'Sayed WP Conductor/' . CMCP_VERSION . ' (+' . home_url( '/' ) . ')',
         ];
         if ( $secret !== '' && $body !== false ) {
             $headers['X-Commander-Signature'] = 'sha256=' . hash_hmac( 'sha256', $body, $secret );
@@ -94,22 +94,22 @@ final class Notifier {
         $settings = Plugin::get_settings();
         $url      = (string) ( $settings['webhook_url'] ?? '' );
         if ( $url === '' ) {
-            return [ 'ok' => false, 'message' => __( 'No webhook URL configured.', 'mcp-for-claude' ) ];
+            return [ 'ok' => false, 'message' => __( 'No webhook URL configured.', 'sayed-wp-conductor-for-claude' ) ];
         }
         if ( ! self::is_valid_url( $url ) ) {
-            return [ 'ok' => false, 'message' => __( 'Invalid webhook URL.', 'mcp-for-claude' ) ];
+            return [ 'ok' => false, 'message' => __( 'Invalid webhook URL.', 'sayed-wp-conductor-for-claude' ) ];
         }
         $payload = [
             'event'     => self::EVENT_TEST,
             'timestamp' => gmdate( 'c' ),
             'site'      => home_url( '/' ),
-            'data'      => [ 'message' => 'Test ping from Commander.' ],
+            'data'      => [ 'message' => 'Test ping from Sayed WP Conductor.' ],
         ];
         $body    = wp_json_encode( $payload );
         $secret  = (string) ( $settings['webhook_secret'] ?? '' );
         $headers = [
             'Content-Type'       => 'application/json',
-            'User-Agent'         => 'Commander/' . CMCP_VERSION,
+            'User-Agent'         => 'Sayed WP Conductor/' . CMCP_VERSION,
             'X-Commander-Event'  => self::EVENT_TEST,
         ];
         if ( $secret !== '' && $body !== false ) {
@@ -133,7 +133,7 @@ final class Notifier {
             'latency_ms' => $ms,
             'message'    => sprintf(
                 /* translators: 1: HTTP status code, 2: latency in ms */
-                __( 'HTTP %1$d in %2$d ms', 'mcp-for-claude' ),
+                __( 'HTTP %1$d in %2$d ms', 'sayed-wp-conductor-for-claude' ),
                 $code,
                 $ms
             ),

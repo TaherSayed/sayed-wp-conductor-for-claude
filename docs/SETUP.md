@@ -1,6 +1,6 @@
-# Commander — Secure MCP Control · Setup Guide
+# Sayed WP Conductor for Claude · Setup Guide
 
-A step-by-step walkthrough from upload to first authenticated MCP call. Plugin slug on WordPress.org: **`mcp-for-claude`**. Display name: **Commander — Secure MCP Control**. License: GPLv2-or-later.
+A step-by-step walkthrough from upload to first authenticated MCP call. Plugin slug on WordPress.org: **`sayed-wp-conductor-for-claude`**. Display name: **Sayed WP Conductor for Claude**. License: GPLv2-or-later.
 
 > Domain references in screenshots are **redacted** — the plugin auto-detects whatever site it's installed on via `home_url()` / `rest_url()`. There is nothing hardcoded to a specific site.
 
@@ -21,12 +21,12 @@ Two paths depending on whether you're using the WordPress.org listing or a relea
 ### From WordPress.org (recommended once approved)
 
 1. **Plugins → Add New**
-2. Search for **`mcp-for-claude`** or **`Commander Secure MCP`**
+2. Search for **`sayed-wp-conductor-for-claude`** or **`Sayed WP Conductor Secure MCP`**
 3. Click **Install Now** → **Activate**
 
 ### From a release zip
 
-1. Download the latest `mcp-for-claude-X.Y.Z.zip` from [Releases](https://github.com/TaherSayed/commander-secure-mcp-control/releases)
+1. Download the latest `sayed-wp-conductor-for-claude-X.Y.Z.zip` from [Releases](https://github.com/TaherSayed/commander-secure-mcp-control/releases)
 2. **Plugins → Add New → Upload Plugin**
 3. **Choose File** → pick the zip → **Install Now**
 4. After "Plugin successfully installed", click **Activate Plugin**
@@ -45,11 +45,11 @@ Two paths depending on whether you're using the WordPress.org listing or a relea
 
 Right after activation, a blue banner appears on the **Plugins** page:
 
-> 🛡 **Commander** is installed. Run the **30-second setup** — auto-creates a dedicated bot user and your first token, or **skip**.
+> 🛡 **Sayed WP Conductor** is installed. Run the **30-second setup** — auto-creates a dedicated bot user and your first token, or **skip**.
 
 ![Activation banner](screenshots/03-activation-banner.png)
 
-Click the **30-second setup** button to open the wizard. (You can skip and configure everything manually under **Commander** in the admin menu, but the wizard is the path of least resistance.)
+Click the **30-second setup** button to open the wizard. (You can skip and configure everything manually under **Sayed WP Conductor** in the admin menu, but the wizard is the path of least resistance.)
 
 ---
 
@@ -64,7 +64,7 @@ The wizard is fully opt-in. Every checkbox is on by default with sensible safe v
 `wp-commander-bot` is created with the **administrator** role. The bot's password is randomly generated server-side and immediately discarded — only API tokens authenticate. This gives you:
 
 - Cleaner audit trail (every entry attributable to "this token, this scope")
-- Clear "this action was done via Commander" attribution in WP
+- Clear "this action was done via Sayed WP Conductor" attribution in WP
 - No need to expose a real human user's credentials to API clients
 
 ### 3.2 · Issue your first token
@@ -83,7 +83,7 @@ Click **Finish setup →**.
 
 ## 4 · Setup complete — copy your token
 
-The next screen shows your token plaintext **exactly once**. Copy it before navigating away. If you lose it, just issue a new one in **Commander → Tokens** — the plaintext is never stored on the server, only its SHA-256 hash.
+The next screen shows your token plaintext **exactly once**. Copy it before navigating away. If you lose it, just issue a new one in **Sayed WP Conductor → Tokens** — the plaintext is never stored on the server, only its SHA-256 hash.
 
 ![Setup complete screen with token](screenshots/06-setup-complete.png)
 
@@ -96,7 +96,7 @@ Below the token, the **Now connect Claude** section offers two routes:
 
 ## 5 · Dashboard
 
-After the wizard you land on the **Commander** dashboard. Live KPIs at the top, 7-day call volume chart, top tools, plus a Quick Connect block with the three URLs (RPC, Discovery, OAuth metadata) clients need.
+After the wizard you land on the **Sayed WP Conductor** dashboard. Live KPIs at the top, 7-day call volume chart, top tools, plus a Quick Connect block with the three URLs (RPC, Discovery, OAuth metadata) clients need.
 
 ![Dashboard](screenshots/07-dashboard.png)
 
@@ -222,7 +222,7 @@ Rows are paginated at 50 per page.
 
 ### Path A — claude.ai web (one-click OAuth)
 
-1. In **Commander → Settings → OAuth**, enable Dynamic Client Registration
+1. In **Sayed WP Conductor → Settings → OAuth**, enable Dynamic Client Registration
 2. In claude.ai: **Settings → Connectors → + Add custom connector**
 3. Paste your MCP RPC URL: `https://your-site/wp-json/claude-mcp/v1/rpc`
 4. Claude auto-discovers OAuth via `/.well-known/oauth-authorization-server`
@@ -231,7 +231,7 @@ Rows are paginated at 50 per page.
 
 ### Path B — Claude Desktop / Code / curl / Python / Node (bearer token)
 
-1. Issue a PAT in **Commander → Tokens** (see §6)
+1. Issue a PAT in **Sayed WP Conductor → Tokens** (see §6)
 2. Copy the plaintext from the green "Token created" notice
 3. Add to your client config — the **Connect snippets** block under the token row has ready-to-paste examples for each client
 
@@ -290,4 +290,4 @@ If any gate denies, the call fails with the exact reason in the response body. T
 
 - 🐛 [GitHub issues](https://github.com/TaherSayed/commander-secure-mcp-control/issues)
 - 🔒 Security: see [SECURITY.md](../SECURITY.md) — coordinated disclosure
-- 💬 Built by **Taher Sayed · [HBS IT GmbH](https://hbs-it-gmbh.de)**
+- 💬 Built by **Taher Sayed · [Taher Sayed](https://github.com/TaherSayed)**

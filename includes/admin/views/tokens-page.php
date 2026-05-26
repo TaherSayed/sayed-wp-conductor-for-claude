@@ -15,58 +15,58 @@ defined( 'ABSPATH' ) || exit;
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- View-template locals, scoped to include().
 
 $status_labels = [
-    'active'  => __( 'Active',  'mcp-for-claude' ),
-    'idle'    => __( 'Idle',    'mcp-for-claude' ),
-    'stale'   => __( 'Stale',   'mcp-for-claude' ),
-    'expired' => __( 'Expired', 'mcp-for-claude' ),
-    'revoked' => __( 'Revoked', 'mcp-for-claude' ),
+    'active'  => __( 'Active',  'sayed-wp-conductor-for-claude' ),
+    'idle'    => __( 'Idle',    'sayed-wp-conductor-for-claude' ),
+    'stale'   => __( 'Stale',   'sayed-wp-conductor-for-claude' ),
+    'expired' => __( 'Expired', 'sayed-wp-conductor-for-claude' ),
+    'revoked' => __( 'Revoked', 'sayed-wp-conductor-for-claude' ),
 ];
 $status_hints = [
-    'active'  => __( 'Used in the last 30 days.',         'mcp-for-claude' ),
-    'idle'    => __( 'Never used yet.',                   'mcp-for-claude' ),
-    'stale'   => __( 'No activity in over 30 days.',      'mcp-for-claude' ),
-    'expired' => __( 'Past its expiry date.',             'mcp-for-claude' ),
-    'revoked' => __( 'Revoked — cannot authenticate.',    'mcp-for-claude' ),
+    'active'  => __( 'Used in the last 30 days.',         'sayed-wp-conductor-for-claude' ),
+    'idle'    => __( 'Never used yet.',                   'sayed-wp-conductor-for-claude' ),
+    'stale'   => __( 'No activity in over 30 days.',      'sayed-wp-conductor-for-claude' ),
+    'expired' => __( 'Past its expiry date.',             'sayed-wp-conductor-for-claude' ),
+    'revoked' => __( 'Revoked — cannot authenticate.',    'sayed-wp-conductor-for-claude' ),
 ];
 
 $bot_user = get_user_by( 'login', 'wp-commander-bot' );
 ?>
 <div class="wrap">
-    <h1><?php esc_html_e( 'Commander — Tokens', 'mcp-for-claude' ); ?></h1>
+    <h1><?php esc_html_e( 'Sayed WP Conductor — Tokens', 'sayed-wp-conductor-for-claude' ); ?></h1>
 
     <?php if ( $bot_user ) : ?>
         <div class="notice notice-info inline" style="margin:10px 0;padding:10px 14px">
             <p style="margin:0">
-                🤖 <strong><?php esc_html_e( 'Service account:', 'mcp-for-claude' ); ?></strong>
+                🤖 <strong><?php esc_html_e( 'Service account:', 'sayed-wp-conductor-for-claude' ); ?></strong>
                 <code><?php echo esc_html( $bot_user->user_login ); ?></code>
                 <span style="color:#646970"><?php echo esc_html( ' · #' . (int) $bot_user->ID . ' · ' . implode( ', ', (array) $bot_user->roles ) ); ?></span>
-                · <a href="<?php echo esc_url( admin_url( 'user-edit.php?user_id=' . (int) $bot_user->ID ) ); ?>"><?php esc_html_e( 'Edit user', 'mcp-for-claude' ); ?></a>
+                · <a href="<?php echo esc_url( admin_url( 'user-edit.php?user_id=' . (int) $bot_user->ID ) ); ?>"><?php esc_html_e( 'Edit user', 'sayed-wp-conductor-for-claude' ); ?></a>
             </p>
             <p class="description" style="margin:4px 0 0">
-                <?php esc_html_e( 'Auto-created by the setup wizard. Bind your read-only / monitoring tokens to this account so they execute with administrator capabilities without exposing a real human user.', 'mcp-for-claude' ); ?>
+                <?php esc_html_e( 'Auto-created by the setup wizard. Bind your read-only / monitoring tokens to this account so they execute with administrator capabilities without exposing a real human user.', 'sayed-wp-conductor-for-claude' ); ?>
             </p>
         </div>
     <?php endif; ?>
 
     <?php if ( $notice === 'revoked' ) : ?>
-        <div class="notice notice-info is-dismissible"><p><?php esc_html_e( 'Token revoked.', 'mcp-for-claude' ); ?></p></div>
+        <div class="notice notice-info is-dismissible"><p><?php esc_html_e( 'Token revoked.', 'sayed-wp-conductor-for-claude' ); ?></p></div>
     <?php elseif ( $notice === 'deleted' ) : ?>
-        <div class="notice notice-info is-dismissible"><p><?php esc_html_e( 'Token permanently deleted.', 'mcp-for-claude' ); ?></p></div>
+        <div class="notice notice-info is-dismissible"><p><?php esc_html_e( 'Token permanently deleted.', 'sayed-wp-conductor-for-claude' ); ?></p></div>
     <?php elseif ( $notice === 'rotated' ) : ?>
-        <div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Token rotated — the old one is revoked and a new one was issued below.', 'mcp-for-claude' ); ?></p></div>
+        <div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Token rotated — the old one is revoked and a new one was issued below.', 'sayed-wp-conductor-for-claude' ); ?></p></div>
     <?php elseif ( $notice === 'rotate_failed' ) : ?>
-        <div class="notice notice-error is-dismissible"><p><?php esc_html_e( 'Could not rotate the token.', 'mcp-for-claude' ); ?></p></div>
+        <div class="notice notice-error is-dismissible"><p><?php esc_html_e( 'Could not rotate the token.', 'sayed-wp-conductor-for-claude' ); ?></p></div>
     <?php endif; ?>
 
     <?php if ( $just_token ) : ?>
         <div class="notice notice-success">
             <p>
-                <strong><?php esc_html_e( 'Token created. Copy it now — it will not be shown again:', 'mcp-for-claude' ); ?></strong>
+                <strong><?php esc_html_e( 'Token created. Copy it now — it will not be shown again:', 'sayed-wp-conductor-for-claude' ); ?></strong>
             </p>
             <div class="cmcp-token-box">
                 <code id="cmcp-new-token"><?php echo esc_html( $just_token ); ?></code>
-                <button type="button" class="button cmcp-copy" data-target="#cmcp-new-token"><?php esc_html_e( 'Copy', 'mcp-for-claude' ); ?></button>
-                <button type="button" class="button cmcp-test-new" data-token="<?php echo esc_attr( $just_token ); ?>"><?php esc_html_e( 'Test now', 'mcp-for-claude' ); ?></button>
+                <button type="button" class="button cmcp-copy" data-target="#cmcp-new-token"><?php esc_html_e( 'Copy', 'sayed-wp-conductor-for-claude' ); ?></button>
+                <button type="button" class="button cmcp-test-new" data-token="<?php echo esc_attr( $just_token ); ?>"><?php esc_html_e( 'Test now', 'sayed-wp-conductor-for-claude' ); ?></button>
             </div>
             <p class="cmcp-test-result" style="margin:0;color:#646970;font-size:12px"></p>
 
@@ -78,17 +78,17 @@ $bot_user = get_user_by( 'login', 'wp-commander-bot' );
         </div>
     <?php endif; ?>
 
-    <h2><?php esc_html_e( 'Issue new token', 'mcp-for-claude' ); ?></h2>
+    <h2><?php esc_html_e( 'Issue new token', 'sayed-wp-conductor-for-claude' ); ?></h2>
     <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
         <input type="hidden" name="action" value="cmcp_create_token" />
         <?php wp_nonce_field( 'cmcp_create_token' ); ?>
         <table class="form-table" role="presentation">
             <tr>
-                <th><label for="label"><?php esc_html_e( 'Label', 'mcp-for-claude' ); ?></label></th>
+                <th><label for="label"><?php esc_html_e( 'Label', 'sayed-wp-conductor-for-claude' ); ?></label></th>
                 <td><input id="label" name="label" type="text" class="regular-text" required maxlength="120" /></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Scopes', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Scopes', 'sayed-wp-conductor-for-claude' ); ?></th>
                 <td>
                     <label><input type="checkbox" name="scopes[]" value="read" checked /> read</label>
                     <label><input type="checkbox" name="scopes[]" value="write" /> write</label>
@@ -96,7 +96,7 @@ $bot_user = get_user_by( 'login', 'wp-commander-bot' );
                 </td>
             </tr>
             <tr>
-                <th><label for="user_id"><?php esc_html_e( 'Run as WP user', 'mcp-for-claude' ); ?> <span style="color:#b32d2e">*</span></label></th>
+                <th><label for="user_id"><?php esc_html_e( 'Run as WP user', 'sayed-wp-conductor-for-claude' ); ?> <span style="color:#b32d2e">*</span></label></th>
                 <td>
                     <select id="cmcp-user-select" style="min-width:280px">
                         <?php foreach ( (array) $suggested_users as $u ) :
@@ -115,49 +115,49 @@ $bot_user = get_user_by( 'login', 'wp-commander-bot' );
                                 #<?php echo (int) $u_id; ?> — <?php echo esc_html( $u->user_login ); ?><?php echo esc_html( $tag ); ?>
                             </option>
                         <?php endforeach; ?>
-                        <option value="-1"><?php esc_html_e( 'Other — enter ID manually…', 'mcp-for-claude' ); ?></option>
-                        <option value="0" style="color:#b32d2e"><?php esc_html_e( '0 — anonymous (only public/read tools)', 'mcp-for-claude' ); ?></option>
+                        <option value="-1"><?php esc_html_e( 'Other — enter ID manually…', 'sayed-wp-conductor-for-claude' ); ?></option>
+                        <option value="0" style="color:#b32d2e"><?php esc_html_e( '0 — anonymous (only public/read tools)', 'sayed-wp-conductor-for-claude' ); ?></option>
                     </select>
                     <input id="user_id" name="user_id" type="number" min="0" value="<?php echo (int) $current_admin_id; ?>" style="width:90px;margin-left:8px" />
-                    <p class="description"><?php esc_html_e( "Token executes with this user's WordPress capabilities. Admin-scope tools (plugins / users / settings) ALL require the bound user to actually have those WP capabilities — so pick an Administrator unless you specifically want a limited token.", 'mcp-for-claude' ); ?></p>
+                    <p class="description"><?php esc_html_e( "Token executes with this user's WordPress capabilities. Admin-scope tools (plugins / users / settings) ALL require the bound user to actually have those WP capabilities — so pick an Administrator unless you specifically want a limited token.", 'sayed-wp-conductor-for-claude' ); ?></p>
                     <p id="cmcp-user-warning" class="notice notice-warning inline" style="display:none;padding:8px 12px;margin:6px 0 0;border-left-width:4px">
-                        ⚠ <strong><?php esc_html_e( 'This token will have no WordPress user.', 'mcp-for-claude' ); ?></strong>
-                        <?php esc_html_e( 'Every capability-gated tool will fail. Only use this for testing the auth handshake itself.', 'mcp-for-claude' ); ?>
+                        ⚠ <strong><?php esc_html_e( 'This token will have no WordPress user.', 'sayed-wp-conductor-for-claude' ); ?></strong>
+                        <?php esc_html_e( 'Every capability-gated tool will fail. Only use this for testing the auth handshake itself.', 'sayed-wp-conductor-for-claude' ); ?>
                     </p>
                 </td>
             </tr>
             <tr>
-                <th><label for="expires_days"><?php esc_html_e( 'Expires in (days)', 'mcp-for-claude' ); ?></label></th>
-                <td><input id="expires_days" name="expires_days" type="number" min="0" value="0" /> <span class="description"><?php esc_html_e( '0 = never', 'mcp-for-claude' ); ?></span></td>
+                <th><label for="expires_days"><?php esc_html_e( 'Expires in (days)', 'sayed-wp-conductor-for-claude' ); ?></label></th>
+                <td><input id="expires_days" name="expires_days" type="number" min="0" value="0" /> <span class="description"><?php esc_html_e( '0 = never', 'sayed-wp-conductor-for-claude' ); ?></span></td>
             </tr>
             <tr>
-                <th><label for="ip_allowlist"><?php esc_html_e( 'IP allowlist', 'mcp-for-claude' ); ?></label></th>
+                <th><label for="ip_allowlist"><?php esc_html_e( 'IP allowlist', 'sayed-wp-conductor-for-claude' ); ?></label></th>
                 <td><textarea id="ip_allowlist" name="ip_allowlist" rows="3" cols="40" placeholder="203.0.113.5&#10;198.51.100.0"></textarea>
-                <p class="description"><?php esc_html_e( 'One per line. Leave empty to allow any source IP.', 'mcp-for-claude' ); ?></p></td>
+                <p class="description"><?php esc_html_e( 'One per line. Leave empty to allow any source IP.', 'sayed-wp-conductor-for-claude' ); ?></p></td>
             </tr>
         </table>
-        <?php submit_button( __( 'Issue token', 'mcp-for-claude' ) ); ?>
+        <?php submit_button( __( 'Issue token', 'sayed-wp-conductor-for-claude' ) ); ?>
     </form>
 
-    <h2><?php esc_html_e( 'Existing tokens', 'mcp-for-claude' ); ?></h2>
+    <h2><?php esc_html_e( 'Existing tokens', 'sayed-wp-conductor-for-claude' ); ?></h2>
     <table class="widefat striped cmcp-tokens-table">
         <thead>
             <tr>
-                <th><?php esc_html_e( 'Label',     'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Status',    'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Prefix',    'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Scopes',    'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'User',      'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Last used', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Last IP',   'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( '7-day calls', 'mcp-for-claude' ); ?></th>
-                <th><?php esc_html_e( 'Expires',   'mcp-for-claude' ); ?></th>
-                <th style="width:280px"><?php esc_html_e( 'Actions', 'mcp-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Label',     'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Status',    'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Prefix',    'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Scopes',    'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'User',      'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Last used', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Last IP',   'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( '7-day calls', 'sayed-wp-conductor-for-claude' ); ?></th>
+                <th><?php esc_html_e( 'Expires',   'sayed-wp-conductor-for-claude' ); ?></th>
+                <th style="width:280px"><?php esc_html_e( 'Actions', 'sayed-wp-conductor-for-claude' ); ?></th>
             </tr>
         </thead>
         <tbody>
         <?php if ( empty( $tokens ) ) : ?>
-            <tr><td colspan="10"><?php esc_html_e( 'No tokens yet.', 'mcp-for-claude' ); ?></td></tr>
+            <tr><td colspan="10"><?php esc_html_e( 'No tokens yet.', 'sayed-wp-conductor-for-claude' ); ?></td></tr>
         <?php else : foreach ( $tokens as $t ) :
             $status = \CMCP\Auth::token_status( $t );
             $is_active_status = ! in_array( $status, [ 'revoked', 'expired' ], true );
@@ -208,35 +208,35 @@ $bot_user = get_user_by( 'login', 'wp-commander-bot' );
                         <span class="cmcp-sparkline-total"><?php echo (int) $total; ?></span>
                     </span>
                 </td>
-                <td><?php echo $t['expires_at']  ? esc_html( $t['expires_at'] )  : '<span style="color:#a7aaad">' . esc_html__( 'never', 'mcp-for-claude' ) . '</span>'; ?></td>
+                <td><?php echo $t['expires_at']  ? esc_html( $t['expires_at'] )  : '<span style="color:#a7aaad">' . esc_html__( 'never', 'sayed-wp-conductor-for-claude' ) . '</span>'; ?></td>
                 <td class="cmcp-row-actions">
                     <?php if ( $is_active_status ) : ?>
-                        <button type="button" class="button button-small cmcp-test-row" data-token-id="<?php echo (int) $t['id']; ?>" disabled title="<?php esc_attr_e( 'Live testing of existing tokens is disabled (the plaintext is not stored on the server). Issue a new token or rotate to test.', 'mcp-for-claude' ); ?>"><?php esc_html_e( 'Test', 'mcp-for-claude' ); ?></button>
+                        <button type="button" class="button button-small cmcp-test-row" data-token-id="<?php echo (int) $t['id']; ?>" disabled title="<?php esc_attr_e( 'Live testing of existing tokens is disabled (the plaintext is not stored on the server). Issue a new token or rotate to test.', 'sayed-wp-conductor-for-claude' ); ?>"><?php esc_html_e( 'Test', 'sayed-wp-conductor-for-claude' ); ?></button>
                     <?php endif; ?>
 
                     <?php if ( $is_active_status ) : ?>
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Rotate this token? The old one will be revoked and a new plaintext will be shown.', 'mcp-for-claude' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Rotate this token? The old one will be revoked and a new plaintext will be shown.', 'sayed-wp-conductor-for-claude' ) ); ?>');">
                         <input type="hidden" name="action"   value="cmcp_rotate_token" />
                         <input type="hidden" name="token_id" value="<?php echo (int) $t['id']; ?>" />
                         <?php wp_nonce_field( 'cmcp_rotate_token' ); ?>
-                        <button class="button button-small" type="submit"><?php esc_html_e( 'Rotate', 'mcp-for-claude' ); ?></button>
+                        <button class="button button-small" type="submit"><?php esc_html_e( 'Rotate', 'sayed-wp-conductor-for-claude' ); ?></button>
                     </form>
                     <?php endif; ?>
 
                     <?php if ( $is_active_status ) : ?>
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Revoke this token? It can no longer authenticate, but the audit row stays.', 'mcp-for-claude' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Revoke this token? It can no longer authenticate, but the audit row stays.', 'sayed-wp-conductor-for-claude' ) ); ?>');">
                         <input type="hidden" name="action"   value="cmcp_revoke_token" />
                         <input type="hidden" name="token_id" value="<?php echo (int) $t['id']; ?>" />
                         <?php wp_nonce_field( 'cmcp_revoke_token' ); ?>
-                        <button class="button button-small" type="submit"><?php esc_html_e( 'Revoke', 'mcp-for-claude' ); ?></button>
+                        <button class="button button-small" type="submit"><?php esc_html_e( 'Revoke', 'sayed-wp-conductor-for-claude' ); ?></button>
                     </form>
                     <?php endif; ?>
 
-                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Permanently delete this token row? This action cannot be undone.', 'mcp-for-claude' ) ); ?>');">
+                    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline" onsubmit="return confirm('<?php echo esc_js( __( 'Permanently delete this token row? This action cannot be undone.', 'sayed-wp-conductor-for-claude' ) ); ?>');">
                         <input type="hidden" name="action"   value="cmcp_delete_token" />
                         <input type="hidden" name="token_id" value="<?php echo (int) $t['id']; ?>" />
                         <?php wp_nonce_field( 'cmcp_delete_token' ); ?>
-                        <button class="button button-small button-link-delete" type="submit"><?php esc_html_e( 'Delete', 'mcp-for-claude' ); ?></button>
+                        <button class="button button-small button-link-delete" type="submit"><?php esc_html_e( 'Delete', 'sayed-wp-conductor-for-claude' ); ?></button>
                     </form>
                 </td>
             </tr>

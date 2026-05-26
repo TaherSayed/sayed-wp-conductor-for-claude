@@ -1,4 +1,4 @@
-# Contributing to Commander — Secure MCP Control
+# Contributing to Sayed WP Conductor for Claude
 
 Thanks for your interest. This document covers how to file issues, propose changes, and report security problems.
 
@@ -19,7 +19,7 @@ Open a GitHub issue with:
 - **Environment:** WordPress version, PHP version, plugin version, hosting / proxy setup (Cloudflare, nginx, Apache, etc.).
 - **Steps to reproduce.**
 - **What you expected** vs **what happened**.
-- Relevant entries from **WP Commander → Audit Log** (sanitise tokens and IPs first).
+- Relevant entries from **WP Sayed WP Conductor → Audit Log** (sanitise tokens and IPs first).
 - Browser console / `error_log` excerpts if applicable.
 
 ## Proposing changes
