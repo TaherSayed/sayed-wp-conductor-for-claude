@@ -214,7 +214,7 @@ final class Admin {
         if ( $screen && str_starts_with( (string) $screen->id, 'toplevel_page_cmcp' ) === false && str_contains( (string) $screen->id, 'cmcp' ) === false ) {
             return $text;
         }
-        return '<span style="color:#646970">Sayed WP Conductor · Secure MCP Control · <strong>powered by Taher Sayed</strong> — Taher Sayed · <a href="https://github.com/TaherSayed/commander-secure-mcp-control" target="_blank" rel="noopener">GitHub</a></span>';
+        return '<span style="color:#646970">Sayed WP Conductor · Secure MCP Control · <strong>powered by Taher Sayed</strong> — Taher Sayed · <a href="https://github.com/TaherSayed/sayed-wp-conductor-for-claude" target="_blank" rel="noopener">GitHub</a></span>';
     }
 
     public function footer_version( $text ) {

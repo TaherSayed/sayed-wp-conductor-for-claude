@@ -4,7 +4,7 @@ Thanks for your interest. This document covers how to file issues, propose chang
 
 ## Reporting security issues
 
-**Do not open a public GitHub issue for security problems.** Instead email security@hbs-it-gmbh.de with:
+**Do not open a public GitHub issue for security problems.** Instead email open a private security advisory at https://github.com/TaherSayed/sayed-wp-conductor-for-claude/security/advisories with:
 
 - A description of the issue and its impact.
 - Steps to reproduce (or a proof-of-concept).
@@ -42,7 +42,7 @@ Open a GitHub issue with:
 
 1. Bump `Version:` in the main plugin header and `CMCP_VERSION` constant.
 2. Bump `Stable tag:` in `readme.txt` and add a `== Changelog ==` entry.
-3. Regenerate `languages/commander-secure-mcp-control.pot` (`wp i18n make-pot . languages/commander-secure-mcp-control.pot`).
+3. Regenerate `languages/sayed-wp-conductor-for-claude.pot` (`wp i18n make-pot . languages/sayed-wp-conductor-for-claude.pot`).
 4. Tag the release: `git tag v1.x.y && git push --tags`.
 5. Upload to WordPress.org SVN.
 

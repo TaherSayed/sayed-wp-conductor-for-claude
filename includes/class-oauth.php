@@ -150,7 +150,7 @@ final class OAuth {
              *
              * @param string $url Documentation URL.
              */
-            'service_documentation'                 => (string) apply_filters( 'cmcp_oauth_service_documentation', 'https://github.com/TaherSayed/commander-secure-mcp-control' ),
+            'service_documentation'                 => (string) apply_filters( 'cmcp_oauth_service_documentation', 'https://github.com/TaherSayed/sayed-wp-conductor-for-claude' ),
             'ui_locales_supported'                  => [ 'en', 'de' ],
         ];
     }
@@ -166,7 +166,7 @@ final class OAuth {
              * Filter the OAuth Protected Resource `resource_documentation` URL.
              * Defaults to the project's GitHub repository. Site owners can override.
              */
-            'resource_documentation'  => (string) apply_filters( 'cmcp_oauth_resource_documentation', 'https://github.com/TaherSayed/commander-secure-mcp-control' ),
+            'resource_documentation'  => (string) apply_filters( 'cmcp_oauth_resource_documentation', 'https://github.com/TaherSayed/sayed-wp-conductor-for-claude' ),
         ];
     }
 

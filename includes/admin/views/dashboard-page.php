@@ -150,8 +150,8 @@ $dest_ok      = ! empty( $settings['require_https'] ) && ! empty( $settings['ena
 
     <p class="cmcp-credit">
         Sayed WP Conductor · Secure MCP Control ·
-        <a href="https://github.com/TaherSayed/commander-secure-mcp-control" target="_blank" rel="noopener">GitHub</a> ·
-        <a href="https://github.com/TaherSayed/commander-secure-mcp-control/issues" target="_blank" rel="noopener"><?php esc_html_e( 'Report an issue', 'sayed-wp-conductor-for-claude' ); ?></a> ·
+        <a href="https://github.com/TaherSayed/sayed-wp-conductor-for-claude" target="_blank" rel="noopener">GitHub</a> ·
+        <a href="https://github.com/TaherSayed/sayed-wp-conductor-for-claude/issues" target="_blank" rel="noopener"><?php esc_html_e( 'Report an issue', 'sayed-wp-conductor-for-claude' ); ?></a> ·
         <a href="https://github.com/TaherSayed" target="_blank" rel="noopener">Taher Sayed</a> ·
         <?php esc_html_e( 'Built by Taher Sayed', 'sayed-wp-conductor-for-claude' ); ?>
     </p>

@@ -6,7 +6,7 @@ Only the latest minor release receives security fixes. Older releases are not pa
 
 ## Reporting a vulnerability
 
-Email **security@hbs-it-gmbh.de** rather than opening a public issue.
+Email **open a private security advisory on https://github.com/TaherSayed/sayed-wp-conductor-for-claude/security/advisories** rather than opening a public issue.
 
 Please include:
 

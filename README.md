@@ -38,13 +38,13 @@ Search for "Sayed WP Conductor for Claude" under **Plugins → Add New**, instal
 
 ```bash
 cd wp-content/plugins/
-git clone https://github.com/TaherSayed/commander-secure-mcp-control.git sayed-wp-conductor-for-claude
+git clone https://github.com/TaherSayed/sayed-wp-conductor-for-claude.git sayed-wp-conductor-for-claude
 ```
 
 Then activate **Sayed WP Conductor for Claude** under **Plugins**. The 30-second setup wizard runs on first activation. (The local folder must be named `sayed-wp-conductor-for-claude` so it matches the text-domain slug.)
 
 **From a release zip:**
-Download the latest `commander-secure-mcp-control-x.y.z.zip` from [Releases](https://github.com/TaherSayed/commander-secure-mcp-control/releases) and upload via **Plugins → Add New → Upload Plugin**.
+Download the latest `sayed-wp-conductor-for-claude-x.y.z.zip` from [Releases](https://github.com/TaherSayed/sayed-wp-conductor-for-claude/releases) and upload via **Plugins → Add New → Upload Plugin**.
 
 After install:
 1. Go to **Sayed WP Conductor → Tokens** and issue a token (bind it to a least-privileged WP user).

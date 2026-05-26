@@ -45,6 +45,5 @@ This folder holds the install / setup walkthrough screenshots referenced from `d
 
 - WordPress **admin top bar** (always — site title + username are exposed there)
 - Sidebar **top-left site logo** (always)
-- Any **text matching `hbs-it-gmbh`** (OCR'd, blurred)
 - Any **text matching `it-team-admin`** (OCR'd, blurred)
 - Any **text matching `^cmcp_[a-f0-9]{8,}$`** — covers the leaked token plaintext on screenshot 06

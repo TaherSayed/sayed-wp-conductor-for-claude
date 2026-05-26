@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: claude-mcp-secure\n"
-#: commander-secure-mcp-control.php:36
+#: sayed-wp-conductor-for-claude.php:36
 msgid "Claude MCP Secure requires PHP 8.0 or higher."
 msgstr ""
 

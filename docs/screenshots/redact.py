@@ -56,7 +56,7 @@ BLUR_RADIUS = 9
 PAD = 4
 
 TOKEN_RE = re.compile(r"cmcp_[a-f0-9]{4,}", re.IGNORECASE)
-DOMAIN_NEEDLES = ("hbs-it-gmbh",)
+DOMAIN_NEEDLES = ()  # nothing site-specific to scrub anymore
 USERNAME_NEEDLES = ("it-team-admin",)
 
 # Per-file extra hard-mask rectangles. The token reveal box on the

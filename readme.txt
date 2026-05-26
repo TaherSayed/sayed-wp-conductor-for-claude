@@ -106,7 +106,7 @@ Yes, WP-CLI:
 
 = How do I report a security issue? =
 
-Please email security@hbs-it-gmbh.de rather than opening a public issue.
+Please email security advisory on https://github.com/TaherSayed/sayed-wp-conductor-for-claude/security/advisories rather than opening a public issue.
 
 == Screenshots ==
 
@@ -180,7 +180,7 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 * **Fix:** Critical fatal error on activation in 1.5.1. The new GitHub auto-updater class was named `GitHubUpdater`, but the autoloader's CamelCase→kebab-case regex splits at every lower-to-upper boundary (`tH`, `bU`), so it tried to load `class-git-hub-updater.php` while the actual file is `class-github-updater.php`. Renamed the class to `GithubUpdater` so the filename matches. **Do not run 1.5.1 — install 1.5.2 directly.**
 
 = 1.5.1 =
-* **GitHub auto-updater** — once installed, the plugin polls api.github.com/repos/TaherSayed/commander-secure-mcp-control/releases/latest at most every 12 hours and surfaces new versions through WordPress's standard "Update available" banner. One-click update preserves all data. Yields to WordPress.org's update channel automatically once published there.
+* **GitHub auto-updater** — once installed, the plugin polls api.github.com/repos/TaherSayed/sayed-wp-conductor-for-claude/releases/latest at most every 12 hours and surfaces new versions through WordPress's standard "Update available" banner. One-click update preserves all data. Yields to WordPress.org's update channel automatically once published there.
 * "View details" modal shows the GitHub release notes for the new version.
 * Plugins-page row links: GitHub repo + Report issue.
 * **Fix:** JSON-RPC error messages no longer contain HTML entities (e.g. apostrophes were rendered as `&#039;`). Exception messages are now entity-decoded before being returned in the JSON body.
@@ -236,7 +236,7 @@ Self-heals missing DB tables on load. Recommended for anyone who upgraded via WP
 Drops the GitHub auto-updater (required for WordPress.org listing) and a heredoc syntax issue flagged by Plugin Check. No functional changes.
 
 = 1.6.0 =
-**Slug rename to `sayed-wp-conductor-for-claude`** — this version's folder is `sayed-wp-conductor-for-claude/`. If you have an older `commander-secure-mcp-control/` folder, deactivate it via WP admin (don't click Delete — it would drop your tokens table), then delete that folder via FTP/SSH, then install this 1.6.0 zip fresh. Database is untouched.
+**Slug rename to `sayed-wp-conductor-for-claude`** — this version's folder is `sayed-wp-conductor-for-claude/`. If you have an older `sayed-wp-conductor-for-claude/` folder, deactivate it via WP admin (don't click Delete — it would drop your tokens table), then delete that folder via FTP/SSH, then install this 1.6.0 zip fresh. Database is untouched.
 
 = 1.5.4 =
 Fix: OAuth consent screen now recognises your existing WordPress login session (was bouncing logged-in admins back to wp-login). Required if you use security plugins that move the login URL.

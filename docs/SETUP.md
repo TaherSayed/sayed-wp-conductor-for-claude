@@ -26,7 +26,7 @@ Two paths depending on whether you're using the WordPress.org listing or a relea
 
 ### From a release zip
 
-1. Download the latest `sayed-wp-conductor-for-claude-X.Y.Z.zip` from [Releases](https://github.com/TaherSayed/commander-secure-mcp-control/releases)
+1. Download the latest `sayed-wp-conductor-for-claude-X.Y.Z.zip` from [Releases](https://github.com/TaherSayed/sayed-wp-conductor-for-claude/releases)
 2. **Plugins → Add New → Upload Plugin**
 3. **Choose File** → pick the zip → **Install Now**
 4. After "Plugin successfully installed", click **Activate Plugin**
@@ -288,6 +288,6 @@ If any gate denies, the call fails with the exact reason in the response body. T
 
 ## Support
 
-- 🐛 [GitHub issues](https://github.com/TaherSayed/commander-secure-mcp-control/issues)
+- 🐛 [GitHub issues](https://github.com/TaherSayed/sayed-wp-conductor-for-claude/issues)
 - 🔒 Security: see [SECURITY.md](../SECURITY.md) — coordinated disclosure
 - 💬 Built by **Taher Sayed · [Taher Sayed](https://github.com/TaherSayed)**
