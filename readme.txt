@@ -4,7 +4,7 @@ Tags: mcp, claude, ai, oauth, rest-api
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,10 @@ Please email security advisory on https://github.com/TaherSayed/sayed-wp-conduct
 5. Audit Log — every call, with token id, IP, JSON-RPC method, tool, status, note.
 
 == Changelog ==
+
+= 1.9.1 =
+* **Repo move:** GitHub repository renamed from `commander-secure-mcp-control` to `sayed-wp-conductor-for-claude` to match the WordPress.org slug. All in-tree URLs (Plugin URI, docs, security policy contact) now point at the new location. GitHub auto-redirects the old URL so existing clones / forks / release links keep working.
+* **Security contact:** dropped the `security@hbs-it-gmbh.de` mailbox — vulnerability reports now go through the GitHub private security advisory flow. Removed the last lingering "hbs-it-gmbh" needle from the screenshot redaction tooling.
 
 = 1.9.0 =
 * **Rename:** Plugin renamed to **Sayed WP Conductor for Claude**, slug `sayed-wp-conductor-for-claude`. The previous name ("Sayed WP Conductor — Secure MCP Control" / slug `mcp-for-claude`) was flagged by the WordPress.org review team — "Sayed WP Conductor" is too generic, and starting the slug with `mcp-for-claude` implies false affiliation with Anthropic. New name follows the directory's "distinctive prefix … for Trademark" pattern. **Text domain changed** to `sayed-wp-conductor-for-claude` to match. The plugin was not yet on WordPress.org, so existing installs do not need to migrate translations.
