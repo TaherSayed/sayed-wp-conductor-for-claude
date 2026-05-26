@@ -1,0 +1,77 @@
+/**
+ * Styles for the public OAuth consent + error pages rendered by class-oauth.php.
+ *
+ * These pages are returned as standalone HTML from REST callbacks and never
+ * pass through wp_head() / wp_footer(), so they cannot use wp_enqueue_style().
+ * The HTML <link>s this file directly via plugins_url(). The CSS is kept
+ * here (instead of inline <style>) per WordPress.org plugin guideline that
+ * static CSS must not be emitted as inline blocks where a separate file works.
+ *
+ * @package WPCommander
+ */
+
+body {
+    margin: 0;
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f0f0f1;
+    color: #1d2327;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.card {
+    background: #fff;
+    max-width: 480px;
+    width: 90%;
+    padding: 36px;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba( 0, 0, 0, .08 );
+}
+
+h1 { margin: 0 0 4px; font-size: 22px; }
+
+.sub { color: #646970; font-size: 13px; margin-bottom: 24px; }
+
+.client {
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    padding: 14px;
+    border-radius: 6px;
+    margin: 0 0 20px;
+}
+.client b { display: block; font-size: 16px; }
+
+.scopes { margin: 0 0 24px; padding: 0; list-style: none; }
+.scopes li { padding: 10px 0; border-top: 1px solid #f0f0f1; }
+.scopes li:first-child { border-top: 0; }
+
+.scope-name {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: #f0f6fc;
+    color: #0a4b78;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.actions { display: flex; gap: 10px; }
+button {
+    flex: 1;
+    padding: 11px 16px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.approve { background: #2271b1; color: #fff; border-color: #2271b1; }
+.approve:hover { background: #135e96; }
+.deny { background: #fff; color: #1d2327; border-color: #c3c4c7; }
+.deny:hover { background: #f6f7f7; }
+
+.who { margin-top: 16px; font-size: 12px; color: #646970; text-align: center; }
+.who a { color: #2271b1; }
+
+/* Error page reuses the same body{} above; nothing else needed. */

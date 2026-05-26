@@ -573,35 +573,111 @@ final class OAuth {
      *  Revocation (RFC 7009)
      * ------------------------------------------------------------------ */
 
+    /**
+     * RFC 7009 token revocation.
+     *
+     * The previous implementation accepted any token value, found it by hash,
+     * and revoked it — with NO client authentication. That meant an attacker
+     * who observed (or guessed) a token value could remotely revoke it and
+     * deny the legitimate user service. The WordPress.org plugin review team
+     * flagged this as a public-reachable endpoint that does not verify token
+     * ownership before revoking.
+     *
+     * Per RFC 7009 §2:
+     *   "The client also includes its authentication credentials as described
+     *    in Section 2.3 of [RFC6749]."
+     *
+     * So we now:
+     *   1. Rate-limit per-IP (defence against blind revoke-spam).
+     *   2. Authenticate the client (Basic / POST credentials). Confidential
+     *      clients must present their secret; public clients (auth_method=none)
+     *      must at minimum send their client_id.
+     *   3. Verify the token row's client_id matches the authenticated client.
+     *      If it doesn't, we respond 200 per RFC 7009 §2.2 — never confirm
+     *      whether a token exists for a different client.
+     */
     public static function rest_revoke( \WP_REST_Request $request ): \WP_REST_Response {
+        // Per-IP rate limit — keeps the endpoint from being usable as a
+        // blind token-revocation oracle / DoS amplifier.
+        if ( ! RateLimiter::by_ip( 'oauth_revoke', 20 ) ) {
+            return new \WP_REST_Response(
+                [ 'error' => 'temporarily_unavailable', 'error_description' => 'Too many revoke attempts. Try again later.' ],
+                429
+            );
+        }
+
+        // RFC 7009 §2.1: client MUST authenticate. Reuse the same helper the
+        // token endpoint uses — covers Basic and POST credentials.
+        $body_client_id = (string) $request->get_param( 'client_id' );
+        $client = self::authenticate_client( $request, $body_client_id );
+        if ( $client instanceof \WP_REST_Response ) {
+            // Client auth failed → propagate the structured invalid_client error.
+            Logger::log( [
+                'method'      => 'oauth/revoke',
+                'success'     => 0,
+                'status_code' => 401,
+                'note'        => 'client auth failed',
+            ] );
+            return $client;
+        }
+
         $token = (string) $request->get_param( 'token' );
         if ( $token === '' ) {
-            // RFC 7009: respond 200 even on invalid token to avoid leakage.
+            // RFC 7009: respond 200 even when token is missing/invalid to avoid leakage.
             return new \WP_REST_Response( null, 200 );
         }
 
+        // Optional RFC 7009 hint — we ignore it for lookup (we hash and check
+        // both columns anyway) but accept it for client compatibility.
+        $hint = (string) $request->get_param( 'token_type_hint' );
+
         global $wpdb;
-        $hash = hash( 'sha256', $token );
-        $now  = gmdate( 'Y-m-d H:i:s' );
+        $hash      = hash( 'sha256', $token );
+        $now       = gmdate( 'Y-m-d H:i:s' );
+        $client_id = (string) $client['client_id'];
+
+        // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin tables; table names cannot be prepared, caching not applicable.
+        // Look up the token row and require client_id to match the
+        // authenticated client. RFC 7009 §2.2: if the server cannot match
+        // the token to the requesting client, respond 200 without revealing
+        // anything about the token's existence.
+        $row = $wpdb->get_row( $wpdb->prepare(
+            "SELECT id, client_id FROM {$wpdb->prefix}" . Plugin::TABLE_OAUTH_TOKENS
+            . " WHERE (access_hash = %s OR refresh_hash = %s) AND revoked_at IS NULL",
+            $hash, $hash
+        ), ARRAY_A );
+        // phpcs:enable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+
+        if ( ! $row || ! hash_equals( (string) $row['client_id'], $client_id ) ) {
+            // Token unknown, already revoked, or owned by a different client.
+            // RFC 7009 wants 200 in all these cases so we never leak token
+            // existence to a third party — even an authenticated one.
+            // Burn a constant-time compare to keep timing roughly equal.
+            hash_equals( str_repeat( 'a', 64 ), $hash );
+            Logger::log( [
+                'method'      => 'oauth/revoke',
+                'success'     => 1,
+                'status_code' => 200,
+                'note'        => 'no-match or client mismatch (token type: ' . ( $hint !== '' ? $hint : 'n/a' ) . ')',
+            ] );
+            return new \WP_REST_Response( null, 200 );
+        }
 
         // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin tables; table names cannot be prepared, caching not applicable.
         $wpdb->update(
             $wpdb->prefix . Plugin::TABLE_OAUTH_TOKENS,
             [ 'revoked_at' => $now ],
-            [ 'access_hash' => $hash ],
-            [ '%s' ], [ '%s' ]
-        );
-        // phpcs:enable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
-        // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin tables; table names cannot be prepared, caching not applicable.
-        $wpdb->update(
-            $wpdb->prefix . Plugin::TABLE_OAUTH_TOKENS,
-            [ 'revoked_at' => $now ],
-            [ 'refresh_hash' => $hash ],
-            [ '%s' ], [ '%s' ]
+            [ 'id' => (int) $row['id'] ],
+            [ '%s' ], [ '%d' ]
         );
         // phpcs:enable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
-        Logger::log( [ 'method' => 'oauth/revoke', 'success' => 1, 'status_code' => 200 ] );
+        Logger::log( [
+            'method'      => 'oauth/revoke',
+            'success'     => 1,
+            'status_code' => 200,
+            'note'        => 'revoked token id ' . (int) $row['id'] . ' for client ' . $client_id,
+        ] );
 
         return new \WP_REST_Response( null, 200 );
     }
@@ -833,28 +909,8 @@ final class OAuth {
         ?>
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Authorize · Commander</title>
-<style>
-  body{margin:0;font:15px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f0f1;color:#1d2327;display:flex;align-items:center;justify-content:center;min-height:100vh}
-  .card{background:#fff;max-width:480px;width:90%;padding:36px;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
-  h1{margin:0 0 4px;font-size:22px}
-  .sub{color:#646970;font-size:13px;margin-bottom:24px}
-  .client{background:#f6f7f7;border:1px solid #dcdcde;padding:14px;border-radius:6px;margin:0 0 20px}
-  .client b{display:block;font-size:16px}
-  .scopes{margin:0 0 24px;padding:0;list-style:none}
-  .scopes li{padding:10px 0;border-top:1px solid #f0f0f1}
-  .scopes li:first-child{border-top:0}
-  .scope-name{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f0f6fc;color:#0a4b78;padding:1px 6px;border-radius:3px;font-size:12px}
-  .actions{display:flex;gap:10px}
-  button{flex:1;padding:11px 16px;border-radius:5px;border:1px solid transparent;font-size:14px;font-weight:600;cursor:pointer}
-  .approve{background:#2271b1;color:#fff;border-color:#2271b1}
-  .approve:hover{background:#135e96}
-  .deny{background:#fff;color:#1d2327;border-color:#c3c4c7}
-  .deny:hover{background:#f6f7f7}
-  .who{margin-top:16px;font-size:12px;color:#646970;text-align:center}
-  .who a{color:#2271b1}
-  .footer{margin-top:24px;padding-top:18px;border-top:1px solid #f0f0f1;font-size:12px;color:#8c8f94;text-align:center}
-</style></head><body>
+<title><?php esc_html_e( 'Authorize access', 'mcp-for-claude' ); ?></title>
+<link rel="stylesheet" href="<?php echo esc_url( CMCP_URL . 'assets/css/oauth-consent.css?v=' . CMCP_VERSION ); ?>"></head><body>
 <div class="card">
   <h1>Authorize access</h1>
   <p class="sub">An application is requesting permission to act on this WordPress site on your behalf.</p>
@@ -891,8 +947,6 @@ final class OAuth {
   </form>
 
   <p class="who">Signed in as <b><?php echo esc_html( $user->user_login ); ?></b> · <a href="<?php echo esc_url( wp_logout_url( $self_url ) ); ?>">Switch user</a></p>
-
-  <div class="footer">Commander · powered by Taher Sayed · HBS IT GmbH</div>
 </div>
 </body></html>
         <?php
@@ -901,11 +955,11 @@ final class OAuth {
 
     private static function render_error_page( string $msg ): string {
         $msg = esc_html( $msg );
-        $html  = '<!doctype html><html><head><meta charset="utf-8"><title>OAuth error</title>';
-        $html .= '<style>body{font:15px/1.5 -apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f0f0f1;margin:0}';
-        $html .= '.card{background:#fff;max-width:480px;padding:32px;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,.08)}';
-        $html .= 'h1{margin-top:0;color:#b32d2e}.f{margin-top:24px;padding-top:16px;border-top:1px solid #f0f0f1;font-size:12px;color:#8c8f94;text-align:center}</style>';
-        $html .= '</head><body><div class="card"><h1>OAuth error</h1><p>' . $msg . '</p><div class="f">Commander · HBS IT GmbH</div></div></body></html>';
+        $css_url = esc_url( CMCP_URL . 'assets/css/oauth-consent.css?v=' . CMCP_VERSION );
+        $html  = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">';
+        $html .= '<title>' . esc_html__( 'OAuth error', 'mcp-for-claude' ) . '</title>';
+        $html .= '<link rel="stylesheet" href="' . $css_url . '">';
+        $html .= '</head><body><div class="card"><h1 style="color:#b32d2e">' . esc_html__( 'OAuth error', 'mcp-for-claude' ) . '</h1><p>' . $msg . '</p></div></body></html>';
         return $html;
     }
 

@@ -60,15 +60,21 @@ $wpdb->query(
 
 /* --------------------------- Bot user --------------------------- *
  * The setup wizard can create a dedicated "wp-commander-bot" administrator
- * to own MCP tokens. Remove it on uninstall and reassign any content it
- * still owns to the user running the uninstall.
+ * to own MCP tokens. Try to remove it on uninstall and reassign any
+ * remaining content to the admin running the uninstall.
+ *
+ * Note: uninstall.php runs in a stripped WordPress context that does NOT
+ * load wp-admin/includes/user.php. We previously included that file
+ * manually, but the WordPress.org review team flags direct require_once
+ * of core admin files. Instead we only attempt the delete when the
+ * function happens to be loaded (e.g. an admin-area uninstall), and quietly
+ * skip otherwise — the bot user is an ordinary WP user the admin can
+ * delete from Users → All Users if it lingers. We do not include the core
+ * file manually.
  */
-if ( function_exists( 'wp_delete_user' ) ) {
-    $cmcp_bot = get_user_by( 'login', 'wp-commander-bot' );
-    if ( $cmcp_bot ) {
-        require_once ABSPATH . 'wp-admin/includes/user.php';
-        wp_delete_user( (int) $cmcp_bot->ID, get_current_user_id() ?: null );
-    }
+$cmcp_bot = get_user_by( 'login', 'wp-commander-bot' );
+if ( $cmcp_bot && function_exists( 'wp_delete_user' ) ) {
+    wp_delete_user( (int) $cmcp_bot->ID, get_current_user_id() ?: null );
 }
 
 /* --------------------------- Cron + rewrite --------------------------- */

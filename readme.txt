@@ -4,7 +4,7 @@ Tags: mcp, claude, ai, oauth, rest-api
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,12 @@ Please email security@hbs-it-gmbh.de rather than opening a public issue.
 5. Audit Log — every call, with token id, IP, JSON-RPC method, tool, status, note.
 
 == Changelog ==
+
+= 1.8.2 =
+* **Security (CRITICAL):** `/oauth/revoke` endpoint now authenticates the calling client per RFC 7009. The previous implementation accepted any token value, looked it up by hash, and revoked it — with `permission_callback => __return_true` and NO client authentication. An attacker who observed a token in logs/transit could revoke it remotely, denying the legitimate user service. The endpoint now requires HTTP Basic or POST client credentials (the same path the token endpoint uses), and verifies that the token row's `client_id` matches the authenticated client before revoking. RFC 7009 §2.2 200-response semantics preserved for unknown / mismatched tokens to avoid leaking existence. Per-IP rate limit added (20 attempts/min) to prevent the endpoint being used as a revoke-spam oracle.
+* **Compliance:** Removed user-facing attribution from the OAuth consent + error pages — the WordPress.org review team flagged the "powered by HBS IT GmbH" footer as forbidden under Guideline 10 (no user-facing credits without explicit opt-in). The consent title was also changed from a product-branded string to a neutral "Authorize access". Admin-area attribution (Dashboard, Settings) is unchanged — that's permitted.
+* **Compliance:** Inline `<script>` and `<style>` blocks moved out of admin views and the OAuth consent HTML. Token + Settings page scripts now ship as `assets/js/tokens-page.js` and `assets/js/settings-page.js`, registered via `wp_enqueue_script()` and configured via `wp_add_inline_script()` (PHP→JS data + i18n strings). OAuth consent + error pages now link `assets/css/oauth-consent.css` instead of inlining the CSS.
+* **Compliance:** `uninstall.php` no longer directly `require_once`s `wp-admin/includes/user.php`. The wp-commander-bot account is only auto-deleted when `wp_delete_user` is already loaded in the uninstall context; otherwise it's left in place for the admin to remove manually (it's an ordinary WP user, visible in Users → All Users).
 
 = 1.8.1 =
 * **Fix:** DCR client deduplication. When a remote app (Claude.ai) re-registered after losing its credentials, the plugin used to leave an orphan row in `cmcp_oauth_clients` on every reconnect — admins were ending up with N "Claude" entries, most with zero active tokens. `rest_register()` now sweeps any existing DCR clients that share the incoming metadata (name + redirect_uris + auth method) and have no active tokens *before* inserting the new row, so the table only grows by one row when a connection is actually live. The daily cleanup cron also reaps DCR clients older than 7 days with no active tokens (orphans from abandoned flows).

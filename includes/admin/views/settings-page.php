@@ -226,35 +226,4 @@ $tool_groups = [
 
         <?php submit_button(); ?>
     </form>
-
-    <script>
-    ( function () {
-        var btn = document.getElementById( 'cmcp-webhook-test' );
-        if ( ! btn ) { return; }
-        var out = document.getElementById( 'cmcp-webhook-test-result' );
-        var ajaxUrl = <?php echo wp_json_encode( admin_url( 'admin-ajax.php' ) ); ?>;
-        var nonce   = <?php echo wp_json_encode( wp_create_nonce( 'cmcp_test_webhook' ) ); ?>;
-        btn.addEventListener( 'click', function () {
-            out.textContent = '<?php echo esc_js( __( 'Sending…', 'mcp-for-claude' ) ); ?>';
-            out.style.color = '#646970';
-            var data = new URLSearchParams();
-            data.set( 'action', 'cmcp_test_webhook' );
-            data.set( '_nonce', nonce );
-            fetch( ajaxUrl, { method: 'POST', credentials: 'same-origin', body: data } )
-                .then( function ( r ) { return r.json(); } )
-                .then( function ( resp ) {
-                    var d  = ( resp && resp.data ) || {};
-                    var ok = resp && resp.success && d.ok;
-                    out.textContent = ok
-                        ? '<?php echo esc_js( __( 'Delivered:', 'mcp-for-claude' ) ); ?> ' + ( d.message || 'OK' )
-                        : '<?php echo esc_js( __( 'Failed:', 'mcp-for-claude' ) ); ?> ' + ( d.message || 'error' );
-                    out.style.color = ok ? '#0a6041' : '#9b1c1c';
-                } )
-                .catch( function ( err ) {
-                    out.textContent = 'Error: ' + err;
-                    out.style.color = '#9b1c1c';
-                } );
-        } );
-    } )();
-    </script>
 </div>

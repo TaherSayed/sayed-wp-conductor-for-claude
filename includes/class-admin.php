@@ -47,6 +47,53 @@ final class Admin {
             [],
             CMCP_VERSION
         );
+
+        // Tokens page — copy buttons, user picker, snippet tabs, test-connect.
+        if ( str_contains( (string) $hook, 'cmcp-tokens' ) ) {
+            wp_enqueue_script(
+                'cmcp-tokens',
+                CMCP_URL . 'assets/js/tokens-page.js',
+                [],
+                CMCP_VERSION,
+                true
+            );
+            wp_add_inline_script(
+                'cmcp-tokens',
+                'window.cmcpTokensConfig = ' . wp_json_encode( [
+                    'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+                    'nonce'   => wp_create_nonce( 'cmcp_test_token' ),
+                    'i18n'    => [
+                        'copied'  => __( 'Copied', 'mcp-for-claude' ),
+                        'testing' => __( 'Testing…', 'mcp-for-claude' ),
+                    ],
+                ] ) . ';',
+                'before'
+            );
+        }
+
+        // Settings page — outbound webhook "Send test ping" button.
+        if ( str_contains( (string) $hook, 'cmcp-settings' ) ) {
+            wp_enqueue_script(
+                'cmcp-settings',
+                CMCP_URL . 'assets/js/settings-page.js',
+                [],
+                CMCP_VERSION,
+                true
+            );
+            wp_add_inline_script(
+                'cmcp-settings',
+                'window.cmcpSettingsConfig = ' . wp_json_encode( [
+                    'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+                    'nonce'   => wp_create_nonce( 'cmcp_test_webhook' ),
+                    'i18n'    => [
+                        'sending'   => __( 'Sending…', 'mcp-for-claude' ),
+                        'delivered' => __( 'Delivered:', 'mcp-for-claude' ),
+                        'failed'    => __( 'Failed:', 'mcp-for-claude' ),
+                    ],
+                ] ) . ';',
+                'before'
+            );
+        }
     }
 
     public function menu(): void {
